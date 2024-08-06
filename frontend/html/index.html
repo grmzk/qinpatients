@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>QInPatients</title>
+    <link rel="stylesheet" href="../css/monitor.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header-title">QInPatients</h1>
+    </header>
+    <section class="content">
+        <div class="card card-left">
+            <div id="block-diary-date">
+                <label id="label-diary-date" for="input-diary-date">Дата дежурства:</label>
+                <input type="date" id="input-diary-date" value="2024-01-01" min="2002-11-01" max="2030-12-31" />
+            </div>
+            <table class="table" id="table-departments">
+
+            </table>
+        </div>
+        <div class="card card-right">
+            <table class="table" id="table-patients">
+
+            </table>
+        </div>
+    </section>
+    <script src="../js/monitor.js"></script>
+</body>
+</html>
