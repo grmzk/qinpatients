@@ -8,6 +8,13 @@ from .utils.firebird_db_queries import get_summary
 
 
 class GetPatientsView(APIView):
+    """
+    Returns information about patients.
+    Need two url-query params:
+        ?department=<department>
+        &date=<date in YYYY-MM-DD format>
+    """
+
     http_method_names = ['get']
 
     @staticmethod

@@ -24,14 +24,23 @@ th {
 
 .header {
     background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+    display: flex;
+    padding: 5px;
+}
+
+.header-img {
+    display: inline;
+    width: 36px;
+    margin: 5px 5px 5px 5px;
 }
 
 .header-title {
+    display: flex;
     font-size: 120%;
     font-weight: bold;
-    color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-
+    color: #5a6771;
+    margin: 8px 5px 5px 5px;
+    vertical-align: center;
 }
 
 .content {
