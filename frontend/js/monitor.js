@@ -101,7 +101,7 @@ function updatePatientsTable(clear_table = false) {
         table.innerHTML = "";
     }
     let date = getInputDiaryDate();
-    fetch(`http://127.0.0.1:8000/api/get_patients?department=${selected_department}&date=${date}`)
+    fetch(`http://127.0.0.1:80/api/get_patients?department=${selected_department}&date=${date}`)
         .then(response => response.json())
         .then(data => {
             addPatientsToTable(data);
