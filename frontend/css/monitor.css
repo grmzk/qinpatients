@@ -1,81 +1,16 @@
-body, h1, h2, h3, h4, p, a {
-    margin: 0;
-    font-size: 100%;
-    font-weight: normal;
-    font-family: serif;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #999999;
-    padding: 3px;
-}
-
-th {
-    border-bottom: 1px solid #000;
-}
-
-.header {
-    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
-    display: flex;
-    padding: 5px;
-}
-
-.header-img {
-    display: inline;
-    width: 36px;
-    margin: 5px 5px 5px 5px;
-}
-
-.header-title {
-    display: flex;
-    font-size: 120%;
-    font-weight: bold;
-    color: #5a6771;
-    margin: 8px 5px 5px 5px;
-    vertical-align: center;
-}
-
-.content {
-    width: 90%;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.card {
-    display: inline-block;
-    vertical-align: top;
-
-}
-
 .card-left {
     width: 10%;
-    margin: 15px 20px 20px 0;
+    margin: 10px 20px 20px 0;
 }
 
 .card-right {
     width: 88%;
-    margin: 15px 0 100px 0;
-}
-
-.table {
-    display: table;
-    font-size: 80%;
-    text-align: center;
-    background-color: #d7d2cc;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    margin: 10px 0 100px 0;
 }
 
 #block-diary-date {
     width: 100%;
-    margin: 0 0 20px 0;
+    margin: 25px 0 20px 0;
     padding: 10px;
     background-color: #d7d2cc;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
@@ -96,28 +31,7 @@ th {
     margin: 0 auto 0 auto;
 }
 
-#table-departments, #table-patients {
-    width: 100%;
-    margin: 0;
-}
-
-.row-patients {
-    background-color: #fff;
-}
-
-.row-departments:hover, .row-patients:hover, .selected-department {
+.table-row-department-selected {
     background: #304352;
     color: #fff;
-}
-
-.mark-inpatient {
-    color: #00f;
-}
-
-.mark-reanimation {
-    color: #aa0000;
-}
-
-.mark-outcome {
-    background-color: #d7d2cc;
 }

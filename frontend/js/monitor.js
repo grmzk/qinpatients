@@ -1,3 +1,5 @@
+import { BASE_URL } from './config.js';
+
 const DEPARTMENTS = [
     "ТРАВМАТОЛОГИЯ",
     "НЕЙРОХИРУРГИЯ",
@@ -11,6 +13,7 @@ const DEPARTMENTS = [
     "ТОКСИКОЛОГИЯ",
     "1 ТЕРАПИЯ",
     "2 ТЕРАПИЯ",
+    "РЕАН. ЗАЛ",
     "ВСЕ ОТДЕЛЕНИЯ",
 ]
 const UPDATE_PATIENTS_INTERVAL = 30000;
@@ -23,15 +26,15 @@ let input_diary_timeout;
 function fillDepartmentsTable(departments) {
     let html = "";
     departments.forEach(department => {
-        html += `<tr class="row-departments"><td>${department}</td></tr>`;
+        html += `<tr class="table-row table-row-department"><td>${department}</td></tr>`;
     });
     let table = document.getElementById("table-departments");
     table.innerHTML = html;
-    let rows = document.querySelectorAll(".row-departments");
+    let rows = document.querySelectorAll(".table-row-department");
     rows.forEach(row => {
         row.addEventListener("click", function () {
-            let selected_row = document.querySelector(".selected-department");
-            selected_row.classList.remove("selected-department");
+            let selected_row = document.querySelector(".table-row-department-selected");
+            selected_row.classList.remove("table-row-department-selected");
             selected_department = row.textContent;
             selectDepartment(selected_department);
         });
@@ -40,6 +43,12 @@ function fillDepartmentsTable(departments) {
 
 
 function addPatientsToTable(patients) {
+    let table = document.getElementById("table-patients");
+    table.innerHTML = `<caption class="table-caption">СПИСОК ОБРАЩЕНИЙ</caption>`;
+    if (patients.length === 0) {
+        table.innerHTML += "<tr><th>НЕТ ОБРАЩЕНИЙ</th></tr>";
+        return;
+    }
     let html = `
         <tr>
             <th>№</th>
@@ -49,7 +58,7 @@ function addPatientsToTable(patients) {
             <th>Отделение</th>
             <th>Диагноз</th>
             <th>Время поступления</th>
-            <th>Время обследования</th>
+            <th>Время обследования / результат</th>
         </tr>
     `;
     let number = 0;
@@ -57,31 +66,31 @@ function addPatientsToTable(patients) {
         number++;
         let mark_font = "";
         let mark_background = "";
-        if (patient["exam_duration"].startsWith("РЕАНИМАЦИОННЫЙ ЗАЛ")) {
+        if (patient["result"].startsWith("РЕАНИМАЦИОННЫЙ ЗАЛ")) {
             mark_font = "mark-reanimation";
-        } else if (patient["exam_duration"].startsWith("ГОСПИТАЛИЗАЦИЯ")) {
+        } else if (patient["result"].startsWith("ГОСПИТАЛИЗАЦИЯ")) {
             mark_font = "mark-inpatient";
         }
         if (patient["is_outcome"] === true) {
             mark_background = "mark-outcome";
         }
-        html += `<tr class="row-patients ${mark_font} ${mark_background}" id="${patient["card_id"]}">`;
+        html += `<tr class="table-row table-row-patient ${mark_font} ${mark_background}" id="${patient["patient_id"]}">`;
         html += `<td>${number}</td>`;
         html += `<td>${patient["card_id"]}</td>`;
-        html += `<td>${patient["fullname"]}</td>`;
+        html += `<td>${patient["full_name"]}</td>`;
         html += `<td>${patient["age"]}</td>`;
         html += `<td>${patient["department"]}</td>`;
         html += `<td>${patient["diagnosis"]}</td>`;
         html += `<td>${patient["admission_date"]}</td>`;
-        html += `<td>${patient["exam_duration"]}</td>`;
+        html += `<td>${patient["result"]}</td>`;
         html += "</tr>";
     });
-    let table = document.getElementById("table-patients");
-    table.innerHTML = html;
-    let rows = document.querySelectorAll(".row-patients");
+    table.innerHTML += html;
+    let rows = document.querySelectorAll(".table-row-patient");
     rows.forEach(row => {
         row.addEventListener("dblclick", function () {
             console.log(row.id);
+            document.location.href = `../html/patient_info.html?patient_id=${row.id}`;
         });
     });
 }
@@ -101,7 +110,7 @@ function updatePatientsTable(clear_table = false) {
         table.innerHTML = "";
     }
     let date = getInputDiaryDate();
-    fetch(`http://127.0.0.1:80/api/get_patients?department=${selected_department}&date=${date}`)
+    fetch(`${BASE_URL}/api/get_patients?department=${selected_department}&date=${date}`)
         .then(response => response.json())
         .then(data => {
             addPatientsToTable(data);
@@ -111,10 +120,10 @@ function updatePatientsTable(clear_table = false) {
 
 
 function selectDepartment(selected_department) {
-    let rows = document.querySelectorAll(".row-departments");
+    let rows = document.querySelectorAll(".table-row-department");
     rows.forEach(row => {
         if (row.textContent === selected_department) {
-            row.classList.add("selected-department");
+            row.classList.add("table-row-department-selected");
             updatePatientsTable(true);
         }
     });

@@ -1,0 +1,94 @@
+body, h1, h2, h3, h4, p, a {
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
+    font-family: serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999999;
+    padding: 3px;
+}
+
+th {
+    border-bottom: 1px solid #000;
+}
+
+.header {
+    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+    display: flex;
+    padding: 5px;
+}
+
+.header-img {
+    display: inline;
+    width: 36px;
+    margin: 5px 5px 5px 5px;
+}
+
+.header-title {
+    display: flex;
+    font-size: 120%;
+    font-weight: bold;
+    color: #5a6771;
+    margin: 9px 5px 5px 5px;
+    vertical-align: center;
+}
+
+.content {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.card {
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.table {
+    display: table;
+    font-size: 80%;
+    text-align: center;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    width: 100%;
+    margin: 0;
+}
+
+.table-caption {
+    font-size: 15px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.table-row-patient, .table-row-case {
+    background-color: #fff;
+}
+
+.table-row:hover {
+    background: #304352;
+    color: #fff;
+}
+
+.mark-inpatient {
+    color: #00f;
+}
+
+.mark-reanimation {
+    color: #aa0000;
+}
+
+.mark-outcome {
+    background-color: #d7d2cc;
+}
