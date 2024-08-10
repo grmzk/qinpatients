@@ -147,12 +147,12 @@ function addPatientsToTable(patients) {
         number++;
         let mark_font = "";
         let mark_background = "";
-        if (patient["result"].startsWith("РЕАНИМАЦИОННЫЙ ЗАЛ")) {
+        if (patient["is_reanimation"]) {
             mark_font = "mark-reanimation";
-        } else if (patient["result"].startsWith("ГОСПИТАЛИЗАЦИЯ")) {
+        } else if (patient["is_inpatient"]) {
             mark_font = "mark-inpatient";
         }
-        if (patient["is_outcome"] === true) {
+        if (patient["is_outcome"]) {
             mark_background = "mark-outcome";
         }
         html += `<tr class="table-row table-row-patient ${mark_font} ${mark_background}" id="${patient["patient_id"]}">`;

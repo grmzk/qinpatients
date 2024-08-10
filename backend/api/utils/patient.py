@@ -117,7 +117,7 @@ class Patient:
     def get_result(self):
         if self.is_reanimation():
             if self.admission_diagnosis and self.inpatient_department:
-                return f'РЕАНИМАЦИОННЫЙ ЗАЛ [{self.inpatient_department}]'
+                return f'ГОСПИТАЛИЗАЦИЯ [{self.inpatient_department}]'
             return 'РЕАНИМАЦИОННЫЙ ЗАЛ'
         if self.is_processing():
             exam_duration = datetime.now() - self.admission_date

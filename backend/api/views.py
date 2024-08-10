@@ -41,6 +41,8 @@ class GetPatientsView(APIView):
                     "admission_date": patient.get_admission_date(),
                     "result": patient.get_result(),
                     "is_outcome": patient.is_outcome(),
+                    "is_inpatient": patient.is_inpatient(),
+                    "is_reanimation": patient.is_reanimation(),
                 }
             )
         return Response(data=data, status=status.HTTP_200_OK)
@@ -74,11 +76,13 @@ class GetPatientInfoView(APIView):
                     "diagnosis": (patient.admission_diagnosis
                                   or patient.incoming_diagnosis),
                     "admission_date": patient.get_admission_date(),
-                    "result": patient.get_result(),
-                    "is_outcome": patient.is_outcome(),
                     "doctor": patient.get_doctor(),
                     "workplace": patient.get_workplace(),
                     "address": patient.address,
+                    "result": patient.get_result(),
+                    "is_outcome": patient.is_outcome(),
+                    "is_inpatient": patient.is_inpatient(),
+                    "is_reanimation": patient.is_reanimation(),
                 }
             )
         return Response(data=data, status=status.HTTP_200_OK)

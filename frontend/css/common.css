@@ -81,6 +81,12 @@ th {
     color: #fff;
 }
 
+.hr-line {
+    width: 100%;
+    margin: 5px 0 5px 0;
+    color: #999999;
+}
+
 .mark-inpatient {
     color: #00f;
 }

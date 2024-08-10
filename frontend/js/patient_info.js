@@ -23,6 +23,7 @@ function getURLParam(paramName) {
 
 
 function addCasesToTable(cases) {
+    document.getElementById("patient-info").style.display = "block";
     document.getElementById("full-name").textContent = cases[0]["full_name"];
     document.getElementById("birthday").textContent = cases[0]["birthday"];
     document.getElementById("age").textContent = cases[0]["age"];
