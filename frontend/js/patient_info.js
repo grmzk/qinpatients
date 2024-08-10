@@ -1,4 +1,26 @@
+"use strict";
+
 import { BASE_URL } from './config.js';
+
+
+updateCasesTable()
+
+
+function updateCasesTable() {
+    fetch(`${BASE_URL}/api/get_patient_info?patient_id=${getURLParam("patient_id")}`)
+        .then(response => response.json())
+        .then(data => {
+            addCasesToTable(data);
+        })
+        .catch(error => console.log(error));
+}
+
+
+function getURLParam(paramName) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(paramName);
+}
+
 
 function addCasesToTable(cases) {
     document.getElementById("full-name").textContent = cases[0]["full_name"];
@@ -6,12 +28,14 @@ function addCasesToTable(cases) {
     document.getElementById("age").textContent = cases[0]["age"];
     document.getElementById("address").textContent = cases[0]["address"];
     document.getElementById("workplace").textContent = cases[0]["workplace"];
+
     let table = document.getElementById("table-cases");
     table.innerHTML = `<caption class="table-caption">СПИСОК ОБРАЩЕНИЙ ПАЦИЕНТА [БД БСМП №1]</caption>`;
     if (cases.length === 0) {
         table.innerHTML += "<tr><th>НЕТ ОБРАЩЕНИЙ</th></tr>";
         return;
     }
+
     let html = `
         <tr>
             <th>№</th>
@@ -23,6 +47,7 @@ function addCasesToTable(cases) {
             <th>Исход</th>
         </tr>
     `;
+
     let number = 0;
     cases.forEach(case_disease => {
         number++;
@@ -46,6 +71,7 @@ function addCasesToTable(cases) {
         html += `<td>${case_disease["result"]}</td>`;
         html += "</tr>";
     });
+
     table.innerHTML += html;
     let rows = document.querySelectorAll(".table-row-case");
     rows.forEach(row => {
@@ -54,22 +80,3 @@ function addCasesToTable(cases) {
         });
     });
 }
-
-
-function updateCasesTable() {
-    fetch(`${BASE_URL}/api/get_patient_info?patient_id=${getURLParam("patient_id")}`)
-        .then(response => response.json())
-        .then(data => {
-            addCasesToTable(data);
-        })
-        .catch(error => console.log(error));
-}
-
-
-export function getURLParam(paramName) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(paramName);
-}
-
-
-updateCasesTable()
