@@ -1,0 +1,124 @@
+body, h1, h2, h3, h4, p, a {
+    margin: 0;
+    font-size: 100%;
+    font-weight: normal;
+    font-family: serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #999999;
+    padding: 3px;
+}
+
+th {
+    border-bottom: 1px solid #000;
+}
+
+.header {
+    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+    display: flex;
+}
+
+.header-block {
+    display: inline-flex;
+    padding: 5px;
+}
+
+.header-img {
+    display: inline;
+    width: 36px;
+    margin: 5px 5px 5px 5px;
+}
+
+.header-title {
+    display: flex;
+    font-size: 20px;
+    font-weight: bold;
+    color: #5a6771;
+    margin: 8px 15px 5px 5px;
+    vertical-align: middle;
+}
+
+.content {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.card {
+    display: inline-block;
+    vertical-align: top;
+
+}
+
+.table {
+    display: table;
+    font-size: 80%;
+    text-align: center;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    width: 100%;
+    margin: 0;
+}
+
+.table-caption {
+    font-size: 15px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.table-row-patient, .table-row-case {
+    background-color: #fff;
+}
+
+.table-row:hover, .button:hover {
+    background: #304352;
+    color: #fff;
+}
+
+.hr-line {
+    width: 100%;
+    margin: 5px 5px 5px 0;
+    color: #999999;
+}
+
+.button {
+    width: 130px;
+    height: 35px;
+    padding: 8px 5px 5px 5px;
+    margin: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    background-color:  rgba(0, 0, 0, 0.05);;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.mark-inpatient {
+    color: #00f;
+}
+
+.mark-reanimation {
+    color: #aa0000;
+}
+
+.mark-outcome {
+    background-color: #d7d2cc;
+}
+
+.mark-selected {
+    background: #304352;
+    color: #fff;
+}

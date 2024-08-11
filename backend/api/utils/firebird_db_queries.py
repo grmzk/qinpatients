@@ -5,7 +5,7 @@ from django.core.cache import cache
 from qinpatients.settings import CACHE_TTL
 
 from .firebird_db import fb_select_data
-from .patients import Patient
+from .patient import Patient
 
 
 def get_diary_today() -> date:
@@ -71,8 +71,9 @@ def get_summary(start_date: date, department: str) -> list[Patient]:
         unsorted_patients.append(Patient(*patient_data))
     patients = list()
     for patient in unsorted_patients:
-        if ((department != 'ВСЕ ОТДЕЛЕНИЯ')
-                and (patient.department != department)):
+        if (((department == 'РЕАН. ЗАЛ') and not patient.is_reanimation())
+                or ((department not in ['ВСЕ ОТДЕЛЕНИЯ', 'РЕАН. ЗАЛ'])
+                    and (patient.department != department))):
             continue
         if patient.is_processing() and start_date == get_diary_today():
             patients.append(patient)
@@ -85,3 +86,85 @@ def get_summary(start_date: date, department: str) -> list[Patient]:
                    or patient.admission_outcome_date >= start_datetime)):
             patients.append(patient)
     return patients
+
+
+def get_address(address_id: int) -> str:    # noqa: C901
+    select_query = (
+        "SELECT field_name, field_value "
+        "FROM person_address_fields "
+        "WHERE addr_id = ? "
+        "ORDER BY ord;"
+    )
+    data = fb_select_data(select_query, [address_id])
+    if not data:
+        return ''
+    address_dict = {}
+    for name, value in data:
+        address_dict[name] = value
+    address = ''
+    if address_dict['государство']:
+        address += address_dict['государство'] + ', '
+    if address_dict['область']:
+        address += address_dict['область'] + ', '
+    if address_dict['район']:
+        address += address_dict['район'] + ' район, '
+    if address_dict['населенный пункт']:
+        address += address_dict['населенный пункт'] + ', '
+    if address_dict['округ']:
+        address += address_dict['округ'] + ', '
+    if address_dict['улица']:
+        address += 'ул. ' + address_dict['улица'] + ', '
+    if address_dict['дом'] and (address_dict['дом'] != '0'):
+        address += (
+            'д. ' + address_dict['дом'] + (address_dict['литера'] or '') + ', '
+        )
+    if address_dict['корпус'] and (address_dict['корпус'] != '0'):
+        address += 'к. ' + address_dict['корпус'] + ', '
+    if address_dict['квартира']:
+        address += 'кв. ' + address_dict['квартира'] + ', '
+    return address.removesuffix(', ').strip().upper()
+
+
+def get_history(patient_id: int) -> list[Patient]:
+    select_query = (
+        "SELECT main_card.id_pac, "
+        "       main_card.id, "
+        "       main_card.d_in, "
+        "       main_card.d_out, "
+        "       patient.fm, "
+        "       patient.im, "
+        "       patient.ot, "
+        "       patient.dtr, "
+        "       patient.pol, "
+        "       department.short, "
+        "       main_card.remzal, "
+        "       main_card.dsnapr, "
+        "       main_card.dspriem, "
+        "       main_card.id_dvig, "
+        "       main_card.id_otkaz, "
+        "       inpatient_department.short, "
+        "       doctor.last_name "
+        "           || ' ' || doctor.first_name "
+        "           || ' ' || doctor.middle_name, "
+        "       workplace.rab, "
+        "       main_card.id_adr "
+        "FROM main_card "
+        "   LEFT JOIN pacient patient ON main_card.id_pac = patient.id "
+        "   LEFT JOIN priemnic department "
+        "       ON main_card.id_priem = department.id "
+        "   LEFT JOIN priemnic inpatient_department "
+        "       ON main_card.id_gotd = inpatient_department.id "
+        "   LEFT JOIN doctor ON main_card.amb_doc_id = doctor.doctor_id "
+        "   LEFT JOIN rabota workplace ON main_card.id_rab = workplace.id "
+        "WHERE "
+        "   main_card.id_pac = ? "
+        "ORDER BY main_card.id"
+    )
+    patients_data = fb_select_data(select_query, [patient_id])
+    address = get_address(patients_data[0][-1])
+    history = list()
+    for patient_data in patients_data:
+        patient_data = list(patient_data)
+        patient_data[-1] = address
+        history.append(Patient(*patient_data))
+    return history

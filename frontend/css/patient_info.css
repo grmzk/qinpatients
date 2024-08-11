@@ -8,25 +8,14 @@
     margin: 10px 0 100px 0;
 }
 
-#block-diary-date {
+#patient-info {
     width: 100%;
     margin: 25px 0 20px 0;
     padding: 10px;
     background-color: #d7d2cc;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
     border: 1px solid #999999;
-}
-
-#label-diary-date {
-    display: block;
     font-size: 80%;
-    font-weight: bold;
-    margin: 0 auto 5px auto;
-}
-
-#input-diary-date {
-    display: block;
-    font-family: serif;
-    font-size: 80%;
-    margin: 0 auto 0 auto;
+    text-align: left;
+    display: none;
 }
