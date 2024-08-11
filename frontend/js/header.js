@@ -22,3 +22,9 @@ for (let button_id in BUTTONS_PATHS) {
       button.classList.add("mark-selected");
    }
 }
+
+/* do marking button for root page */
+if (document.location.pathname === "/") {
+   let button = document.getElementById("button-monitor");
+   button.classList.add("mark-selected");
+}
