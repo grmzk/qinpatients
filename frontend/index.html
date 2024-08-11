@@ -11,16 +11,12 @@
     <header class="header" id="header">
 
     </header>
-    <script>
-        fetch('html/header.html')
-            .then(response => response.text())
-            .then(html => document.getElementById('header').innerHTML = html);
-    </script>
+    <script type="module" src="js/header.js"></script>
     <section class="content">
         <div class="card card-left">
             <div id="block-diary-date">
                 <label id="label-diary-date" for="input-diary-date">Дата дежурства:</label>
-                <input type="date" id="input-diary-date" value="2024-01-01" min="2002-11-01" max="2030-12-31" />
+                <input type="date" id="input-diary-date" value="2024-08-06" min="2002-11-01" max="2030-12-31" />
             </div>
             <table class="table" id="table-departments">
 

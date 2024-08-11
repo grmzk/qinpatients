@@ -77,8 +77,10 @@ function fillDepartmentsTable(departments) {
     let rows = document.querySelectorAll(".table-row-department");
     rows.forEach(row => {
         row.addEventListener("click", function () {
-            let selected_row = document.querySelector(".table-row-department-selected");
-            selected_row.classList.remove("table-row-department-selected");
+            let selected_row = document.querySelector(
+                `.table-row-department.mark-selected`
+            );
+            selected_row.classList.remove("mark-selected");
             selected_department = row.textContent;
             selectDepartment(selected_department);
         });
@@ -90,7 +92,7 @@ function selectDepartment(selected_department) {
     let rows = document.querySelectorAll(".table-row-department");
     rows.forEach(row => {
         if (row.textContent === selected_department) {
-            row.classList.add("table-row-department-selected");
+            row.classList.add("mark-selected");
             updatePatientsTable(true);
         }
     });
@@ -171,8 +173,7 @@ function addPatientsToTable(patients) {
     let rows = document.querySelectorAll(".table-row-patient");
     rows.forEach(row => {
         row.addEventListener("dblclick", function () {
-            console.log(row.id);
-            document.location.href = `../html/patient_info.html?patient_id=${row.id}`;
+            document.location.href = `html/patient_info.html?patient_id=${row.id}`;
         });
     });
 }

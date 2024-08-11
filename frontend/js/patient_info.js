@@ -54,9 +54,9 @@ function addCasesToTable(cases) {
         number++;
         let mark_font = "";
         let mark_background = "";
-        if (case_disease["result"].startsWith("РЕАНИМАЦИОННЫЙ ЗАЛ")) {
+        if (case_disease["is_reanimation"]) {
             mark_font = "mark-reanimation";
-        } else if (case_disease["result"].startsWith("ГОСПИТАЛИЗАЦИЯ")) {
+        } else if (case_disease["is_inpatient"]) {
             mark_font = "mark-inpatient";
         }
         if (case_disease["is_outcome"] === true) {
