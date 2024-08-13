@@ -69,6 +69,7 @@ class GetPatientInfoView(APIView):
                 {
                     "card_id": patient.card_id,
                     "patient_id": patient.patient_id,
+                    "inpatient_id": patient.get_inpatient_id(),
                     "full_name": patient.get_full_name(),
                     "birthday": patient.get_birthday(),
                     "age": patient.get_age(),
