@@ -147,7 +147,8 @@ def get_history(patient_id: int) -> list[Patient]:
         "           || ' ' || doctor.first_name "
         "           || ' ' || doctor.middle_name, "
         "       workplace.rab, "
-        "       main_card.id_adr "
+        "       main_card.id_adr, "
+        "       main_card.n_card1 "
         "FROM main_card "
         "   LEFT JOIN pacient patient ON main_card.id_pac = patient.id "
         "   LEFT JOIN priemnic department "
@@ -161,10 +162,10 @@ def get_history(patient_id: int) -> list[Patient]:
         "ORDER BY main_card.id"
     )
     patients_data = fb_select_data(select_query, [patient_id])
-    address = get_address(patients_data[0][-1])
+    address = get_address(patients_data[-1][-2])
     history = list()
     for patient_data in patients_data:
         patient_data = list(patient_data)
-        patient_data[-1] = address
+        patient_data[-2] = address
         history.append(Patient(*patient_data))
     return history

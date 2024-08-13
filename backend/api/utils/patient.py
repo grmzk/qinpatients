@@ -53,6 +53,7 @@ class Patient:
     doctor: str
     workplace: str = ''
     address: str = ''
+    inpatient_id: int = 0
 
     @staticmethod
     def get_date(date: datetime) -> str:
@@ -114,7 +115,7 @@ class Patient:
     def is_outcome(self) -> bool:
         return not self.is_processing()
 
-    def get_result(self):
+    def get_result(self) -> str:
         if self.is_reanimation():
             if self.admission_diagnosis and self.inpatient_department:
                 return f'ГОСПИТАЛИЗАЦИЯ [{self.inpatient_department}]'
@@ -136,8 +137,11 @@ class Patient:
             return 'ДРУГОЙ СТАЦИОНАР'
         return 'НЕИЗВЕСТНО'
 
-    def get_doctor(self):
+    def get_doctor(self) -> str:
         return self.doctor or ''
 
-    def get_workplace(self):
+    def get_workplace(self) -> str:
         return self.workplace or 'НЕ РАБОТАЕТ'
+
+    def get_inpatient_id(self) -> int | str:
+        return self.inpatient_id or ''

@@ -41,6 +41,7 @@ function addCasesToTable(cases) {
         <tr>
             <th>№</th>
             <th>АСУ</th>
+            <th>Стац. номер</th>
             <th>Время поступления</th>
             <th>Отделение</th>
             <th>Диагноз</th>
@@ -65,6 +66,7 @@ function addCasesToTable(cases) {
         html += `<tr class="table-row table-row-case ${mark_font} ${mark_background}" id="${case_disease["card_id"]}">`;
         html += `<td>${number}</td>`;
         html += `<td>${case_disease["card_id"]}</td>`;
+        html += `<td>${case_disease["inpatient_id"]}</td>`;
         html += `<td>${case_disease["admission_date"]}</td>`;
         html += `<td>${case_disease["department"]}</td>`;
         html += `<td>${case_disease["diagnosis"]}</td>`;
