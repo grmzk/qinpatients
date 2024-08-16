@@ -43,7 +43,7 @@ th {
     font-size: 20px;
     font-weight: bold;
     color: #5a6771;
-    margin: 8px 15px 5px 5px;
+    margin: 9px 15px 5px 5px;
     vertical-align: middle;
 }
 
@@ -56,7 +56,16 @@ th {
 .card {
     display: inline-block;
     vertical-align: top;
+}
 
+.card-left {
+    width: 10%;
+    margin: 10px 20px 20px 0;
+}
+
+.card-right {
+    width: 88%;
+    margin: 10px 0 100px 0;
 }
 
 .table {

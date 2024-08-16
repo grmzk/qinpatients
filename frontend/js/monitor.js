@@ -5,6 +5,7 @@ import {
     INPUT_DIARY_TIMEOUT,
     UPDATE_PATIENTS_INTERVAL,
 } from './config.js';
+import { getURLParam } from './utils.js';
 
 const DEPARTMENTS = [
     "ТРАВМАТОЛОГИЯ",
@@ -23,18 +24,25 @@ const DEPARTMENTS = [
     "ВСЕ ОТДЕЛЕНИЯ",
 ]
 
-let selected_department = DEPARTMENTS[0];
+let selected_department = getURLParam("department") || DEPARTMENTS[0];
 let update_patients_timer;
 let input_diary_timeout;
 
 
-setCurrentDiaryDate();
+setDiaryDate(getURLParam("date"));
 addInputDiaryDateEventListener();
 fillDepartmentsTable(DEPARTMENTS);
 selectDepartment(selected_department);
 
 
-function setCurrentDiaryDate() {
+function setDiaryDate(date = "") {
+    let input_diary_date = document.getElementById("input-diary-date");
+
+    if (date) {
+        input_diary_date.value = date;
+        return;
+    }
+
     let diary_date = new Date();
     if (diary_date.getHours() < 8) {
         diary_date.setDate(diary_date.getDate() - 1);
@@ -42,9 +50,7 @@ function setCurrentDiaryDate() {
     let yyyy = diary_date.getFullYear();
     let mm = String(diary_date.getMonth() + 1).padStart(2, "0");
     let dd = String(diary_date.getDate()).padStart(2, "0");
-    let diary_date_str = `${yyyy}-${mm}-${dd}`;
-    let input_diary_date = document.getElementById("input-diary-date");
-    input_diary_date.value = diary_date_str;
+    input_diary_date.value = `${yyyy}-${mm}-${dd}`;
 }
 
 
@@ -103,30 +109,30 @@ function updatePatientsTable(clear_table = false) {
     if (clear_table) {
         clearInterval(update_patients_timer);
         update_patients_timer = setInterval(updatePatientsTable, UPDATE_PATIENTS_INTERVAL);
-        let table = document.getElementById("table-patients");
+        let table = document.getElementById("table-summary");
         table.innerHTML = "";
     }
 
     let date = getInputDiaryDate();
-    fetch(`${BASE_URL}/api/get_patients?department=${selected_department}&date=${date}`)
+    fetch(`${BASE_URL}/api/get_summary?department=${selected_department}&date=${date}`)
         .then(response => response.json())
         .then(data => {
-            addPatientsToTable(data);
+            addSummaryToTable(data);
         })
         .catch(error => console.log(error));
 }
 
 
 function getInputDiaryDate() {
-    let input_diary_date= document.getElementById("input-diary-date");
+    const input_diary_date= document.getElementById("input-diary-date");
     return  input_diary_date.value;
 }
 
 
-function addPatientsToTable(patients) {
-    let table = document.getElementById("table-patients");
+function addSummaryToTable(summary) {
+    let table = document.getElementById("table-summary");
     table.innerHTML = `<caption class="table-caption">СПИСОК ОБРАЩЕНИЙ</caption>`;
-    if (patients.length === 0) {
+    if (summary.length === 0) {
         table.innerHTML += "<tr><th>НЕТ ОБРАЩЕНИЙ</th></tr>";
         return;
     }
@@ -145,35 +151,39 @@ function addPatientsToTable(patients) {
     `;
 
     let number = 0;
-    patients.forEach(patient => {
+    summary.forEach(item => {
         number++;
+        const patient = item["patient"];
+        const case_disease = item["case_disease"];
+
         let mark_font = "";
         let mark_background = "";
-        if (patient["is_reanimation"]) {
+        if (case_disease["is_reanimation"]) {
             mark_font = "mark-reanimation";
-        } else if (patient["is_inpatient"]) {
+        } else if (case_disease["is_inpatient"]) {
             mark_font = "mark-inpatient";
         }
-        if (patient["is_outcome"]) {
+        if (case_disease["is_outcome"]) {
             mark_background = "mark-outcome";
         }
-        html += `<tr class="table-row table-row-patient ${mark_font} ${mark_background}" id="${patient["patient_id"]}">`;
+
+        html += `<tr class="table-row table-row-summary ${mark_font} ${mark_background}" id="${patient["patient_id"]}">`;
         html += `<td>${number}</td>`;
-        html += `<td>${patient["card_id"]}</td>`;
+        html += `<td>${case_disease["card_id"]}</td>`;
         html += `<td>${patient["full_name"]}</td>`;
         html += `<td>${patient["age"]}</td>`;
-        html += `<td>${patient["department"]}</td>`;
-        html += `<td>${patient["diagnosis"]}</td>`;
-        html += `<td>${patient["admission_date"]}</td>`;
-        html += `<td>${patient["result"]}</td>`;
+        html += `<td>${case_disease["department"]}</td>`;
+        html += `<td>${case_disease["diagnosis"]}</td>`;
+        html += `<td>${case_disease["admission_date"]}</td>`;
+        html += `<td>${case_disease["result"]}</td>`;
         html += "</tr>";
     });
 
     table.innerHTML += html;
-    let rows = document.querySelectorAll(".table-row-patient");
+    let rows = document.querySelectorAll(".table-row-summary");
     rows.forEach(row => {
         row.addEventListener("dblclick", function () {
-            document.location.href = `html/patient_info.html?patient_id=${row.id}`;
+            document.location.href = `html/patient_history.html?patient_id=${row.id}&return_to_department=${selected_department}&return_to_date=${getInputDiaryDate()}`;
         });
     });
 }

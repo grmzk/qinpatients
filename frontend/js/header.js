@@ -1,7 +1,9 @@
 "use strict";
 
+import { getURLParam } from './utils.js';
+
 const BUTTONS_PATHS = {
-   "button-monitor": "../index.html",
+   "button-monitor": `../index.html?department=${getURLParam("return_to_department")}&date=${getURLParam("return_to_date")}`,
 }
 
 
@@ -18,7 +20,7 @@ for (let button_id in BUTTONS_PATHS) {
    });
 
    let page_name = document.location.pathname.split("/").pop()
-   if (page_name === BUTTONS_PATHS[button_id].split("/").pop()) {
+   if (page_name === BUTTONS_PATHS[button_id].split("?")[0].split("/").pop()) {
       button.classList.add("mark-selected");
    }
 }
@@ -27,4 +29,11 @@ for (let button_id in BUTTONS_PATHS) {
 if (document.location.pathname === "/") {
    let button = document.getElementById("button-monitor");
    button.classList.add("mark-selected");
+}
+
+/* set href for logo */
+if (document.location.pathname.split("/").pop() === "index.html") {
+   document.getElementById("anchor-logo").href = "index.html";
+} else {
+   document.getElementById("anchor-logo").href = "../index.html";
 }
