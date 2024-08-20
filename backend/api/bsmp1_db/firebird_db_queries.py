@@ -2,7 +2,7 @@ from datetime import date, datetime, time, timedelta
 
 from django.core.cache import cache
 
-from qinpatients.settings import CACHE_TTL
+from qinpatients.settings import CACHE_TTL_LONG, CACHE_TTL_SHORT
 
 from .case_disease import CaseDisease
 from .firebird_db import fb_select_data
@@ -60,7 +60,10 @@ def get_summary(start_date: date, department: str) -> list[dict]:
                 end_datetime
             ]
         )
-        cache.set(start_date.isoformat(), summary_data, timeout=CACHE_TTL)
+        cache_ttl = CACHE_TTL_SHORT
+        if start_date != get_diary_today():
+            cache_ttl = CACHE_TTL_LONG
+        cache.set(start_date.isoformat(), summary_data, timeout=cache_ttl)
     else:
         summary_data = cache.get(start_date.isoformat())
     unsorted_summary = list()
