@@ -1,0 +1,16 @@
+.mark-inpatient {
+    color: #00f;
+}
+
+.mark-reanimation {
+    color: #aa0000;
+}
+
+.mark-outcome {
+    background-color: #d7d2cc;
+}
+
+.mark-selected {
+    background: #304352;
+    color: #fff;
+}

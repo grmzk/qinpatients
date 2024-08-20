@@ -64,7 +64,7 @@ function addCasesToTable(history) {
         } else if (case_disease["is_inpatient"]) {
             mark_font = "mark-inpatient";
         }
-        if (case_disease["is_outcome"] === true) {
+        if (case_disease["is_outcome"]) {
             mark_background = "mark-outcome";
         }
         html += `<tr class="table-row table-row-case ${mark_font} ${mark_background}" id="${case_disease["card_id"]}">`;

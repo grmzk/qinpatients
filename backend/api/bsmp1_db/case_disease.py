@@ -23,7 +23,9 @@ class CaseDisease:
     def get_admission_date(self) -> str:
         return self.admission_date.strftime('%d.%m.%Y %H:%M')
 
-    def get_admission_outcome_date(self) -> str:
+    def get_admission_outcome_date(self) -> str | None:
+        if not self.admission_outcome_date:
+            return None
         return self.admission_outcome_date.strftime('%d.%m.%Y %H:%M')
 
     def is_reanimation(self) -> bool:

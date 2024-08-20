@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>QInPatients</title>
     <link rel="icon" type="image" href="../img/qinpatients-logo.png">
-    <link rel="stylesheet" href="../css/monitor.css">
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/first_examination.css">
+    <link rel="stylesheet" href="../css/marking.css">
 </head>
 <body>
 <header class="header" id="header">
@@ -16,8 +17,139 @@
     <div class="card card-left">
 
     </div>
-    <div class="card card-right">
-
+    <div class="examination-card">
+        <table class="table examination-table">
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label" for="complaints-textarea">Жалобы</label>
+                    <div class="examination-button complaints-button" id="complaints-encephalopathy">энцефалопатия</div>
+                    <div class="examination-button complaints-button" id="complaints-grave-condition">тяжелое состояние</div>
+                    <textarea class="examination-textarea" id="complaints-textarea" rows="1" wrap="soft"></textarea>
+                </td>
+            </tr>
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label" for="anamnesis-textarea">Anamnesis morbi</label>
+                    <div class="examination-button anamnesis-button" id="anamnesis-patient-tell">со слов пациента</div>
+                    <div class="examination-button anamnesis-button" id="anamnesis-escort-tell">со слов сопровождения</div>
+                    <div class="examination-button anamnesis-button" id="anamnesis-emergency-tell">со слов бригады СМП</div>
+                    <div class="examination-button anamnesis-button" id="anamnesis-without-additions">без дополнений</div>
+                    <textarea class="examination-textarea" id="anamnesis-textarea" rows="1" wrap="soft"></textarea>
+                </td>
+            </tr>
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label">Anamnesis vitae</label>
+                    <label class="examination-label-inline" for="input-tuberculosis">Туберкулез:</label>
+                    <div class="examination-button examination-button-block tuberculosis-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline tuberculosis-button" type="text" id="input-tuberculosis" /><br>
+                    <label class="examination-label-inline" for="input-hepatitis">Гепатит:</label>
+                    <div class="examination-button examination-button-block hepatitis-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline hepatitis-button" type="text" id="input-hepatitis" /><br>
+                    <label class="examination-label-inline" for="input-hiv">ВИЧ:</label>
+                    <div class="examination-button examination-button-block hiv-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline hiv-button" type="text" id="input-hiv" /><br>
+                    <label class="examination-label-inline" for="input-diabetes">Сахарный диабет:</label>
+                    <div class="examination-button examination-button-block diabetes-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline diabetes-button" type="text" id="input-diabetes" /><br>
+                    <label class="examination-label-inline" for="input-drugs">Нарк. анамнез:</label>
+                    <div class="examination-button examination-button-block drugs-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline drugs-button" type="text" id="input-drugs" /><br>
+                    <label class="examination-label-inline" for="input-allergy">Аллергия:</label>
+                    <div class="examination-button examination-button-block allergy-button mark-selected">отрицает</div>
+                    <input class="examination-input-text-inline allergy-button" type="text" id="input-allergy" /><br>
+                    <label class="examination-label-inline" for="input-tetanus">Проф. столбняка:</label>
+                    <div class="examination-button examination-button-block tetanus-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline tetanus-button" type="text" id="input-tetanus" /><br>
+                    <label class="examination-label-inline" for="input-operations">Операции:</label>
+                    <div class="examination-button examination-button-block operations-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline operations-button" type="text" id="input-operations" /><br>
+                    <label class="examination-label-inline" for="input-trauma">Травмы:</label>
+                    <div class="examination-button examination-button-block trauma-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline trauma-button" type="text" id="input-trauma" /><br>
+                </td>
+            </tr>
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label">Anamnesis gynecological</label>
+                    <label class="examination-label-inline" for="input-pregnancies">Беременности:</label>
+                    <div class="examination-button examination-button-block pregnancies-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline pregnancies-button" type="text" id="input-pregnancies" /><br>
+                    <label class="examination-label-inline" for="input-childbirths">Роды:</label>
+                    <div class="examination-button examination-button-block childbirths-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline childbirths-button" type="text" id="input-childbirths" /><br>
+                    <label class="examination-label-inline" for="input-mensis">Менструация:</label>
+                    <div class="examination-button examination-button-block mensis-button mark-selected">нет данных</div>
+                    <input class="examination-input-text-inline mensis-button" type="text" id="input-mensis" /><br>
+                </td>
+            </tr>
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label">Status praesens</label>
+                    <label class="examination-label-inline">Общее состояние:</label>
+                    <div class="examination-button condition-button mark-selected">удовлетворительное</div>
+                    <div class="examination-button condition-button">относительно удовлетворительное</div><br>
+                    <label class="examination-label-inline hidden">+</label>
+                    <div class="examination-button condition-button" id="condition-middle-grave">средней тяжести</div>
+                    <div class="examination-button condition-button" id="condition-grave">тяжелое</div>
+                    <div class="examination-button condition-button" id="condition-critical">крайне тяжелое</div><br>
+                    <label class="examination-label-inline">Доп. поддержка:</label>
+                    <div class="examination-button additional-support-button">подача увлажненного кислорода</div>
+                    <div class="examination-button additional-support-button" id="additional-support-vent">ИВЛ</div>
+                    <div class="examination-button additional-support-button" id="additional-support-vasopressors">вазопрессорная поддержка</div><br>
+                    <label class="examination-label-inline">Сознание:</label>
+                    <div class="examination-button mind-button mark-selected">ясное</div>
+                    <div class="examination-button mind-button" id="mind-encephalopathy">энцефалопатия</div>
+                    <div class="examination-button mind-button">дезориентирован</div>
+                    <div class="examination-button mind-button">не адекватен</div><br>
+                    <label class="examination-label-inline hidden">+</label>
+                    <div class="examination-button mind-button">спутанное</div>
+                    <div class="examination-button mind-button">оглушение</div>
+                    <div class="examination-button mind-button" id="mind-sopor">сопор</div>
+                    <div class="examination-button mind-button">кома</div><br>
+                    <label class="examination-label-inline hidden">+</label>
+                    <div class="examination-button alcoholic-intoxication-button">алкогольное опьянение</div><br>
+                    <label class="examination-label-inline">Кожные покровы:</label>
+                    <div class="examination-button skin-button mark-selected">обычной окраски</div>
+                    <div class="examination-button skin-button">бледно-розовые</div>
+                    <div class="examination-button skin-button">бледные</div><br>
+                    <label class="examination-label-inline hidden">+</label>
+                    <div class="examination-button skin-button">акроцианоз</div>
+                    <div class="examination-button skin-button">цианоз</div>
+                    <div class="examination-button skin-button">иктеричные</div><br>
+                    <label class="examination-label-inline">Дыхание справа:</label>
+                    <div class="examination-button breath-right-button mark-selected">проводится</div>
+                    <div class="examination-button breath-right-button">ослаблено</div>
+                    <div class="examination-button breath-right-button">не проводится</div><br>
+                    <label class="examination-label-inline">Дыхание слева:</label>
+                    <div class="examination-button breath-left-button mark-selected">проводится</div>
+                    <div class="examination-button breath-left-button">ослаблено</div>
+                    <div class="examination-button breath-left-button">не проводится</div><br>
+                    <label class="examination-label-inline-many" for="input-temperature">T тела:</label>
+                    <input class="examination-input-text-inline-many" type="text" id="input-temperature" value="36,6" />
+                    <label class="examination-label-inline-many" for="input-breath-rate">ЧДД:</label>
+                    <input class="examination-input-text-inline-many" type="text" id="input-breath-rate" value="16" />
+                    <label class="examination-label-inline-many" for="input-saturation">SpO<sub>2</sub>:</label>
+                    <input class="examination-input-text-inline-many" type="text" id="input-saturation" value="97%" />
+                    <label class="examination-label-inline-many" for="input-pulse">ЧСС:</label>
+                    <input class="examination-input-text-inline-many" type="text" id="input-pulse" value="76" />
+                    <label class="examination-label-inline-many" for="input-blood-pressure">АД:</label>
+                    <input class="examination-input-text-inline-many" type="text" id="input-blood-pressure" value="120/70" />
+                </td>
+            </tr>
+        </table>
+        <table class="table examination-table">
+            <tr class="examination-table-row">
+                <td class="examination-table-column">
+                    <label class="examination-label">Голова:</label>
+                    <div class="examination-button">Отёк</div>
+                    <div class="examination-button">Кровоподтек</div>
+                    <div class="examination-button">Боль</div>
+                    <div class="examination-button">Крепитация</div>
+                    <div class="examination-button">Ссадины</div>
+                </td>
+            </tr>
+        </table>
     </div>
 </section>
 <script type="module" src="../js/first_examination.js"></script>

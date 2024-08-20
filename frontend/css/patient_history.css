@@ -9,3 +9,7 @@
     text-align: left;
     display: none;
 }
+
+#table-cases {
+    margin: 0 0 0 20px;
+}
