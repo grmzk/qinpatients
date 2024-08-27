@@ -35,7 +35,7 @@ th {
 .header-img {
     display: inline;
     width: 36px;
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 0 5px;
 }
 
 .header-title {
@@ -43,7 +43,7 @@ th {
     font-size: 20px;
     font-weight: bold;
     color: #5a6771;
-    margin: 8px 15px 5px 5px;
+    margin: 9px 15px 5px 5px;
     vertical-align: middle;
 }
 
@@ -56,7 +56,16 @@ th {
 .card {
     display: inline-block;
     vertical-align: top;
+}
 
+.card-left {
+    width: 10%;
+    margin: 10px 0 100px 0;
+}
+
+.card-right {
+    width: 88%;
+    margin: 10px 0 100px 0;
 }
 
 .table {
@@ -76,7 +85,7 @@ th {
     text-decoration: underline;
 }
 
-.table-row-patient, .table-row-case {
+.table-row-summary, .table-row-case {
     background-color: #fff;
 }
 
@@ -87,7 +96,7 @@ th {
 
 .hr-line {
     width: 100%;
-    margin: 5px 5px 5px 0;
+    margin: 5px 0 5px 0;
     color: #999999;
 }
 
@@ -101,24 +110,7 @@ th {
     vertical-align: middle;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.7);
-    background-color:  rgba(0, 0, 0, 0.05);;
+    background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
     transition: opacity 0.2s;
-}
-
-.mark-inpatient {
-    color: #00f;
-}
-
-.mark-reanimation {
-    color: #aa0000;
-}
-
-.mark-outcome {
-    background-color: #d7d2cc;
-}
-
-.mark-selected {
-    background: #304352;
-    color: #fff;
 }

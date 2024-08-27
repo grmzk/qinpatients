@@ -1,13 +1,19 @@
 "use strict";
 
 import { BASE_URL } from './config.js';
+import { getURLParam } from './utils.js';
 
+
+/* adding passport data from separate file */
+await fetch('../html/patient_data.html')
+    .then(response => response.text())
+    .then(html => document.getElementById('card-left').innerHTML = html);
 
 updateCasesTable()
 
 
 function updateCasesTable() {
-    fetch(`${BASE_URL}/api/get_patient_info?patient_id=${getURLParam("patient_id")}`)
+    fetch(`${BASE_URL}/api/get_patient_history?patient_id=${getURLParam("patient_id")}`)
         .then(response => response.json())
         .then(data => {
             addCasesToTable(data);
@@ -16,19 +22,17 @@ function updateCasesTable() {
 }
 
 
-function getURLParam(paramName) {
-    const params = new URLSearchParams(window.location.search);
-    return params.get(paramName);
-}
+function addCasesToTable(history) {
+    const patient = history["patient"];
+    const cases = history["history"];
 
-
-function addCasesToTable(cases) {
-    document.getElementById("patient-info").style.display = "block";
-    document.getElementById("full-name").textContent = cases[0]["full_name"];
-    document.getElementById("birthday").textContent = cases[0]["birthday"];
-    document.getElementById("age").textContent = cases[0]["age"];
-    document.getElementById("address").textContent = cases[0]["address"];
-    document.getElementById("workplace").textContent = cases[0]["workplace"];
+    document.getElementById("patient-data").style.display = "block";
+    document.getElementById("full-name").textContent = patient["full_name"];
+    document.getElementById("birthday").textContent = patient["birthday"];
+    document.getElementById("age").textContent = patient["age"];
+    document.getElementById("address").textContent = patient["address"];
+    document.getElementById("workplace").textContent = patient["workplace"];
+    document.getElementById("extra-info").textContent = patient["extra_info"];
 
     let table = document.getElementById("table-cases");
     table.innerHTML = `<caption class="table-caption">СПИСОК ОБРАЩЕНИЙ ПАЦИЕНТА [БД БСМП №1]</caption>`;
@@ -60,7 +64,7 @@ function addCasesToTable(cases) {
         } else if (case_disease["is_inpatient"]) {
             mark_font = "mark-inpatient";
         }
-        if (case_disease["is_outcome"] === true) {
+        if (case_disease["is_outcome"]) {
             mark_background = "mark-outcome";
         }
         html += `<tr class="table-row table-row-case ${mark_font} ${mark_background}" id="${case_disease["card_id"]}">`;

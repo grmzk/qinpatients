@@ -1,0 +1,104 @@
+.examination-card {
+    width: 88%;
+    display: inline-flex;
+    margin: 10px 0 100px 0;
+}
+
+.examination-label {
+    text-align: left;
+    display: block;
+    font-size: 100%;
+    font-weight: bold;
+    margin: 0 auto 5px auto;
+}
+
+.examination-label-inline {
+    text-align: left;
+    display: inline-block;
+    font-size: 95%;
+    font-weight: normal;
+    text-decoration: underline;
+    margin: 5px auto 10px auto;
+    width: 20%;
+}
+
+.examination-label-inline-many {
+    text-align: right;
+    display: inline-block;
+    font-size: 95%;
+    font-weight: normal;
+    text-decoration: underline;
+    margin: 5px auto 10px auto;
+    width: 7%;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.examination-input-text {
+    display: block;
+    margin: 10px auto 5px auto;
+    width: 100%;
+    font-family: serif;
+    font-size: 90%;
+}
+
+.examination-textarea {
+    display: block;
+    margin: 10px auto 5px auto;
+    width: 100%;
+    font-family: serif;
+    font-size: 90%;
+    resize: none;
+}
+
+.examination-input-text-inline {
+    display: inline-block;
+    margin: 0 auto 5px auto;
+    font-family: serif;
+    font-size: 90%;
+    width: calc(100% - 20% - 15% - 3%);
+}
+
+.examination-input-text-inline-many {
+    display: inline-block;
+    margin: 0 5px 5px auto;
+    font-family: serif;
+    font-size: 90%;
+    width: 10%;
+}
+
+.examination-table {
+    display: inline-table;
+    margin: 0 0 0 20px;
+}
+
+.examination-table-row {
+    text-align: left;
+    vertical-align: top;
+}
+
+.examination-table-column {
+    padding: 10px;
+}
+
+.examination-button {
+    height: 25px;
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: opacity 0.2s;
+    display: inline;
+}
+
+.examination-button-block {
+    width: 15%;
+    display: inline-block;
+}

@@ -1,13 +1,3 @@
-.card-left {
-    width: 10%;
-    margin: 10px 20px 20px 0;
-}
-
-.card-right {
-    width: 88%;
-    margin: 10px 0 100px 0;
-}
-
 #block-diary-date {
     width: 100%;
     margin: 25px 0 20px 0;
@@ -29,4 +19,8 @@
     font-family: serif;
     font-size: 80%;
     margin: 0 auto 0 auto;
+}
+
+#table-summary {
+    margin: 0 0 0 20px;
 }
