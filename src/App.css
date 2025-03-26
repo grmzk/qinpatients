@@ -1,3 +1,19 @@
 .App {
   text-align: center;
 }
+
+.content {
+  width: 90%;
+  margin-top: 5.5em;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.content > .grid {
+  display: grid;
+  grid-template-columns: 10fr 90fr;
+  grid-auto-rows: auto;
+}
+
+.content > .grid-item {
+}

@@ -1,10 +1,55 @@
+@font-face {
+  font-family: "PT Astra Serif";
+  src: url(../public/fonts/pt-astra-serif_regular.ttf),
+       url(../public/fonts/pt-astra-serif_italic.ttf),
+       url(../public/fonts/pt-astra-serif_bold.ttf),
+       url(../public/fonts/pt-astra-serif_bold-italic.ttf);
+}
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "PT Astra Serif", serif;
+  font-weight: normal;
 }
+
+table {
+    display: table;
+    font-size: 80%;
+    text-align: center;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+th, td {
+    border: 1px solid #999999;
+    padding: 3px;
+}
+
+th {
+    border-bottom: 1px solid #000;
+}
+
+tr:hover {
+    background: #304352;
+    color: #fff;
+    cursor: pointer;
+}
+
+tr.selected {
+    background: #304352;
+    color: #fff;
+}
+
+/*div, section {*/
+/*  border: aqua 1px solid;*/
+/*}*/
