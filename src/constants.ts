@@ -7,6 +7,7 @@ const DEPARTMENTS = [
   "ОЖОГОВОЕ",
   "НЕВРОЛОГИЯ",
   "КАРДИОЛОГИЯ",
+  "2 КАРДИОЛОГИЯ",
   "ГИНЕКОЛОГИЯ",
   "ТОКСИКОЛОГИЯ",
   "1 ТЕРАПИЯ",
@@ -15,4 +16,6 @@ const DEPARTMENTS = [
   "ВСЕ ОТДЕЛЕНИЯ",
 ];
 
-export { DEPARTMENTS };
+const DEFAULT_DEPARTMENT = DEPARTMENTS.indexOf("ТРАВМАТОЛОГИЯ") || 0;
+
+export { DEPARTMENTS, DEFAULT_DEPARTMENT };

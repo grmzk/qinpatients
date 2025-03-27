@@ -2,10 +2,14 @@ import "./App.css";
 import Header from "./components/Header";
 import DepartmentSelector from "./components/DepartmentSelector";
 import { useState } from "react";
+import DateSelector from "./components/DateSelector";
+import getDiaryToday from "./utils/getDiaryToday";
+import { DEFAULT_DEPARTMENT } from "./constants";
+import Monitor from "./components/Monitor";
 
 function App() {
-  const [departmentId, setDepartmentId] = useState(0);
-  console.log(departmentId);
+  const [departmentId, setDepartmentId] = useState(DEFAULT_DEPARTMENT);
+  const [diaryDate, setDiaryDate] = useState(getDiaryToday());
 
   return (
     <div className="App">
@@ -13,17 +17,14 @@ function App() {
       <section className="content">
         <div className="grid">
           <div className="grid-item">
+            <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
             <DepartmentSelector
               departmentId={departmentId}
               setDepartmentId={setDepartmentId}
             />
           </div>
           <div className="grid-item">
-            test
-            <br />
-            test
-            <br />
-            test
+            <Monitor />
           </div>
         </div>
       </section>

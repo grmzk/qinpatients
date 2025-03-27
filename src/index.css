@@ -18,7 +18,7 @@ body {
 
 table {
     display: table;
-    font-size: 80%;
+    font-size: 0.8em;
     text-align: center;
     background-color: #d7d2cc;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
@@ -32,7 +32,7 @@ table {
 
 th, td {
     border: 1px solid #999999;
-    padding: 3px;
+    padding: 0.25em;
 }
 
 th {
@@ -50,6 +50,15 @@ tr.selected {
     color: #fff;
 }
 
-/*div, section {*/
-/*  border: aqua 1px solid;*/
-/*}*/
+div.flex-brick {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+}
+
+div, section {
+  border: aqua 1px solid;
+}
