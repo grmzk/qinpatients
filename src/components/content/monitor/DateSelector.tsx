@@ -13,15 +13,16 @@ function DateSelector({ diaryDate, setDiaryDate }: IDateSelectorProps) {
   };
   return (
     <div className="flex-brick" id="DateSelector">
-      <label htmlFor="diaryDate">Дата дежурства:</label>
-      <input
-        id="diaryDate"
-        type="date"
-        value={diaryDate}
-        min="2002-11-01"
-        max="2050-12-31"
-        onChange={setValue}
-      />
+      <label id="diaryDate">
+        Дата дежурства:
+        <input
+          type="date"
+          value={diaryDate}
+          min="2002-11-01"
+          max="2050-12-31"
+          onChange={setValue}
+        />
+      </label>
     </div>
   );
 }

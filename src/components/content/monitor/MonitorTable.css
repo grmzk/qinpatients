@@ -1,0 +1,21 @@
+.flex-brick.title {
+    padding: 0.25em 0;
+    margin-bottom: 1em;
+}
+
+#MonitorTable > table > tbody > tr.inpatient {
+    color: #00f;
+}
+
+#MonitorTable > table > tbody > tr.reanimation {
+    color: #aa0000;
+}
+
+#MonitorTable > table > tbody > tr.processing {
+    background-color: white;
+}
+
+#MonitorTable > table > tbody > tr:hover {
+    background: #304352;
+    color: #fff;
+}

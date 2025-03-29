@@ -39,7 +39,7 @@ th {
     border-bottom: 1px solid #000;
 }
 
-tr:hover {
+tbody > tr:hover {
     background: #304352;
     color: #fff;
     cursor: pointer;
@@ -59,6 +59,11 @@ div.flex-brick {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
 }
 
-div, section {
-  border: aqua 1px solid;
+div.flex-brick.title {
+    font-weight: bold;
+    font-size: 0.9em;
 }
+
+/*div, section {*/
+/*  border: aqua 1px solid;*/
+/*}*/

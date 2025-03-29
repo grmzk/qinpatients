@@ -1,4 +1,4 @@
-import { DEPARTMENTS } from "../constants";
+import { DEPARTMENTS } from "../../../config/constants";
 import { SyntheticEvent, useEffect } from "react";
 
 interface IDepartmentChooserProps {
@@ -34,22 +34,20 @@ function DepartmentSelector({
   }
 
   return (
-    <div id="DepartmentSelector">
-      <table>
-        <tbody>
-          {DEPARTMENTS.map((department, key) => (
-            <tr
-              className="department"
-              key={key}
-              data-id={key}
-              onClick={(event) => selectDepartment(event, key)}
-            >
-              <td>{department}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <table id="DepartmentSelector" title="Выбор отделения">
+      <tbody>
+        {DEPARTMENTS.map((department, key) => (
+          <tr
+            className="department"
+            key={key}
+            data-id={key}
+            onClick={(event) => selectDepartment(event, key)}
+          >
+            <td>{department}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
