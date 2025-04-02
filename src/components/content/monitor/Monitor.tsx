@@ -4,6 +4,7 @@ import MonitorTable from "./MonitorTable";
 import { DEFAULT_DEPARTMENT, DEPARTMENTS } from "../../../config/constants";
 import { useState } from "react";
 import getDiaryToday from "../../../utils/getDiaryToday";
+import "./Monitor.css";
 
 function Monitor() {
   const [departmentId, setDepartmentId] = useState(DEFAULT_DEPARTMENT);
@@ -12,11 +13,13 @@ function Monitor() {
   return (
     <div className="content">
       <div>
-        <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
-        <DepartmentSelector
-          departmentId={departmentId}
-          setDepartmentId={setDepartmentId}
-        />
+        <div className="cards-left">
+          <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
+          <DepartmentSelector
+            departmentId={departmentId}
+            setDepartmentId={setDepartmentId}
+          />
+        </div>
       </div>
       <MonitorTable
         department={DEPARTMENTS[departmentId]}

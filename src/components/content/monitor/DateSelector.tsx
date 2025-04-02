@@ -14,7 +14,7 @@ function DateSelector({ diaryDate, setDiaryDate }: IDateSelectorProps) {
   return (
     <div className="flex-brick" id="DateSelector">
       <label id="diaryDate">
-        Дата дежурства:
+        Дата дежурства:&nbsp;
         <input
           type="date"
           value={diaryDate}
