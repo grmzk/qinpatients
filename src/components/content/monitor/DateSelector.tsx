@@ -1,5 +1,9 @@
 import "./DateSelector.css";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useEffect } from "react";
+import {
+  getDiaryToday,
+  getDiaryYesterday,
+} from "../../../utils/getDiaryIsoDate";
 
 interface IDateSelectorProps {
   diaryDate: string;
@@ -7,10 +11,31 @@ interface IDateSelectorProps {
 }
 
 function DateSelector({ diaryDate, setDiaryDate }: IDateSelectorProps) {
-  const setValue = (event: SyntheticEvent): void => {
+  useEffect(() => {
+    const dateButtons = document.querySelectorAll("#DateSelector button");
+    dateButtons.forEach((button: Element) => {
+      button.classList.remove("selected");
+    });
+    if (diaryDate === getDiaryToday()) {
+      const button = document.querySelector(
+        '#DateSelector button[name="today"]',
+      );
+      button && button.classList.add("selected");
+      return;
+    }
+    if (diaryDate === getDiaryYesterday()) {
+      const button = document.querySelector(
+        '#DateSelector button[name="yesterday"]',
+      );
+      button && button.classList.add("selected");
+    }
+  }, [diaryDate]);
+
+  function setValue(event: SyntheticEvent): void {
     const dateInput = event.target as HTMLInputElement;
     setDiaryDate(dateInput.value);
-  };
+  }
+
   return (
     <div className="flex-brick" id="DateSelector">
       <label id="diaryDate">
@@ -23,6 +48,17 @@ function DateSelector({ diaryDate, setDiaryDate }: IDateSelectorProps) {
           onChange={setValue}
         />
       </label>
+      <div>
+        <button
+          name="yesterday"
+          onClick={() => setDiaryDate(getDiaryYesterday())}
+        >
+          вчера
+        </button>
+        <button name="today" onClick={() => setDiaryDate(getDiaryToday())}>
+          сегодня
+        </button>
+      </div>
     </div>
   );
 }

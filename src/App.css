@@ -4,7 +4,7 @@
 
 .content {
   width: 90%;
-  margin: 5.5em auto;
+  margin: 1em auto;
   display: grid;
   grid-template-columns: 10fr 90fr;
   grid-auto-rows: auto;

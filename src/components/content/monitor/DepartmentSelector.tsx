@@ -11,37 +11,34 @@ function DepartmentSelector({
   setDepartmentId,
 }: IDepartmentChooserProps) {
   useEffect(() => {
-    const selectedDepartment = document
-      ?.getElementById("DepartmentSelector")
-      ?.querySelector(`tr.department[data-id="${departmentId}"]`);
-    if (!selectedDepartment) {
-      return;
-    }
-    selectedDepartment.classList.add("selected");
+    const selectedDepartment = document.querySelector(
+      `#DepartmentSelector .department[data-id="${departmentId}"]`,
+    );
+    selectedDepartment && selectedDepartment.classList.add("selected");
   }, [departmentId]);
 
-  function selectDepartment(event: SyntheticEvent, key: number) {
-    const selectedDepartment = event.currentTarget;
-    const departments =
-      selectedDepartment.parentElement?.querySelectorAll(".department");
-    if (!departments) {
+  function selectDepartment(event: SyntheticEvent, id: number) {
+    if (id === departmentId) {
       return;
     }
+    const departments = document.querySelectorAll(
+      "#DepartmentSelector .department",
+    );
     for (const department of departments) {
       department.classList.remove("selected");
     }
-    setDepartmentId(key);
+    setDepartmentId(id);
   }
 
   return (
     <table id="DepartmentSelector" title="Выбор отделения">
       <tbody>
-        {DEPARTMENTS.map((department, key) => (
+        {DEPARTMENTS.map((department, id) => (
           <tr
             className="department"
-            key={key}
-            data-id={key}
-            onClick={(event) => selectDepartment(event, key)}
+            key={id}
+            data-id={id}
+            onClick={(event) => selectDepartment(event, id)}
           >
             <td>{department}</td>
           </tr>

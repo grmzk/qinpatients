@@ -3,7 +3,7 @@ import DepartmentSelector from "./DepartmentSelector";
 import MonitorTable from "./MonitorTable";
 import { DEFAULT_DEPARTMENT, DEPARTMENTS } from "../../../config/constants";
 import { useState } from "react";
-import getDiaryToday from "../../../utils/getDiaryToday";
+import { getDiaryToday } from "../../../utils/getDiaryIsoDate";
 import "./Monitor.css";
 
 function Monitor() {
@@ -12,14 +12,12 @@ function Monitor() {
 
   return (
     <div className="content">
-      <div>
-        <div className="cards-left">
-          <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
-          <DepartmentSelector
-            departmentId={departmentId}
-            setDepartmentId={setDepartmentId}
-          />
-        </div>
+      <div className="cards-left">
+        <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
+        <DepartmentSelector
+          departmentId={departmentId}
+          setDepartmentId={setDepartmentId}
+        />
       </div>
       <MonitorTable
         department={DEPARTMENTS[departmentId]}

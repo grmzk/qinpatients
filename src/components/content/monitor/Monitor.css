@@ -1,4 +1,5 @@
 .cards-left {
+    align-self: start;
     position: sticky;
-    top: 5.5em;
+    top: 5.09em;
 }
