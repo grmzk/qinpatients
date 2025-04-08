@@ -1,25 +1,22 @@
-import "./MonitorTable.css";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import {
-  INPUT_DELLAY,
-  SUMMARY_UPDATE_INTERVAL,
-} from "../../../config/constants";
-import ISummary from "../../types/ISummary";
 
-interface IMonitorTableProps {
+import { INPUT_DELLAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
+import Summary from "../../types/Summary";
+
+import "./MonitorTable.css";
+
+type MonitorTableProps = {
   department: string;
   diaryDate: string;
-}
+};
 
-function MonitorTable({ department, diaryDate }: IMonitorTableProps) {
-  const [summary, setSummary] = useState<ISummary[]>([]);
+function MonitorTable({ department, diaryDate }: MonitorTableProps) {
+  const [summary, setSummary] = useState<Summary[]>([]);
 
   const fetchSummary = useCallback(() => {
     axios
-      .get<ISummary[]>(
-        `http://192.168.230.128/api/get_summary?department=${department}&date=${diaryDate}`,
-      )
+      .get<Summary[]>(`http://192.168.230.128/api/get_summary?department=${department}&date=${diaryDate}`)
       .then((response) => setSummary(response.data))
       .catch(console.error);
   }, [department, diaryDate]);

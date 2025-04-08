@@ -1,4 +1,4 @@
-interface ISummary {
+type Summary = {
   patient: {
     patient_id: number;
     full_name: string;
@@ -21,6 +21,6 @@ interface ISummary {
     is_outcome: boolean;
     is_inpatient: boolean;
   };
-}
+};
 
-export default ISummary;
+export default Summary;
