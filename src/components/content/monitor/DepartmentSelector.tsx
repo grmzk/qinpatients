@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import { DEPARTMENTS } from "../../../configs/constants";
+import Departments from "../../types/Departments";
 
 type DepartmentChooserProps = {
   departmentId: number;
@@ -27,7 +28,7 @@ function DepartmentSelector({ departmentId, setDepartmentId }: DepartmentChooser
   return (
     <table id="DepartmentSelector" title="Выбор отделения">
       <tbody>
-        {DEPARTMENTS.map((department, id) => (
+        {DEPARTMENTS.map((department: Departments, id) => (
           <tr className="department" key={id} data-id={id} onClick={() => selectDepartment(id)}>
             <td>{department}</td>
           </tr>

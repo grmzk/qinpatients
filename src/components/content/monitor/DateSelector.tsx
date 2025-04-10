@@ -1,17 +1,18 @@
 import { SyntheticEvent, useEffect } from "react";
 
 import { getDiaryToday, getDiaryYesterday } from "../../../utils/getDiaryIsoDate";
+import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
 
 import "./DateSelector.css";
 
 type DateSelectorProps = {
-  diaryDate: string;
-  setDiaryDate: (diaryDate: string) => void;
+  diaryDate: DateISODate;
+  setDiaryDate: (diaryDate: DateISODate) => void;
 };
 
 function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
   useEffect(() => {
-    const dateButtons = document.querySelectorAll("#DateSelector button");
+    const dateButtons = document.querySelectorAll("#diaryDateInput");
     dateButtons.forEach((button: Element) => {
       button.classList.remove("selected");
     });
@@ -28,6 +29,10 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
 
   function setValue(event: SyntheticEvent): void {
     const dateInput = event.target as HTMLInputElement;
+    if (!isDateISODate(dateInput.value)) {
+      console.error(`Value "${dateInput.value}" returned from DateSelector is not in ISO format.`);
+      return;
+    }
     setDiaryDate(dateInput.value);
   }
 
@@ -35,7 +40,14 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
     <div className="flex-brick" id="DateSelector">
       <label id="diaryDate">
         Дата дежурства:&nbsp;
-        <input type="date" value={diaryDate} min="2002-11-01" max="2050-12-31" onChange={setValue} />
+        <input
+          id="diaryDateInput"
+          type="date"
+          value={diaryDate}
+          min="2002-11-01"
+          max="2050-12-31"
+          onChange={setValue}
+        />
       </label>
       <div>
         <button name="yesterday" onClick={() => setDiaryDate(getDiaryYesterday())}>

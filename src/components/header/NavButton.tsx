@@ -1,16 +1,23 @@
 import { SyntheticEvent } from "react";
 
+import { ContentName, isContentName } from "../types/Content";
+
 import "./NavButton.css";
 
 type NavButtonProps = {
   name: string;
   title: string;
-  setSelected: (selected: string | null) => void;
+  setSelected: (selected: ContentName | null) => void;
 };
 
 function NavButton({ name, title, setSelected }: NavButtonProps) {
   function handleClick(event: SyntheticEvent) {
-    setSelected(event.currentTarget.getAttribute("name"));
+    const contentName = event.currentTarget.getAttribute("name");
+    if (!isContentName(contentName)) {
+      console.error(`Content name "${contentName}" is invalid.`);
+      return;
+    }
+    setSelected(contentName);
   }
 
   return (

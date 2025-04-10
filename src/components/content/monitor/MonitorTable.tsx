@@ -1,35 +1,35 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-import { INPUT_DELLAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
+import { INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
+import DataRepository from "../../../repositories/DataRepository";
+import { DateISODate } from "../../types/DateISOStrings";
+import Departments from "../../types/Departments";
 import Summary from "../../types/Summary";
 
 import "./MonitorTable.css";
 
 type MonitorTableProps = {
-  department: string;
-  diaryDate: string;
+  department: Departments;
+  diaryDate: DateISODate;
 };
 
 function MonitorTable({ department, diaryDate }: MonitorTableProps) {
   const [summary, setSummary] = useState<Summary[]>([]);
 
-  const fetchSummary = useCallback(() => {
-    axios
-      .get<Summary[]>(`http://192.168.230.128/api/get_summary?department=${department}&date=${diaryDate}`)
-      .then((response) => setSummary(response.data))
-      .catch(console.error);
+  const getSummary = useCallback(() => {
+    const dataRepository = new DataRepository();
+    dataRepository.getSummary(department, diaryDate).then(setSummary).catch(console.error);
   }, [department, diaryDate]);
 
   useEffect(() => {
-    const intervalId = setInterval(fetchSummary, SUMMARY_UPDATE_INTERVAL);
+    const intervalId = setInterval(getSummary, SUMMARY_UPDATE_INTERVAL);
     return () => clearInterval(intervalId);
-  }, [diaryDate, department, fetchSummary]);
+  }, [diaryDate, department, getSummary]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(fetchSummary, INPUT_DELLAY);
+    const timeoutId = setTimeout(getSummary, INPUT_DELAY);
     return () => clearTimeout(timeoutId);
-  }, [diaryDate, fetchSummary]);
+  }, [diaryDate, getSummary]);
 
   return (
     <div id="MonitorTable">
