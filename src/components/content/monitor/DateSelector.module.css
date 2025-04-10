@@ -1,20 +1,26 @@
-#DateSelector {
+.dateSelectorContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
     flex-direction: column;
     padding-top: 1em;
     padding-bottom: 1em;
     margin-bottom: 1em;
 }
 
-#diaryDate {
+.dateSelectorContainer label {
     font-size: 0.9em;
     font-weight: bold;
 }
 
-#diaryDateInput {
+.diaryDateInput {
     font-family: inherit;
 }
 
-#DateSelector button {
+.dateButton {
     font-family: inherit;
     font-size: 0.8em;
     padding: 0 0.25em;
@@ -24,11 +30,11 @@
     cursor: pointer;
 }
 
-#DateSelector button.selected {
-    background: #304352;
-    color: #fff;
+.dateButton:hover {
+    background: rgba(0, 0, 0, 0.15);
 }
 
-#DateSelector button:hover {
-    background: rgba(0, 0, 0, 0.15);
+.selected {
+    background: #304352;
+    color: #fff;
 }

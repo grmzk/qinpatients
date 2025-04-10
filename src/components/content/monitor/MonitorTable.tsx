@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
+import { DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
 import DataRepository from "../../../repositories/DataRepository";
 import { DateISODate } from "../../types/DateISOStrings";
 import Departments from "../../types/Departments";
 import Summary from "../../types/Summary";
 
-import "./MonitorTable.css";
+import styles from "./MonitorTable.module.css";
 
 type MonitorTableProps = {
   department: Departments;
@@ -27,13 +27,13 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
   }, [diaryDate, department, getSummary]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(getSummary, INPUT_DELAY);
+    const timeoutId = setTimeout(getSummary, DATE_INPUT_DELAY);
     return () => clearTimeout(timeoutId);
   }, [diaryDate, getSummary]);
 
   return (
-    <div id="MonitorTable">
-      <div className="flex-brick title">МОНИТОР</div>
+    <div>
+      <div className={styles.title}>МОНИТОР</div>
       {summary.length ? (
         <table>
           <thead>
@@ -52,12 +52,12 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
             {summary.map(({ patient, case_disease }, index) => {
               const classList: string[] = [];
               if (case_disease.is_reanimation) {
-                classList.push("reanimation");
+                classList.push(styles.reanimation);
               } else if (case_disease.is_inpatient) {
-                classList.push("inpatient");
+                classList.push(styles.inpatient);
               }
               if (!case_disease.is_outcome) {
-                classList.push("processing");
+                classList.push(styles.processing);
               }
               return (
                 <tr className={classList.join(" ")} key={case_disease.card_id}>
@@ -75,7 +75,7 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
           </tbody>
         </table>
       ) : (
-        <div className="flex-brick title">НЕТ ОБРАЩЕНИЙ</div>
+        <div className={styles.title}>НЕТ ОБРАЩЕНИЙ</div>
       )}
     </div>
   );

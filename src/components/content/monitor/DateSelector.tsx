@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect } from "react";
 import { getDiaryToday, getDiaryYesterday } from "../../../utils/getDiaryIsoDate";
 import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
 
-import "./DateSelector.css";
+import styles from "./DateSelector.module.css";
 
 type DateSelectorProps = {
   diaryDate: DateISODate;
@@ -12,18 +12,18 @@ type DateSelectorProps = {
 
 function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
   useEffect(() => {
-    const dateButtons = document.querySelectorAll("#diaryDateInput");
+    const dateButtons = document.querySelectorAll(`.${styles.dateButton}`);
     dateButtons.forEach((button: Element) => {
-      button.classList.remove("selected");
+      button.classList.remove(styles.selected);
     });
     if (diaryDate === getDiaryToday()) {
-      const button = document.querySelector('#DateSelector button[name="today"]');
-      button && button.classList.add("selected");
+      const button = document.querySelector(`.${styles.dateButton}[name="today"]`);
+      button && button.classList.add(styles.selected);
       return;
     }
     if (diaryDate === getDiaryYesterday()) {
-      const button = document.querySelector('#DateSelector button[name="yesterday"]');
-      button && button.classList.add("selected");
+      const button = document.querySelector(`.${styles.dateButton}[name="yesterday"]`);
+      button && button.classList.add(styles.selected);
     }
   }, [diaryDate]);
 
@@ -37,11 +37,11 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
   }
 
   return (
-    <div className="flex-brick" id="DateSelector">
-      <label id="diaryDate">
+    <div className={styles.dateSelectorContainer}>
+      <label>
         Дата дежурства:&nbsp;
         <input
-          id="diaryDateInput"
+          className={styles.diaryDateInput}
           type="date"
           value={diaryDate}
           min="2002-11-01"
@@ -50,10 +50,15 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
         />
       </label>
       <div>
-        <button name="yesterday" onClick={() => setDiaryDate(getDiaryYesterday())}>
+        <button
+          className={styles.dateButton}
+          type="button"
+          name="yesterday"
+          onClick={() => setDiaryDate(getDiaryYesterday())}
+        >
           вчера
         </button>
-        <button name="today" onClick={() => setDiaryDate(getDiaryToday())}>
+        <button className={styles.dateButton} type="button" name="today" onClick={() => setDiaryDate(getDiaryToday())}>
           сегодня
         </button>
       </div>

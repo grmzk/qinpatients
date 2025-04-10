@@ -50,20 +50,6 @@ tr.selected {
     color: #fff;
 }
 
-div.flex-brick {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #d7d2cc;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
-}
-
-div.flex-brick.title {
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
 /*div, section {*/
 /*  border: aqua 1px solid;*/
 /*}*/

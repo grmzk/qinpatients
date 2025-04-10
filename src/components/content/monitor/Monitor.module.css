@@ -1,0 +1,14 @@
+.contentContainer {
+    width: 90%;
+    margin: 1em auto;
+    display: grid;
+    grid-template-columns: 10fr 90fr;
+    grid-auto-rows: auto;
+    gap: 1em;
+}
+
+.stickyPanel {
+    align-self: start;
+    position: sticky;
+    top: 5.09em;
+}

@@ -1,4 +1,4 @@
-header {
+.header {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -12,7 +12,7 @@ header {
     gap: 1em;
 }
 
-header > .brand {
+.brand {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -23,12 +23,12 @@ header > .brand {
     padding-right: 0.5em;
 }
 
-header > .brand > .logo {
+.logo {
     display: inline-block;
     width: 3em;
 }
 
-header > .brand > .title {
+.title {
     display: inline-block;
     font-size: 1.5em;
     font-weight: bold;

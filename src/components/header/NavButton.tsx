@@ -2,7 +2,7 @@ import { SyntheticEvent } from "react";
 
 import { ContentName, isContentName } from "../types/Content";
 
-import "./NavButton.css";
+import styles from "./NavButton.module.css";
 
 type NavButtonProps = {
   name: string;
@@ -21,7 +21,7 @@ function NavButton({ name, title, setSelected }: NavButtonProps) {
   }
 
   return (
-    <button className="NavButton" type="button" name={name} onClick={handleClick}>
+    <button className={styles.NavButton} type="button" name={name} onClick={handleClick}>
       {title}
     </button>
   );

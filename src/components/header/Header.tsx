@@ -1,13 +1,13 @@
 import NavBar from "./NavBar";
 
-import "./Header.css";
+import styles from "./Header.module.css";
 
 function Header() {
   return (
-    <header>
-      <div className="brand">
-        <img className="logo" src="./img/qinpatients-logo.png" alt="logo" />
-        <h1 className="title">QInPatients</h1>
+    <header className={styles.header}>
+      <div className={styles.brand}>
+        <img className={styles.logo} src="./img/qinpatients-logo.png" alt="logo" />
+        <h1 className={styles.title}>QInPatients</h1>
       </div>
       <NavBar />
     </header>

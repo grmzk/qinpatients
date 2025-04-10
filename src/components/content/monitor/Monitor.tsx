@@ -7,15 +7,15 @@ import DateSelector from "./DateSelector";
 import DepartmentSelector from "./DepartmentSelector";
 import MonitorTable from "./MonitorTable";
 
-import "./Monitor.css";
+import styles from "./Monitor.module.css";
 
 function Monitor() {
   const [departmentId, setDepartmentId] = useState(DEFAULT_DEPARTMENT);
   const [diaryDate, setDiaryDate] = useState<DateISODate>(getDiaryToday());
 
   return (
-    <div className="content">
-      <div className="cards-left">
+    <div className={styles.contentContainer}>
+      <div className={styles.stickyPanel}>
         <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
         <DepartmentSelector departmentId={departmentId} setDepartmentId={setDepartmentId} />
       </div>
