@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import { DEFAULT_DEPARTMENT, DEPARTMENTS } from "../../../configs/constants";
+import { DateISODate } from "../../../types/DateISOStrings";
 import { getDiaryToday } from "../../../utils/getDiaryIsoDate";
-import { DateISODate } from "../../types/DateISOStrings";
 import DateSelector from "./DateSelector";
 import DepartmentSelector from "./DepartmentSelector";
 import MonitorTable from "./MonitorTable";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import CONTENT from "../../configs/content";
-import { ContentName } from "../types/Content";
+import { ContentName } from "../../types/Content";
 import NavButton from "./NavButton";
 
 import styles from "./NavBar.module.css";

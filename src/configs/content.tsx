@@ -1,5 +1,5 @@
 import Monitor from "../components/content/monitor/Monitor";
-import { Content } from "../components/types/Content";
+import { Content } from "../types/Content";
 
 const CONTENT = {
   Monitor: {

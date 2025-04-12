@@ -1,6 +1,6 @@
 import { JSX } from "react";
 
-import CONTENT from "../../configs/content";
+import CONTENT from "../configs/content";
 
 export type Content = {
   [key: string]: {

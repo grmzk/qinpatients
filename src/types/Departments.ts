@@ -1,4 +1,4 @@
-import { DEPARTMENTS } from "../../configs/constants";
+import { DEPARTMENTS } from "../configs/constants";
 
 type Departments = (typeof DEPARTMENTS)[number];
 

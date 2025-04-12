@@ -1,4 +1,4 @@
-import { DateISODate, isDateISODate } from "../components/types/DateISOStrings";
+import { DateISODate, isDateISODate } from "../types/DateISOStrings";
 
 function getDiaryTodayDate(): Date {
   const today = new Date();

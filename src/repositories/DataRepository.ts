@@ -1,7 +1,7 @@
 import ApiAdapter from "../adapters/ApiAdapter";
-import { DateISODate } from "../components/types/DateISOStrings";
-import Departments from "../components/types/Departments";
 import { BASE_URL } from "../configs/constants";
+import { DateISODate } from "../types/DateISOStrings";
+import Departments from "../types/Departments";
 
 class DataRepository {
   private adapter: ApiAdapter = new ApiAdapter(BASE_URL);

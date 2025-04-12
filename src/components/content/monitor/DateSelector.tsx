@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect } from "react";
 
+import { DateISODate, isDateISODate } from "../../../types/DateISOStrings";
 import { getDiaryToday, getDiaryYesterday } from "../../../utils/getDiaryIsoDate";
-import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
 
 import styles from "./DateSelector.module.css";
 

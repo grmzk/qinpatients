@@ -45,11 +45,6 @@ tbody > tr:hover {
     cursor: pointer;
 }
 
-tr.selected {
-    background: #304352;
-    color: #fff;
-}
-
 /*div, section {*/
 /*  border: aqua 1px solid;*/
 /*}*/

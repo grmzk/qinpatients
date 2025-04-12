@@ -1,6 +1,6 @@
 import { SyntheticEvent } from "react";
 
-import { ContentName, isContentName } from "../types/Content";
+import { ContentName, isContentName } from "../../types/Content";
 
 import styles from "./NavButton.module.css";
 

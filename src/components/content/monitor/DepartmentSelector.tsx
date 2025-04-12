@@ -1,36 +1,46 @@
-import { useEffect } from "react";
+import { useState } from "react";
 
 import { DEPARTMENTS } from "../../../configs/constants";
-import Departments from "../../types/Departments";
+import Departments from "../../../types/Departments";
 
-type DepartmentChooserProps = {
+import styles from "./DepartmentSelector.module.css";
+
+type DepartmentSelectorProps = {
   departmentId: number;
   setDepartmentId: (departmentId: number) => void;
 };
 
-function DepartmentSelector({ departmentId, setDepartmentId }: DepartmentChooserProps) {
-  useEffect(() => {
-    const selectedDepartment = document.querySelector(`#DepartmentSelector .department[data-id="${departmentId}"]`);
-    selectedDepartment && selectedDepartment.classList.add("selected");
-  }, [departmentId]);
+type DepartmentRow = {
+  id: number;
+  name: Departments;
+  selected: boolean;
+};
 
-  function selectDepartment(id: number) {
+function DepartmentSelector({ departmentId, setDepartmentId }: DepartmentSelectorProps) {
+  const [departments, setDepartments] = useState<DepartmentRow[]>(
+    DEPARTMENTS.map((department: Departments, id): DepartmentRow => {
+      return { id: id, name: department, selected: id === departmentId };
+    })
+  );
+
+  function selectDepartmentHandler(id: number) {
     if (id === departmentId) {
       return;
     }
-    const departments = document.querySelectorAll("#DepartmentSelector .department");
-    departments.forEach((department) => {
-      department.classList.remove("selected");
-    });
+    setDepartments(
+      departments.map((departmentRow): DepartmentRow => {
+        return { ...departmentRow, selected: departmentRow.id === id };
+      })
+    );
     setDepartmentId(id);
   }
 
   return (
     <table id="DepartmentSelector" title="Выбор отделения">
       <tbody>
-        {DEPARTMENTS.map((department: Departments, id) => (
-          <tr className="department" key={id} data-id={id} onClick={() => selectDepartment(id)}>
-            <td>{department}</td>
+        {departments.map(({ id, name, selected }) => (
+          <tr className={selected ? styles.selected : ""} key={id} onClick={() => selectDepartmentHandler(id)}>
+            <td>{name}</td>
           </tr>
         ))}
       </tbody>
