@@ -6,3 +6,8 @@
     align-items: center;
     gap: 0.5em;
 }
+
+.navBar :global(.active) button {
+    background: #304352;
+    color: #fff;
+}

@@ -9,6 +9,7 @@
     margin-bottom: 1em;
     font-size: 0.9em;
     font-weight: bold;
+    border: 1px solid #999999;
 }
 
 .inpatient {

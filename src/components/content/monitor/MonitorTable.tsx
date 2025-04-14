@@ -18,7 +18,7 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
 
   const getSummary = useCallback(() => {
     const dataRepository = new DataRepository();
-    dataRepository.getSummary(department, diaryDate).then(setSummary).catch(console.error);
+    dataRepository.getSummary(department, diaryDate).then(setSummary).catch(console.warn);
   }, [department, diaryDate]);
 
   useEffect(() => {

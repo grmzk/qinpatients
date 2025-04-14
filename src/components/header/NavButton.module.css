@@ -1,4 +1,4 @@
-.NavButton {
+.navButton {
     font-family: inherit;
     font-size: inherit;
     width: 8em;
@@ -9,12 +9,8 @@
     cursor: pointer;
 }
 
-.NavButton:hover {
+.navButton:hover {
     background: #304352;
     color: #fff;
-}
-
-.selected {
-    background: #304352;
-    color: #fff;
+    border: rgba(255, 255, 255, 0.5) solid 1px;
 }

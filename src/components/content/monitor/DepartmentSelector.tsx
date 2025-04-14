@@ -36,7 +36,7 @@ function DepartmentSelector({ departmentId, setDepartmentId }: DepartmentSelecto
   }
 
   return (
-    <table id="DepartmentSelector" title="Выбор отделения">
+    <table title="Выбор отделения">
       <tbody>
         {departments.map(({ id, name, selected }) => (
           <tr className={selected ? styles.selected : ""} key={id} onClick={() => selectDepartmentHandler(id)}>
