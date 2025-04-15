@@ -1,10 +1,13 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
+import { DataRepository } from "../../repositories/DataRepository";
 import NavBar from "./NavBar";
 
 import styles from "./Header.module.css";
 
 function Header() {
+  DataRepository.navigate = useNavigate();
+
   return (
     <>
       <header className={styles.header}>

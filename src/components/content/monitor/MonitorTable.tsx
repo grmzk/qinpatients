@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../../configs/constants";
-import DataRepository from "../../../repositories/DataRepository";
+import { getDataRepository } from "../../../repositories/DataRepository";
 import { DateISODate } from "../../../types/DateISOStrings";
 import Departments from "../../../types/Departments";
 import Summary from "../../../types/Summary";
@@ -17,8 +17,7 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
   const [summary, setSummary] = useState<Summary[]>([]);
 
   const getSummary = useCallback(() => {
-    const dataRepository = new DataRepository();
-    dataRepository.getSummary(department, diaryDate).then(setSummary).catch(console.warn);
+    getDataRepository().getSummary(department, diaryDate).then(setSummary).catch(console.warn);
   }, [department, diaryDate]);
 
   useEffect(() => {
