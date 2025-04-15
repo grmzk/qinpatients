@@ -1,17 +1,27 @@
 import { NavLink } from "react-router";
 
-import NavButton from "./NavButton";
+import { useAuth } from "../../providers/AuthProvider";
+import { getDataRepository } from "../../repositories/DataRepository";
 
 import styles from "./NavBar.module.css";
 
 function NavBar() {
+  const { token } = useAuth();
+
+  function handleLogoutClick() {
+    getDataRepository()
+      .logout()
+      .then(() => {})
+      .catch(console.error);
+  }
+
   return (
     <div className={styles.navBar}>
       <NavLink to="">
-        <NavButton>Монитор</NavButton>
+        <button>Монитор</button>
       </NavLink>
       <NavLink to="login">
-        <NavButton>Вход</NavButton>
+        {token ? <button onClick={() => handleLogoutClick()}>Выход</button> : <button>Вход</button>}
       </NavLink>
     </div>
   );

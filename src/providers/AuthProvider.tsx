@@ -17,7 +17,7 @@ const initialValue: ContextValue = {
 
 const AuthContext: Context<ContextValue> = createContext(initialValue);
 
-const AuthProvider = ({ children }: AuthContextProps) => {
+function AuthProvider({ children }: AuthContextProps) {
   const [token, setToken_] = useState(localStorage.getItem("token"));
 
   const setToken = (newToken: string) => {
@@ -38,7 +38,6 @@ const AuthProvider = ({ children }: AuthContextProps) => {
 
   useEffect(() => {
     if (token) {
-      console.log(token);
       axios.defaults.headers.common["Authorization"] = `Token ${token}`;
       localStorage.setItem("token", token);
     } else {
@@ -56,7 +55,7 @@ const AuthProvider = ({ children }: AuthContextProps) => {
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
-};
+}
 
 export const useAuth = () => {
   return useContext(AuthContext);

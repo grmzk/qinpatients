@@ -17,6 +17,10 @@ class DataRepository {
   async login(username: string, password: string) {
     return await this.adapter.post("/auth/token/login/", { username, password });
   }
+
+  async logout() {
+    return await this.adapter.post("/auth/token/logout/", {});
+  }
 }
 
 export default getDataRepository();
