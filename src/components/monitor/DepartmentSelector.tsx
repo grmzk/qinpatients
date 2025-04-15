@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { DEPARTMENTS } from "../../../configs/constants";
-import Departments from "../../../types/Departments";
+import { DEPARTMENTS } from "../../configs/constants";
+import Departments from "../../types/Departments";
 
 import styles from "./DepartmentSelector.module.css";
 

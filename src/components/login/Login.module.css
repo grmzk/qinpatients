@@ -1,4 +1,4 @@
-.loginCard, .title {
+.loginForm, .title, .warning {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,38 +16,41 @@
     margin-bottom: 1em;
 }
 
-/*form.loginCard button {*/
-/*    margin: 0.25em;*/
-/*    width: 5em;*/
-/*    font-family: inherit;*/
-/*    border-radius: 0;*/
-/*}*/
+.warning {
+    margin-top: 1em;
+    font-weight: normal;
+    color: red;
+}
 
-.loginCard form {
+.loginForm form {
     width: 100%;
     margin: 1em auto;
 }
 
-.loginCard form ul {
+.loginForm form ul {
     list-style-type: none;
 }
 
-.loginCard form label,
-.loginCard form input {
+.loginForm form label,
+.loginForm form input {
     display: inline-block;
 }
 
-.loginCard form label {
+.loginForm form label {
     width: 30%;
     text-align: right;
 }
 
-.loginCard form label+input {
+.loginForm form label+input {
     width: 50%;
     margin: 0 10% 0.5em 5%;
+    font-family: inherit;
+    font-size: 1em;
+    padding: 0.15em 0.25em;
+    border: none;
 }
 
-.loginCard form button {
+.loginForm form button {
     font-family: inherit;
     font-size: 1em;
     padding: 0.2em 1.5em;
@@ -58,7 +61,7 @@
     cursor: pointer;
 }
 
-.loginCard form button:hover {
+.loginForm form button:hover {
     background: #304352;
     color: #fff;
     border: rgba(255, 255, 255, 0.5) solid 1px;

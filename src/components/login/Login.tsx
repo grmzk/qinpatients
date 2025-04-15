@@ -1,8 +1,10 @@
+import { AxiosError } from "axios";
 import { FormEvent, useEffect, useState } from "react";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
-import { getDataRepository } from "../../../repositories/DataRepository";
-import CommonContentLayout from "../../layouts/CommonContentLayout";
+import { useAuth } from "../../providers/AuthProvider";
+import { getDataRepository } from "../../repositories/DataRepository";
+import CommonContentLayout from "../layouts/CommonContentLayout";
 
 import styles from "./Login.module.css";
 
@@ -10,21 +12,31 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [incorrect, setIncorrect] = useState(false);
   const navigate = useNavigate();
+  const { setToken } = useAuth();
 
   useEffect(() => {
+    setIncorrect(false);
+
     if (!submitted) {
       return;
     }
 
-    function authSuccess({ auth_token }: { auth_token: string }) {
-      getDataRepository(auth_token);
-      navigate("/", { relative: "path" });
+    function handleAuthSuccess({ auth_token }: { auth_token: string }) {
+      setToken(auth_token);
+      navigate("/", { relative: "path", replace: true });
     }
 
-    getDataRepository().login(username, password).then(authSuccess).catch(console.error);
+    function handleError(err: AxiosError) {
+      if (err.status === 400) {
+        setIncorrect(true);
+      }
+    }
+
+    getDataRepository().login(username, password).then(handleAuthSuccess).catch(handleError);
     setSubmitted(false);
-  }, [submitted, username, password, navigate]);
+  }, [submitted, username, password, navigate, setToken]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -34,7 +46,7 @@ function Login() {
   return (
     <CommonContentLayout>
       <div className={styles.title}>{"Авторизация".toUpperCase()}</div>
-      <div className={styles.loginCard}>
+      <div className={styles.loginForm}>
         <form onSubmit={handleSubmit}>
           <ul>
             <li>
@@ -63,6 +75,7 @@ function Login() {
           </ul>
         </form>
       </div>
+      {incorrect && <div className={styles.warning}>Введен неправильный логин или пароль</div>}
     </CommonContentLayout>
   );
 }
