@@ -38,9 +38,10 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
 
   return (
     <div className={styles.dateSelectorContainer}>
-      <label>
+      <label htmlFor="diaryDate">
         Дата дежурства:&nbsp;
         <input
+          id="diaryDate"
           className={styles.diaryDateInput}
           type="date"
           value={diaryDate}

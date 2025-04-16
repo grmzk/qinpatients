@@ -6,12 +6,14 @@ import { getDataRepository } from "../../repositories/DataRepository";
 import styles from "./NavBar.module.css";
 
 function NavBar() {
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
 
-  function handleLogoutClick() {
-    getDataRepository()
+  async function handleLogoutClick() {
+    await getDataRepository()
       .logout()
-      .then(() => {})
+      .then(() => {
+        setToken(null);
+      })
       .catch(console.error);
   }
 

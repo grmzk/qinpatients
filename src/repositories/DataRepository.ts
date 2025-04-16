@@ -10,16 +10,20 @@ export function getDataRepository(): DataRepository {
 class DataRepository {
   private adapter: ApiAdapter = new ApiAdapter(BASE_URL);
 
-  async getSummary(department: Departments, date: DateISODate) {
-    return await this.adapter.get(`/get_summary?department=${department}&date=${date}`);
+  async logout() {
+    return await this.adapter.post("/auth/token/logout/", {});
   }
 
   async login(username: string, password: string) {
     return await this.adapter.post("/auth/token/login/", { username, password });
   }
 
-  async logout() {
-    return await this.adapter.post("/auth/token/logout/", {});
+  async getSummary(department: Departments, date: DateISODate) {
+    return await this.adapter.get(`/get_summary?department=${department}&date=${date}`);
+  }
+
+  async getPatientInfo(patientId: number) {
+    return await this.adapter.get(`/get_patient?patient_id=${patientId}`);
   }
 }
 

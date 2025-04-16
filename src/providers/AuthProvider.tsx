@@ -7,22 +7,18 @@ type AuthContextProps = {
 
 type ContextValue = {
   token: string | null;
-  setToken: (newToken: string) => void;
+  setToken: (newToken: string | null) => void;
 };
 
 const initialValue: ContextValue = {
   token: null,
-  setToken: (newToken: string) => {},
+  setToken: (newToken: string | null) => {},
 };
 
 const AuthContext: Context<ContextValue> = createContext(initialValue);
 
 function AuthProvider({ children }: AuthContextProps) {
-  const [token, setToken_] = useState(localStorage.getItem("token"));
-
-  const setToken = (newToken: string) => {
-    setToken_(newToken);
-  };
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   axios.interceptors.response.use(
     (response) => {
@@ -30,7 +26,7 @@ function AuthProvider({ children }: AuthContextProps) {
     },
     (error) => {
       if (error.response && error.response.status === 401) {
-        setToken_(null);
+        setToken(null);
       }
       return Promise.reject(error);
     }
