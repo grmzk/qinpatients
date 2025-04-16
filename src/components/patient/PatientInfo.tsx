@@ -1,41 +1,32 @@
-import { useEffect, useState } from "react";
-
-import { getDataRepository } from "../../repositories/DataRepository";
-import PatientTextInfo from "../../types/PatientTextInfo";
+import PatientInfoResponse from "../../types/PatientInfoResponse";
 
 import styles from "./PatientInfo.module.css";
 
 type PatientInfoProps = {
-  patientId: number;
+  patientInfo: PatientInfoResponse | undefined;
 };
 
-function PatientInfo({ patientId }: PatientInfoProps) {
-  const [info, setInfo] = useState<PatientTextInfo>();
-
-  useEffect(() => {
-    getDataRepository().getPatientInfo(patientId).then(setInfo).catch(console.warn);
-  }, [patientId]);
-
+function PatientInfo({ patientInfo }: PatientInfoProps) {
   return (
     <div className={styles.card}>
-      {info ? (
+      {patientInfo ? (
         <>
           <div className={styles.title}>Ф. И. О.</div>
-          <div className={styles.info}>{info.full_name}</div>
+          <div className={styles.info}>{patientInfo.full_name}</div>
           <hr />
           <div className={styles.title}>Дата рождения</div>
           <div className={styles.info}>
-            {info.birthday} ({info.age})
+            {patientInfo.birthday} ({patientInfo.age})
           </div>
           <hr />
           <div className={styles.title}>Адрес</div>
-          <div className={styles.info}>{info.address}</div>
+          <div className={styles.info}>{patientInfo.address}</div>
           <hr />
           <div className={styles.title}>Работа</div>
-          <div className={styles.info}>{info.workplace}</div>
+          <div className={styles.info}>{patientInfo.workplace}</div>
           <hr />
           <div className={styles.title}>Дополнительная информация</div>
-          <div className={styles.info}>{info.extra_info}</div>
+          <div className={styles.info}>{patientInfo.extra_info}</div>
         </>
       ) : (
         <div className={styles.loading}>Загрузка данных</div>

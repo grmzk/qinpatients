@@ -1,4 +1,4 @@
-type PatientTextInfo = {
+type PatientInfoResponse = {
   patient_id: number;
   full_name: string;
   birthday: string;
@@ -8,4 +8,4 @@ type PatientTextInfo = {
   extra_info: string;
 };
 
-export default PatientTextInfo;
+export default PatientInfoResponse;

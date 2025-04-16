@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { DEFAULT_DEPARTMENT, DEPARTMENTS } from "../../configs/constants";
+import { DEFAULT_DEPARTMENT } from "../../configs/config";
+import DEPARTMENTS from "../../constants/departments";
 import { DateISODate } from "../../types/DateISOStrings";
 import { getDiaryToday } from "../../utils/getDiaryIsoDate";
 import MainContentLayout from "../layouts/MainContentLayout";

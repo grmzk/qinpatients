@@ -1,6 +1,3 @@
-// const BASE_URL = "http://192.168.230.128/api";
-const BASE_URL = "http://localhost:8000/api";
-
 const DEPARTMENTS = [
   "ТРАВМАТОЛОГИЯ",
   "НЕЙРОХИРУРГИЯ",
@@ -19,8 +16,4 @@ const DEPARTMENTS = [
   "ВСЕ ОТДЕЛЕНИЯ",
 ] as const;
 
-const DEFAULT_DEPARTMENT = DEPARTMENTS.indexOf("ТРАВМАТОЛОГИЯ") || 0;
-const DATE_INPUT_DELAY = 500;
-const SUMMARY_UPDATE_INTERVAL = 15 * 1000;
-
-export { BASE_URL, DEPARTMENTS, DEFAULT_DEPARTMENT, DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL };
+export default DEPARTMENTS;

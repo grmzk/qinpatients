@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../configs/constants";
+import { DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../configs/config";
 import { getDataRepository } from "../../repositories/DataRepository";
 import { DateISODate } from "../../types/DateISOStrings";
 import Departments from "../../types/Departments";
-import Summary from "../../types/Summary";
+import SummaryResponse from "../../types/SummaryResponse";
 import Table from "../common/Table";
 
 import styles from "../common/Table.module.css";
@@ -16,7 +16,7 @@ type MonitorTableProps = {
 };
 
 function MonitorTable({ department, diaryDate }: MonitorTableProps) {
-  const [summary, setSummary] = useState<Summary[]>([]);
+  const [summary, setSummary] = useState<SummaryResponse[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -32,9 +32,14 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
     "Время обследования / результат",
   ];
 
-  const getSummary = useCallback(async () => {
-    await getDataRepository().getSummary(department, diaryDate).then(setSummary).catch(console.warn);
-    setIsLoading(false);
+  const getSummary = useCallback(() => {
+    getDataRepository()
+      .getSummary(department, diaryDate)
+      .then((response) => {
+        setSummary(response);
+        setIsLoading(false);
+      })
+      .catch(console.warn);
   }, [department, diaryDate]);
 
   useEffect(() => {

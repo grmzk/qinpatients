@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2024",
+    "target": "es2022",
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,7 +20,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "typeRoots": ["./src/types"],
-    "types": ["css-modules"]
   },
   "include": [
     "src"
