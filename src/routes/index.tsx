@@ -23,6 +23,10 @@ function AuthRoutes() {
           Component: NotFound,
         },
         {
+          path: "*",
+          Component: NotFound,
+        },
+        {
           // Routes for authenticated users only
           Component: ProtectedRoute,
           children: [
