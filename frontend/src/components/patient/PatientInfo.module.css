@@ -1,0 +1,32 @@
+.card {
+    display: block;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    padding: 1em 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #999999;
+    font-family: inherit;
+    text-align: center;
+}
+
+.title {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 0.15em;
+}
+
+.info {
+    font-size: 0.8em;
+}
+
+.card hr {
+    margin: 0.25em 0;
+}
+
+.loading {
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 0.15em;
+}

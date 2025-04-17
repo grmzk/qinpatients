@@ -1,0 +1,22 @@
+.contentContainer {
+    display: grid;
+    grid-template-columns: 10fr 90fr;
+    grid-auto-rows: auto;
+    grid-auto-columns: auto;
+    gap: 1em;
+}
+
+.stickyPanel {
+    align-self: start;
+    position: sticky;
+    top: 5.09em;
+}
+
+@media (max-width: 900px) {
+    .contentContainer {
+        grid-template-columns: 1fr;
+    }
+    .stickyPanel {
+        position: static;
+    }
+}

@@ -1,0 +1,30 @@
+.navBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.navBar button {
+    font-family: inherit;
+    font-size: inherit;
+    width: 8em;
+    padding: 0.5em;
+    border: rgba(0, 0, 0, 0.05) solid 1px;
+    color: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.navBar button:hover {
+    background: #304352;
+    color: #fff;
+    border: rgba(255, 255, 255, 0.5) solid 1px;
+}
+
+.navBar :global(.active) button {
+    background: #304352;
+    color: #fff;
+}
