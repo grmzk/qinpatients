@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
+import { PATIENT_INFO_UPDATE_INTERVAL } from "../../configs/config";
 import { getDataRepository } from "../../repositories/DataRepository";
 import PatientHistoryResponse from "../../types/PatientHistoryResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
@@ -18,19 +19,26 @@ function Patient() {
     navigate("/notfound", { replace: true });
   }
 
-  useEffect(() => {
+  const getPatientHistory = useCallback(() => {
     if (!patientId) {
+      setIsLoading(false);
       return;
     }
-    setIsLoading(true);
     getDataRepository()
       .getPatientHistory(+patientId)
-      .then((response) => {
-        setResponse(response);
-        setIsLoading(false);
-      })
-      .catch(console.warn);
+      .then(setResponse)
+      .catch(console.warn)
+      .finally(() => setIsLoading(false));
   }, [patientId]);
+
+  useEffect(() => {
+    let intervalId = setTimeout(function call() {
+      getPatientHistory();
+      intervalId = setTimeout(call, PATIENT_INFO_UPDATE_INTERVAL);
+    });
+    setIsLoading(true);
+    return () => clearInterval(intervalId);
+  }, [patientId, getPatientHistory]);
 
   return (
     <MainContentLayout>
