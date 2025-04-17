@@ -11,4 +11,6 @@ RUN pip3 install -r requirements.txt --no-cache-dir
 COPY ./ .
 RUN dpkg -i extra_files/libfbclient-2.1.3/*.deb
 
-CMD ["gunicorn", "qinpatients.wsgi:application", "--bind", "0:80" ]
+RUN python3 manage.py collectstatic
+
+CMD gunicorn qinpatients.wsgi:application --bind "0:8000" --access-logfile "-" --error-logfile "-"

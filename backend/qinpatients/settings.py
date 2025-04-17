@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'https://qinpatients.m4site.ru',
     'http://localhost:8000',
+    'http://backend:8000'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
