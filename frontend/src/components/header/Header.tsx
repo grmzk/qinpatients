@@ -9,7 +9,7 @@ function Header() {
     <>
       <header className={styles.header}>
         <div className={styles.brand}>
-          <img className={styles.logo} src="./img/qinpatients-logo.png" alt="logo" />
+          <img className={styles.logo} src="/img/qinpatients-logo.png" alt="logo" />
           <h1 className={styles.title}>QInPatients</h1>
         </div>
         <NavBar />

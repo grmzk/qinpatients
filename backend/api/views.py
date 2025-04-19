@@ -46,7 +46,10 @@ class GetPatientView(APIView):
         patient_id = request.query_params.get('patient_id')
         if not patient_id:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        data = get_patient(patient_id).as_dict()
+        patient = get_patient(patient_id)
+        if not patient:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        data = patient.as_dict()
         return Response(data=data, status=status.HTTP_200_OK)
 
 
@@ -65,6 +68,8 @@ class GetPatientHistoryView(APIView):
         if not patient_id:
             return Response(status=status.HTTP_404_NOT_FOUND)
         history = get_history(patient_id)
+        if not history:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         data = {'patient': history['patient'].as_dict(),
                 'history': [case_disease.as_dict()
                             for case_disease in history['history']]}

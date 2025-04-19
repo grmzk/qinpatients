@@ -130,7 +130,7 @@ def get_address(address_id: int) -> str:    # noqa: C901
     return address.removesuffix(', ').strip().upper()
 
 
-def get_patient(patient_id: int) -> Patient:
+def get_patient(patient_id: int) -> Patient | None:
     select_query = (
         "SELECT pacient.id, "
         "       pacient.fm, "
@@ -146,13 +146,18 @@ def get_patient(patient_id: int) -> Patient:
         "WHERE "
         "   pacient.id = ?"
     )
-    patient_data = list(fb_select_data(select_query, [patient_id])[0])
+    response = fb_select_data(select_query, [patient_id])
+    if not response:
+        return None
+    patient_data = list(response[0])
     patient_data[6] = get_address(patient_data[6])
     return Patient(*patient_data)
 
 
-def get_history(patient_id: int) -> dict:
+def get_history(patient_id: int) -> dict | None:
     patient = get_patient(patient_id)
+    if not patient:
+        return None
     select_query = (
         "SELECT main_card.id, "
         "       main_card.d_in, "

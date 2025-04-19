@@ -27,9 +27,14 @@ function Patient() {
     getDataRepository()
       .getPatientHistory(+patientId)
       .then(setResponse)
-      .catch(console.warn)
+      .catch((error) => {
+        if (error.status === 404) {
+          navigate("/notfound", { replace: true });
+        }
+        console.warn(error);
+      })
       .finally(() => setIsLoading(false));
-  }, [patientId]);
+  }, [patientId, navigate]);
 
   useEffect(() => {
     let intervalId = setTimeout(function call() {

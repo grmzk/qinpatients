@@ -1,7 +1,7 @@
 import DEPARTMENTS from "../constants/departments";
 
-const BASE_URL = "http://localhost:8000/api";
-// const BASE_URL = "https://qinpatients.m4site.ru/api";
+// const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://qinpatients.m4site.ru/api";
 
 const DEFAULT_DEPARTMENT = DEPARTMENTS.indexOf("ТРАВМАТОЛОГИЯ") || 0;
 

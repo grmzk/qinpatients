@@ -1,21 +1,18 @@
 import axios from "axios";
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
 
+import AuthContextValue from "../types/AuthContextValue";
+
 type AuthContextProps = {
   children: ReactNode;
 };
 
-type ContextValue = {
-  token: string | null;
-  setToken: (newToken: string | null) => void;
-};
-
-const initialValue: ContextValue = {
-  token: null,
+const initialValue: AuthContextValue = {
+  token: localStorage.getItem("token"),
   setToken: (newToken: string | null) => {},
 };
 
-const AuthContext: Context<ContextValue> = createContext(initialValue);
+const AuthContext: Context<AuthContextValue> = createContext(initialValue);
 
 function AuthProvider({ children }: AuthContextProps) {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -25,7 +22,7 @@ function AuthProvider({ children }: AuthContextProps) {
       return response;
     },
     (error) => {
-      if (error.response && error.response.status === 401) {
+      if (error.status === 401) {
         setToken(null);
       }
       return Promise.reject(error);
@@ -42,7 +39,7 @@ function AuthProvider({ children }: AuthContextProps) {
     }
   }, [token]);
 
-  const contextValue: ContextValue = useMemo(
+  const contextValue: AuthContextValue = useMemo(
     () => ({
       token,
       setToken,

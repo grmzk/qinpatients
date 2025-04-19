@@ -1,9 +1,9 @@
 @font-face {
   font-family: "PT Astra Serif";
-  src: url(../public/fonts/pt-astra-serif_regular.ttf),
-       url(../public/fonts/pt-astra-serif_italic.ttf),
-       url(../public/fonts/pt-astra-serif_bold.ttf),
-       url(../public/fonts/pt-astra-serif_bold-italic.ttf);
+  src: url(/public/fonts/pt-astra-serif_regular.ttf),
+       url(/public/fonts/pt-astra-serif_italic.ttf),
+       url(/public/fonts/pt-astra-serif_bold.ttf),
+       url(/public/fonts/pt-astra-serif_bold-italic.ttf);
 }
 
 * {
