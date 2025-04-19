@@ -47,7 +47,10 @@ class CaseDisease:
 
     def is_processing(self) -> bool:
         if (self.is_reanimation()
-                and ((self.admission_date + timedelta(hours=2, minutes=30))
+                and (self.admission_diagnosis and self.is_inpatient())):
+            return False
+        if (self.is_reanimation()
+                and ((self.admission_date + timedelta(hours=2))
                      > datetime.now())):
             return True
         return self.status == STATUS_PROCESSING
