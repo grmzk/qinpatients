@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 
-import { useAuth } from "../../providers/AuthProvider";
+import { useAuth } from "../../contexts/AuthContextProvider";
 import { getDataRepository } from "../../repositories/DataRepository";
 
 import styles from "./NavBar.module.css";

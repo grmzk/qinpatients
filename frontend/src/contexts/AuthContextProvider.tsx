@@ -3,7 +3,7 @@ import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useS
 
 import AuthContextValue from "../types/AuthContextValue";
 
-type AuthContextProps = {
+type AuthContextProviderProps = {
   children: ReactNode;
 };
 
@@ -14,7 +14,7 @@ const initialValue: AuthContextValue = {
 
 const AuthContext: Context<AuthContextValue> = createContext(initialValue);
 
-function AuthProvider({ children }: AuthContextProps) {
+function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
   axios.interceptors.response.use(
@@ -54,4 +54,4 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-export default AuthProvider;
+export default AuthContextProvider;

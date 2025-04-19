@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { useAuth } from "../../providers/AuthProvider";
+import { useAuth } from "../../contexts/AuthContextProvider";
 import { getDataRepository } from "../../repositories/DataRepository";
 import CommonContentLayout from "../layouts/CommonContentLayout";
 

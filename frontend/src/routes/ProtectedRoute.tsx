@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router";
 
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "../contexts/AuthContextProvider";
 
 function ProtectedRoute() {
   const { token } = useAuth();

@@ -1,4 +1,5 @@
-import AuthProvider from "./providers/AuthProvider";
+import AuthContextProvider from "./contexts/AuthContextProvider";
+import MonitorContextProvider from "./contexts/MonitorContextProvider";
 import AuthRoutes from "./routes";
 
 import styles from "./App.module.css";
@@ -6,9 +7,11 @@ import styles from "./App.module.css";
 function App() {
   return (
     <div className={styles.App}>
-      <AuthProvider>
-        <AuthRoutes />
-      </AuthProvider>
+      <AuthContextProvider>
+        <MonitorContextProvider>
+          <AuthRoutes />
+        </MonitorContextProvider>
+      </AuthContextProvider>
     </div>
   );
 }
