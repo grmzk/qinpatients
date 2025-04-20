@@ -76,7 +76,9 @@ def get_summary(start_date: date, department: str) -> list[dict]:
         if (((department == 'РЕАН. ЗАЛ')
              and not case_disease.is_reanimation())
                 or ((department not in ['ВСЕ ОТДЕЛЕНИЯ', 'РЕАН. ЗАЛ'])
-                    and (case_disease.department != department))):
+                    and (department
+                         not in [case_disease.department,
+                                    case_disease.inpatient_department]))):
             continue
         if case_disease.is_processing() and start_date == get_diary_today():
             summary.append(item)
