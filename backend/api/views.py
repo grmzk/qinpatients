@@ -4,7 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .bsmp1_db.firebird_db_queries import get_history, get_patient, get_summary
+from .bsmp1_db.firebird_db_queries import (get_history, get_patient,
+                                           get_summary, search)
 
 
 class GetSummaryView(APIView):
@@ -73,4 +74,41 @@ class GetPatientHistoryView(APIView):
         data = {'patient': history['patient'].as_dict(),
                 'history': [case_disease.as_dict()
                             for case_disease in history['history']]}
+        return Response(data=data, status=status.HTTP_200_OK)
+
+
+class SearchView(APIView):
+    """
+        Returns search results.
+        Need url-query params:
+            ?start_date=<date in YYYY-MM-DD format> [required]
+            &end_date=<date in YYYY-MM-DD format>   [required]
+            &family=<family>                        [optional]
+            &name=<name>                            [optional]
+            &surname=<surname>                      [optional]
+    """
+
+    http_method_names = ['get']
+
+    @staticmethod
+    def get(request):
+        if not (request.query_params.get('start_date')
+                and request.query_params.get('end_date')):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        try:
+            start_date = date.fromisoformat(
+                request.query_params.get('start_date')
+            )
+            end_date = date.fromisoformat(request.query_params.get('end_date'))
+        except ValueError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        family = request.query_params.get('family', '').upper()
+        name = request.query_params.get('name', '').upper()
+        surname = request.query_params.get('surname', '').upper()
+        search_result = search(family, name, surname, start_date, end_date)
+        data = [
+            {'patient': item['patient'].as_dict(),
+             'case_disease': item['case_disease'].as_dict()}
+            for item in search_result
+        ]
         return Response(data=data, status=status.HTTP_200_OK)

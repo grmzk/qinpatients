@@ -46,9 +46,7 @@ def get_summary(start_date: date, department: str) -> list[dict]:
         "       ON main_card.id_priem = department.id "
         "   LEFT JOIN priemnic inpatient_department "
         "       ON main_card.id_gotd = inpatient_department.id "
-        "WHERE "
-        "   (main_card.d_in >= ?) "
-        "       AND (main_card.d_in < ?) "
+        "WHERE main_card.d_in BETWEEN ? AND ? "
         "ORDER BY main_card.id"
     )
     summary_data: list
@@ -78,7 +76,7 @@ def get_summary(start_date: date, department: str) -> list[dict]:
                 or ((department not in ['ВСЕ ОТДЕЛЕНИЯ', 'РЕАН. ЗАЛ'])
                     and (department
                          not in [case_disease.department,
-                                    case_disease.inpatient_department]))):
+                                 case_disease.inpatient_department]))):
             continue
         if case_disease.is_processing() and start_date == get_diary_today():
             summary.append(item)
@@ -145,8 +143,7 @@ def get_patient(patient_id: int) -> Patient | None:
         "       pacient.rodst "
         "FROM pacient "
         "   LEFT JOIN rabota ON pacient.id_rab = rabota.id "
-        "WHERE "
-        "   pacient.id = ?"
+        "WHERE pacient.id = ?"
     )
     response = fb_select_data(select_query, [patient_id])
     if not response:
@@ -181,8 +178,7 @@ def get_history(patient_id: int) -> dict | None:
         "   LEFT JOIN priemnic inpatient_department "
         "       ON main_card.id_gotd = inpatient_department.id "
         "   LEFT JOIN doctor ON main_card.amb_doc_id = doctor.doctor_id "
-        "WHERE "
-        "   main_card.id_pac = ? "
+        "WHERE main_card.id_pac = ? "
         "ORDER BY main_card.id"
     )
     history_data = fb_select_data(select_query, [patient_id])
@@ -191,3 +187,48 @@ def get_history(patient_id: int) -> dict | None:
         history.append(CaseDisease(*case_disease_data))
     return {'patient': patient,
             'history': history}
+
+
+def search(family: str, name: str, surname: str,
+           start_date: date, end_date: date) -> list[dict]:
+    select_query = (
+        "SELECT main_card.id_pac, "
+        "       patient.fm, "
+        "       patient.im, "
+        "       patient.ot, "
+        "       patient.dtr, "
+        "       patient.pol, "
+        "       main_card.id, "
+        "       main_card.d_in, "
+        "       main_card.d_out, "
+        "       department.short, "
+        "       main_card.remzal, "
+        "       main_card.dsnapr, "
+        "       main_card.dspriem, "
+        "       main_card.id_dvig, "
+        "       main_card.id_otkaz, "
+        "       inpatient_department.short "
+        "FROM main_card "
+        "   LEFT JOIN pacient patient ON main_card.id_pac = patient.id "
+        "   LEFT JOIN priemnic department "
+        "       ON main_card.id_priem = department.id "
+        "   LEFT JOIN priemnic inpatient_department "
+        "       ON main_card.id_gotd = inpatient_department.id "
+        "WHERE "
+        "   (main_card.d_in BETWEEN ? AND ?) "
+        "       AND (patient.fm LIKE ?) "
+        "       AND (patient.im LIKE ?) "
+        "       AND (patient.ot LIKE ?) "
+        "ORDER BY main_card.id "
+        "ROWS 200"
+    )
+    response = fb_select_data(
+        select_query, [
+            start_date, end_date, family + "%", name + "%", surname + "%"
+        ]
+    )
+    search_result = list()
+    for item in response:
+        search_result.append({'patient': Patient(*item[:6]),
+                              'case_disease': CaseDisease(*item[6:])})
+    return search_result
