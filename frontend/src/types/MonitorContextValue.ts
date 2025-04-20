@@ -1,7 +1,8 @@
 import { DateISODate } from "./DateISOStrings";
+import Departments from "./Departments";
 
 export type MonitorState = {
-  departmentId: number;
+  department: Departments;
   diaryDate: DateISODate;
 };
 

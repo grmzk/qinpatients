@@ -9,7 +9,7 @@ type MonitorContextProviderProps = {
 };
 
 const initialMonitorState: MonitorState = {
-  departmentId: DEFAULT_DEPARTMENT,
+  department: DEFAULT_DEPARTMENT,
   diaryDate: getDiaryToday(),
 };
 

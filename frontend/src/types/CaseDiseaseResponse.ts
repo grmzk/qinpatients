@@ -5,6 +5,7 @@ type CaseDiseaseResponse = {
   department: string;
   diagnosis: string;
   inpatient_id: number;
+  inpatient_department: string;
   doctor: string;
   result: string;
   is_reanimation: boolean;

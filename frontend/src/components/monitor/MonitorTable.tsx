@@ -51,33 +51,43 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
     return () => clearTimeout(timeoutId);
   }, [diaryDate, getSummary]);
 
-  const rows = summary.map(({ patient, case_disease }, index) => {
-    const classList: string[] = [];
-    if (case_disease.is_reanimation) {
-      classList.push(styles.reanimation);
-    } else if (case_disease.is_inpatient) {
-      classList.push(styles.inpatient);
-    }
-    if (!case_disease.is_outcome) {
-      classList.push(styles.processing);
-    }
-    return (
-      <tr
-        className={classList.join(" ")}
-        key={case_disease.card_id}
-        onClick={() => navigate(`/patients/${patient.patient_id}`, { relative: "path" })}
-      >
-        <td>{index + 1}</td>
-        <td>{case_disease.card_id}</td>
-        <td>{patient.full_name}</td>
-        <td>{patient.age}</td>
-        <td>{case_disease.department}</td>
-        <td>{case_disease.diagnosis}</td>
-        <td>{case_disease.admission_date}</td>
-        <td>{case_disease.result}</td>
-      </tr>
-    );
-  });
+  const rows = (function () {
+    let counter = 1;
+
+    return summary.map(({ patient, case_disease }) => {
+      const classList: string[] = [];
+      if (case_disease.is_reanimation) {
+        classList.push(styles.reanimation);
+      } else if (case_disease.is_inpatient) {
+        classList.push(styles.inpatient);
+      }
+      if (!case_disease.is_outcome) {
+        classList.push(styles.processing);
+      }
+      if (!["РЕАН. ЗАЛ", "ВСЕ ОТДЕЛЕНИЯ"].includes(department)) {
+        if (case_disease.is_inpatient && case_disease.inpatient_department !== department) {
+          classList.push(styles.otherDepartment);
+        }
+      }
+      const index = case_disease.department === department ? counter++ : "";
+      return (
+        <tr
+          className={classList.join(" ")}
+          key={case_disease.card_id}
+          onClick={() => navigate(`/patients/${patient.patient_id}`, { relative: "path" })}
+        >
+          <td>{index}</td>
+          <td>{case_disease.card_id}</td>
+          <td>{patient.full_name}</td>
+          <td>{patient.age}</td>
+          <td>{case_disease.department}</td>
+          <td>{case_disease.diagnosis}</td>
+          <td>{case_disease.admission_date}</td>
+          <td>{case_disease.result}</td>
+        </tr>
+      );
+    });
+  })();
 
   return (
     <Table

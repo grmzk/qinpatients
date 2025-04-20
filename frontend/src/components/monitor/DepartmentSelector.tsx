@@ -6,40 +6,39 @@ import Departments from "../../types/Departments";
 import styles from "./DepartmentSelector.module.css";
 
 type DepartmentSelectorProps = {
-  departmentId: number;
-  setDepartmentId: (departmentId: number) => void;
+  selectedDepartment: Departments;
+  setSelectedDepartment: (department: Departments) => void;
 };
 
 type DepartmentRow = {
-  id: number;
   name: Departments;
   selected: boolean;
 };
 
-function DepartmentSelector({ departmentId, setDepartmentId }: DepartmentSelectorProps) {
+function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: DepartmentSelectorProps) {
   const [departments, setDepartments] = useState<DepartmentRow[]>(
-    DEPARTMENTS.map((department: Departments, id): DepartmentRow => {
-      return { id: id, name: department, selected: id === departmentId };
+    DEPARTMENTS.map((department: Departments): DepartmentRow => {
+      return { name: department, selected: department === selectedDepartment };
     })
   );
 
-  function selectDepartmentHandler(id: number) {
-    if (id === departmentId) {
+  function handleSelectDepartment(department: Departments) {
+    if (department === selectedDepartment) {
       return;
     }
     setDepartments(
       departments.map((departmentRow): DepartmentRow => {
-        return { ...departmentRow, selected: departmentRow.id === id };
+        return { ...departmentRow, selected: departmentRow.name === department };
       })
     );
-    setDepartmentId(id);
+    setSelectedDepartment(department);
   }
 
   return (
     <table title="Выбор отделения">
       <tbody>
-        {departments.map(({ id, name, selected }) => (
-          <tr className={selected ? styles.selected : ""} key={id} onClick={() => selectDepartmentHandler(id)}>
+        {departments.map(({ name, selected }, index) => (
+          <tr className={selected ? styles.selected : ""} key={index} onClick={() => handleSelectDepartment(name)}>
             <td>{name}</td>
           </tr>
         ))}

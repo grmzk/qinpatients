@@ -94,6 +94,7 @@ class CaseDisease:
             'department': self.department,
             'diagnosis': self.get_diagnosis(),
             'inpatient_id': self.get_inpatient_id(),
+            'inpatient_department': self.inpatient_department or '',
             'doctor': self.get_doctor(),
             'result': self.get_result(),
             'is_reanimation': self.is_reanimation(),

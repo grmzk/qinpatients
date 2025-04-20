@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import DEPARTMENTS from "../../constants/departments";
 import { useMonitorContext } from "../../contexts/MonitorContextProvider";
 import { DateISODate } from "../../types/DateISOStrings";
+import Departments from "../../types/Departments";
 import MainContentLayout from "../layouts/MainContentLayout";
 import DateSelector from "./DateSelector";
 import DepartmentSelector from "./DepartmentSelector";
@@ -10,20 +10,20 @@ import MonitorTable from "./MonitorTable";
 
 function Monitor() {
   const { monitorState, setMonitorState } = useMonitorContext();
-  const [departmentId, setDepartmentId] = useState(monitorState.departmentId);
+  const [department, setDepartment] = useState<Departments>(monitorState.department);
   const [diaryDate, setDiaryDate] = useState<DateISODate>(monitorState.diaryDate);
 
   useEffect(() => {
-    setMonitorState({ departmentId, diaryDate });
-  }, [departmentId, diaryDate, setMonitorState]);
+    setMonitorState({ department, diaryDate });
+  }, [department, diaryDate, setMonitorState]);
 
   return (
     <MainContentLayout>
       <>
         <DateSelector diaryDate={diaryDate} setDiaryDate={setDiaryDate} />
-        <DepartmentSelector departmentId={departmentId} setDepartmentId={setDepartmentId} />
+        <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} />
       </>
-      <MonitorTable department={DEPARTMENTS[departmentId]} diaryDate={diaryDate} />
+      <MonitorTable department={department} diaryDate={diaryDate} />
     </MainContentLayout>
   );
 }

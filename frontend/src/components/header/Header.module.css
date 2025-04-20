@@ -6,7 +6,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    width: 100%;
+    width: auto;
     padding: 0.5em 0;
     background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
     gap: 1em;
@@ -34,4 +34,10 @@
     font-weight: bold;
     text-shadow: black 1px 1px 1px;
     color: #5a6771;
+}
+
+@media (max-width: 900px) {
+    .header {
+        position: static;
+    }
 }
