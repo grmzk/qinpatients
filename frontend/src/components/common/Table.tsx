@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
 
+import Loader from "./Loader";
+
 import styles from "./Table.module.css";
 
 type TableProps = {
@@ -16,7 +18,9 @@ function Table({ title, headTitles, rows, helpMessage, noDataMessage, isLoading 
     <div>
       <div className={styles.title}>{title}</div>
       {isLoading ? (
-        <div className={styles.title}>ЗАГРУЗКА ДАННЫХ</div>
+        <div className={styles.loading}>
+          <Loader />
+        </div>
       ) : rows.length ? (
         <table>
           <thead>

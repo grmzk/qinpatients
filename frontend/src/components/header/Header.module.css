@@ -9,7 +9,7 @@
     width: auto;
     padding: 0.5em 0;
     background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
-    gap: 1em;
+    gap: 0.5em 0;
 }
 
 .brand {

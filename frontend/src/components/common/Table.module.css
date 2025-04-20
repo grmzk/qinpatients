@@ -1,4 +1,4 @@
-.title {
+.title, .loading {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +10,11 @@
     font-size: 0.9em;
     font-weight: bold;
     border: 1px solid #999999;
+}
+
+.loading {
+    height: 7.5em;
+    background-color: #d7d2cc;
 }
 
 .inpatient {

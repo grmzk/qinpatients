@@ -1,4 +1,5 @@
 import PatientInfoResponse from "../../types/PatientInfoResponse";
+import Loader from "../common/Loader";
 
 import styles from "./PatientInfo.module.css";
 
@@ -29,7 +30,9 @@ function PatientInfo({ patientInfo }: PatientInfoProps) {
           <div className={styles.info}>{patientInfo.extra_info}</div>
         </>
       ) : (
-        <div className={styles.loading}>Загрузка данных</div>
+        <div className={styles.loading}>
+          <Loader />
+        </div>
       )}
     </div>
   );
