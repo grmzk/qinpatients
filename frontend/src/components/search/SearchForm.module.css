@@ -1,0 +1,73 @@
+.searchForm {
+    display: block;
+    background-color: #d7d2cc;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
+    padding: 1em 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #999999;
+    font-family: inherit;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.searchForm form {
+    width: 100%;
+}
+
+.searchForm form ul {
+    list-style-type: none;
+}
+
+.searchForm form > ul > li > label,
+.searchForm form > ul > li > input {
+    display: block;
+}
+
+.searchForm form > ul > li > label {
+    text-align: center;
+    font-weight: bold;
+}
+
+.searchForm input {
+    width: 80%;
+    margin: 0.2em auto;
+    font-family: inherit;
+    font-size: 1em;
+    padding: 0.15em 0.25em;
+    border: none;
+}
+
+.searchForm form button {
+    font-family: inherit;
+    font-size: 1em;
+    padding: 0.2em 1.5em;
+    margin: 0.1em;
+    background: #304352;
+    border: rgba(0, 0, 0, 0.7) solid 1px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.searchForm form button:hover {
+    background: #304352;
+    color: #fff;
+    border: rgba(255, 255, 255, 0.5) solid 1px;
+}
+
+.dateInput > label {
+    text-align: right;
+    font-weight: bold;
+    width: 1.5em;
+    margin-right: 0.5em;
+    display: inline-block;
+}
+
+.dateInput > input {
+    display: inline-block;
+    width: 6.5em;
+    padding: 0 0.2em;
+}
+
+.searchForm hr {
+    margin: 0.5em 0;
+}

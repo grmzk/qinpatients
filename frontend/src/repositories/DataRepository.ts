@@ -1,4 +1,5 @@
 import ApiAdapter from "../adapters/ApiAdapter";
+import DateSelector from "../components/monitor/DateSelector";
 import { BASE_URL } from "../configs/config";
 import { DateISODate } from "../types/DateISOStrings";
 import Departments from "../types/Departments";
@@ -31,6 +32,18 @@ class DataRepository {
 
   async getPatientHistory(patientId: number): Promise<PatientHistoryResponse> {
     return await this.adapter.get(`/get_patient_history?patient_id=${patientId}`);
+  }
+
+  async search(
+    family: string,
+    name: string,
+    surname: string,
+    startDate: DateISODate,
+    endDate: DateISODate
+  ): Promise<SummaryResponse[]> {
+    return await this.adapter.get(
+      `/search?family=${family}&name=${name}&surname=${surname}&start_date=${startDate}&end_date=${endDate}`
+    );
   }
 }
 

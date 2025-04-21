@@ -5,6 +5,7 @@ import Login from "../components/login/Login";
 import Monitor from "../components/monitor/Monitor";
 import NotFound from "../components/notfound/NotFound";
 import Patient from "../components/patient/Patient";
+import Search from "../components/search/Search";
 import ProtectedRoute from "./ProtectedRoute";
 
 function AuthRoutes() {
@@ -42,6 +43,10 @@ function AuthRoutes() {
                   Component: Patient,
                 },
               ],
+            },
+            {
+              path: "search",
+              Component: Search,
             },
           ],
         },

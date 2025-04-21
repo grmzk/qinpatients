@@ -22,6 +22,9 @@ function NavBar() {
       <NavLink to="">
         <button>Монитор</button>
       </NavLink>
+      <NavLink to="search">
+        <button>Поиск</button>
+      </NavLink>
       <NavLink to="login">
         {token ? <button onClick={() => handleLogoutClick()}>Выход</button> : <button>Вход</button>}
       </NavLink>
