@@ -9,15 +9,15 @@ class Patient:
     name: str
     surname: str
     birthday: datetime
-    gender: str
-    address: str = ''
-    workplace: str = ''
-    extra_info: str = ''
+    sex: str
+    workplace: str
+    extra_info: str
+    address: str
 
     def get_full_name(self) -> str:
         full_name = f'{self.family} {self.name} {self.surname}'.strip()
         if not full_name:
-            if self.gender == 'M':
+            if self.sex == 'M':
                 return 'НЕИЗВЕСТНЫЙ'
             return 'НЕИЗВЕСТНАЯ'
         return full_name
@@ -50,10 +50,14 @@ class Patient:
     def as_dict(self, at_date: date = datetime.now().date()) -> dict:
         return {
             'patient_id': self.patient_id,
+            'family': self.family or '',
+            'name': self.name or '',
+            'surname': self.surname or '',
             'full_name': self.get_full_name(),
             'birthday': self.get_birthday(),
             'age': self.get_age(at_date),
+            'sex': self.sex or '',
             'workplace': self.get_workplace(),
-            'address': self.address,
+            'address': self.address or '',
             'extra_info': self.get_extra_info(),
         }
