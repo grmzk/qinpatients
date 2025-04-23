@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .bsmp1_db.firebird_db_queries import (get_history, get_patient,
-                                           get_summary, search)
+from .bsmp1_db.repositories import (get_patient, get_patient_history,
+                                    get_summary, search)
 
 
 class GetSummaryView(APIView):
@@ -68,7 +68,7 @@ class GetPatientHistoryView(APIView):
         patient_id = request.query_params.get('patient_id')
         if not patient_id:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        history = get_history(patient_id)
+        history = get_patient_history(patient_id)
         if not history:
             return Response(status=status.HTTP_404_NOT_FOUND)
         data = {'patient': history['patient'].as_dict(),

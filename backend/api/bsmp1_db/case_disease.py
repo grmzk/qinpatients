@@ -17,8 +17,8 @@ class CaseDisease:
     status: int
     reject: int
     inpatient_department: str
-    inpatient_id: int | None = None
-    doctor: str = ''
+    inpatient_id: int
+    doctor: str
 
     def get_admission_date(self) -> str:
         return self.admission_date.strftime('%d.%m.%Y %H:%M')
@@ -80,9 +80,6 @@ class CaseDisease:
             return 'ДРУГОЙ СТАЦИОНАР'
         return 'НЕИЗВЕСТНО'
 
-    def get_doctor(self) -> str:
-        return self.doctor or ''
-
     def get_inpatient_id(self) -> int | str:
         return self.inpatient_id or ''
 
@@ -92,10 +89,12 @@ class CaseDisease:
             'admission_date': self.get_admission_date(),
             'admission_outcome_date': self.get_admission_outcome_date(),
             'department': self.department,
+            'incoming_diagnosis': self.incoming_diagnosis or '',
+            'admission_diagnosis': self.admission_diagnosis or '',
             'diagnosis': self.get_diagnosis(),
             'inpatient_id': self.get_inpatient_id(),
             'inpatient_department': self.inpatient_department or '',
-            'doctor': self.get_doctor(),
+            'doctor': self.doctor or '',
             'result': self.get_result(),
             'is_reanimation': self.is_reanimation(),
             'is_outcome': self.is_outcome(),
