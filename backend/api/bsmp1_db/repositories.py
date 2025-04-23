@@ -4,7 +4,8 @@ from django.core.cache import cache
 
 from qinpatients.settings import CACHE_TTL_LONG, CACHE_TTL_SHORT
 
-from .adapters import get_from_db
+from .adapters import (get_patient_data, get_patient_history_data,
+                       get_search_data, get_summary_data)
 from .patient import Patient
 from .utils import get_diary_today
 
@@ -18,10 +19,8 @@ def get_summary(start_date: date, department: str) -> list[dict]:
     end_datetime = start_datetime + timedelta(days=1)
     summary_data: list
     if start_date.isoformat() not in cache:
-        summary_data = get_from_db(
-            where='main_card.d_in BETWEEN ? AND ?',
-            order_by='main_card.id',
-            params=[start_datetime - timedelta(days=1), end_datetime]
+        summary_data = get_summary_data(
+            start_datetime - timedelta(days=1), end_datetime
         )
         cache_ttl = CACHE_TTL_SHORT
         if start_date != get_diary_today():
@@ -55,36 +54,20 @@ def get_summary(start_date: date, department: str) -> list[dict]:
 
 
 def get_patient(patient_id: int) -> Patient | None:
-    patient_data = get_from_db(
-        where='main_card.id_pac = ?',
-        order_by='main_card.id DESC',
-        rows=1,
-        params=[patient_id]
-    )
+    patient_data = get_patient_data(patient_id)
     return patient_data[0]['patient'] if patient_data else None
 
 
 def get_patient_history(patient_id: int) -> dict | None:
-    history_data = get_from_db(
-        where='main_card.id_pac = ?',
-        order_by='main_card.id',
-        params=[patient_id]
-    )
+    patient_history_data = get_patient_history_data(patient_id)
     history = list()
-    for item in history_data:
+    for item in patient_history_data:
         history.append(item["case_disease"])
-    return {'patient': history_data[0]["patient"],
+    return {'patient': patient_history_data[0]["patient"],
             'history': history}
 
 
 def search(family: str, name: str, surname: str,
            start_date: date, end_date: date) -> list[dict]:
-    return get_from_db(
-        where='(main_card.d_in BETWEEN ? AND ?) '
-              '     AND (patient.fm LIKE ?) '
-              '     AND (patient.im LIKE ?) '
-              '     AND (patient.ot LIKE ?)',
-        order_by='main_card.id',
-        rows=200,
-        params=[start_date, end_date, family + "%", name + "%", surname + "%"]
-    )
+    return get_search_data(family + "%", name + "%", surname + "%",
+                           start_date, end_date)

@@ -1,3 +1,5 @@
+from datetime import date, datetime, timedelta
+
 from api.bsmp1_db.case_disease import CaseDisease
 from api.bsmp1_db.firebird_db import fb_select_data
 from api.bsmp1_db.patient import Patient
@@ -95,3 +97,45 @@ def get_from_db(where: str, params: [],
         data.append({'patient': patient,
                      'case_disease': CaseDisease(*item[9:])})
     return data
+
+
+def get_summary_data(start_datetime: datetime, end_datetime: datetime) -> list:
+    return get_from_db(
+        where='main_card.d_in BETWEEN ? AND ?',
+        order_by='main_card.id',
+        params=[start_datetime - timedelta(days=1), end_datetime]
+    )
+
+
+def get_patient_data(patient_id: int):
+    return get_from_db(
+        where='main_card.id_pac = ?',
+        order_by='main_card.id',
+        rows=1,
+        params=[patient_id]
+    )
+
+
+def get_patient_history_data(patient_id: int) -> list:
+    return get_from_db(
+        where='main_card.id_pac = ?',
+        order_by='main_card.id',
+        params=[patient_id]
+    )
+
+
+def get_search_data(family: str, name: str, surname: str,
+                    start_date: date, end_date: date) -> list:
+    return get_from_db(
+        where='main_card.id_pac IN ('
+              '         SELECT id '
+              '         FROM pacient '
+              '         WHERE (pacient.fm LIKE ?) '
+              '             AND (pacient.im LIKE ?) '
+              '             AND (pacient.ot LIKE ?)'
+              '     ) '
+              '     AND (main_card.d_in BETWEEN ? AND ?)',
+        order_by='main_card.id',
+        rows=200,
+        params=[family + "%", name + "%", surname + "%", start_date, end_date]
+    )
