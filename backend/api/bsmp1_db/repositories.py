@@ -68,6 +68,6 @@ def get_patient_history(patient_id: int) -> dict | None:
 
 
 def search(family: str, name: str, surname: str,
-           start_date: date, end_date: date) -> list[dict]:
+           start_date: date, end_date: date, department: str) -> list[dict]:
     return get_search_data(family + "%", name + "%", surname + "%",
-                           start_date, end_date)
+                           start_date, end_date, department)

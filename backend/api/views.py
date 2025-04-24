@@ -86,6 +86,7 @@ class SearchView(APIView):
             &family=<family>                        [optional]
             &name=<name>                            [optional]
             &surname=<surname>                      [optional]
+            &department=<department>                [optional]
     """
 
     http_method_names = ['get']
@@ -105,7 +106,9 @@ class SearchView(APIView):
         family = request.query_params.get('family', '').upper()
         name = request.query_params.get('name', '').upper()
         surname = request.query_params.get('surname', '').upper()
-        search_result = search(family, name, surname, start_date, end_date)
+        department = request.query_params.get('department', '').upper()
+        search_result = search(family, name, surname,
+                               start_date, end_date, department)
         data = [
             {'patient': item['patient'].as_dict(),
              'case_disease': item['case_disease'].as_dict()}

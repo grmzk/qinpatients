@@ -125,17 +125,38 @@ def get_patient_history_data(patient_id: int) -> list:
 
 
 def get_search_data(family: str, name: str, surname: str,
-                    start_date: date, end_date: date) -> list:
+                    start_date: date, end_date: date, department: str) -> list:
+    where = (
+        "main_card.id_pac IN ("
+        "         SELECT id "
+        "         FROM pacient "
+        "         WHERE (pacient.fm LIKE ?) "
+        "             AND (pacient.im LIKE ?) "
+        "             AND (pacient.ot LIKE ?)"
+        "     ) "
+        "     AND (main_card.d_in BETWEEN ? AND ?)"
+    )
+    params = [family + "%", name + "%", surname + "%", start_date, end_date]
+
+    if department and department != 'ВСЕ ОТДЕЛЕНИЯ':
+        if department == 'РЕАН. ЗАЛ':
+            where += (
+                " AND (main_card.remzal <> 'F')"
+            )
+        else:
+            where += (
+                " AND (main_card.id_priem IN ("
+                "         SELECT id "
+                "         FROM priemnic "
+                "         WHERE short = ?"
+                "     )"
+                " )"
+            )
+            params.append(department)
+
     return get_from_db(
-        where='main_card.id_pac IN ('
-              '         SELECT id '
-              '         FROM pacient '
-              '         WHERE (pacient.fm LIKE ?) '
-              '             AND (pacient.im LIKE ?) '
-              '             AND (pacient.ot LIKE ?)'
-              '     ) '
-              '     AND (main_card.d_in BETWEEN ? AND ?)',
+        where=where,
         order_by='main_card.id',
         # rows=200,
-        params=[family + "%", name + "%", surname + "%", start_date, end_date]
+        params=params
     )

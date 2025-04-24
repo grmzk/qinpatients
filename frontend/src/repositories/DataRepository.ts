@@ -34,9 +34,9 @@ class DataRepository {
     return await this.adapter.get(`/get_patient_history?patient_id=${patientId}`);
   }
 
-  async search({ family, name, surname, startDate, endDate }: SearchQuery): Promise<SummaryResponse[]> {
+  async search({ family, name, surname, startDate, endDate, department }: SearchQuery): Promise<SummaryResponse[]> {
     return await this.adapter.get(
-      `/search?family=${family}&name=${name}&surname=${surname}&start_date=${startDate}&end_date=${endDate}`
+      `/search?family=${family}&name=${name}&surname=${surname}&start_date=${startDate}&end_date=${endDate}&department=${department}`
     );
   }
 }
