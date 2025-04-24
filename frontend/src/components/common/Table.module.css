@@ -29,6 +29,10 @@
     background-color: white;
 }
 
-.otherDepartment {
+.toOtherDepartment {
+    background-color: #8a8f93;
+}
+
+.fromOtherDepartment {
     background-color: #c2c0bc;
 }

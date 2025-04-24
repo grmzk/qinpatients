@@ -66,10 +66,14 @@ function MonitorTable({ department, diaryDate }: MonitorTableProps) {
       }
       if (!["РЕАН. ЗАЛ", "ВСЕ ОТДЕЛЕНИЯ"].includes(department)) {
         if (case_disease.is_inpatient && case_disease.inpatient_department !== department) {
-          classList.push(styles.otherDepartment);
+          classList.push(styles.toOtherDepartment);
+        }
+        if (case_disease.is_inpatient && case_disease.department !== department) {
+          classList.push(styles.fromOtherDepartment);
         }
       }
-      const index = case_disease.department === department ? counter++ : "";
+      const index =
+        case_disease.department === department || ["РЕАН. ЗАЛ", "ВСЕ ОТДЕЛЕНИЯ"].includes(department) ? counter++ : "";
       return (
         <tr
           className={classList.join(" ")}
