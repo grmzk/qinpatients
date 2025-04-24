@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta
 from api.bsmp1_db.case_disease import CaseDisease
 from api.bsmp1_db.firebird_db import fb_select_data
 from api.bsmp1_db.patient import Patient
-from api.bsmp1_db.utils import get_address_from_array
+from api.bsmp1_db.utils import get_address_from_array, make_uniq_data
 
 
 def get_from_db(where: str, params: [],
@@ -96,7 +96,7 @@ def get_from_db(where: str, params: [],
             )
         data.append({'patient': patient,
                      'case_disease': CaseDisease(*item[9:])})
-    return data
+    return make_uniq_data(data)
 
 
 def get_summary_data(start_datetime: datetime, end_datetime: datetime) -> list:
@@ -136,6 +136,6 @@ def get_search_data(family: str, name: str, surname: str,
               '     ) '
               '     AND (main_card.d_in BETWEEN ? AND ?)',
         order_by='main_card.id',
-        rows=200,
+        # rows=200,
         params=[family + "%", name + "%", surname + "%", start_date, end_date]
     )

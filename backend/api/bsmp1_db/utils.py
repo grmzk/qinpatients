@@ -33,3 +33,14 @@ def get_address_from_array(address_array: list[str]) -> str:   # noqa: C901
     if address_array[9]:
         address += 'кв. ' + address_array[9] + ', '
     return address.removesuffix(', ').strip().upper()
+
+
+def make_uniq_data(data: list[dict]) -> list[dict]:
+    uniq_data = list()
+    ids = list()
+    for item in data:
+        if item['case_disease'].card_id in ids:
+            continue
+        ids.append(item['case_disease'].card_id)
+        uniq_data.append(item)
+    return uniq_data
