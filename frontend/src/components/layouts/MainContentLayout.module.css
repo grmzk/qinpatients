@@ -1,6 +1,6 @@
 .contentContainer {
     display: grid;
-    grid-template-columns: 10fr 90fr;
+    grid-template-columns: 11em auto;
     grid-auto-rows: auto;
     grid-auto-columns: auto;
     gap: 1em;
@@ -8,15 +8,17 @@
 
 .stickyPanel {
     align-self: start;
+    width: 100%;
     position: sticky;
     top: 5.09em;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .contentContainer {
         grid-template-columns: 1fr;
     }
     .stickyPanel {
         position: static;
+        width: 11em;
     }
 }

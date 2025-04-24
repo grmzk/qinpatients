@@ -1,36 +1,38 @@
-import { ChangeEvent, FormEvent } from "react";
+import queryString from "query-string";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
+import Departments from "../../types/Departments";
+import { SearchQuery } from "../../types/SearchQuery";
+import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
+import DepartmentSelector from "../common/DepartmentSelector";
 
 import styles from "./SearchForm.module.css";
 
 type SearchFormProps = {
-  family: string;
-  setFamily: (family: string) => void;
-  name: string;
-  setName: (name: string) => void;
-  surname: string;
-  setSurname: (surname: string) => void;
-  startDate: DateISODate;
-  setStartDate: (startDate: DateISODate) => void;
-  endDate: DateISODate;
-  setEndDate: (endDate: DateISODate) => void;
-  setIsLoading: (isLoading: boolean) => void;
+  searchQuery: SearchQuery;
 };
 
-function SearchForm({
-  family,
-  setFamily,
-  name,
-  setName,
-  surname,
-  setSurname,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-  setIsLoading,
-}: SearchFormProps) {
+function SearchForm({ searchQuery }: SearchFormProps) {
+  const [family, setFamily] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [surname, setSurname] = useState<string>("");
+  const [startDate, setStartDate] = useState<DateISODate>(getDiaryYesterday());
+  const [endDate, setEndDate] = useState<DateISODate>(getDiaryToday());
+  const [department, setDepartment] = useState<Departments>("ВСЕ ОТДЕЛЕНИЯ");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setFamily(searchQuery.family ?? "");
+    setName(searchQuery.name ?? "");
+    setSurname(searchQuery.surname ?? "");
+    setStartDate(searchQuery.startDate ?? getDiaryYesterday());
+    setEndDate(searchQuery.endDate ?? getDiaryToday());
+    setDepartment(searchQuery.department ?? "ВСЕ ОТДЕЛЕНИЯ");
+  }, [searchQuery]);
+
   function handleDateChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     if (isDateISODate(value)) {
@@ -47,12 +49,13 @@ function SearchForm({
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setIsLoading(true);
+    const searchQuery = queryString.stringify({ family, name, surname, department, startDate, endDate });
+    navigate(`?${searchQuery}`);
   }
 
   return (
-    <div className={styles.searchForm}>
-      <form onSubmit={handleSubmit}>
+    <form className={styles.searchForm} onSubmit={handleSubmit}>
+      <div className={styles.searchInputs}>
         <ul>
           <li>
             <label htmlFor="family">Фамилия</label>
@@ -73,20 +76,20 @@ function SearchForm({
             <label htmlFor="startDate">Дата обращения</label>
             <div className={styles.dateInput}>
               <label htmlFor="startDate">с</label>
-              <input type="date" id="startDate" value={startDate} onChange={handleDateChange} />
+              <input type="date" id="startDate" name="startDate" value={startDate} onChange={handleDateChange} />
             </div>
             <div className={styles.dateInput}>
               <label htmlFor="startDate">по</label>
-              <input type="date" id="endDate" value={endDate} onChange={handleDateChange} />
+              <input type="date" id="endDate" name="endDate" value={endDate} onChange={handleDateChange} />
             </div>
           </li>
-          <hr />
-          <li>
-            <button type="submit">Поиск</button>
-          </li>
         </ul>
-      </form>
-    </div>
+      </div>
+      <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} />
+      <div>
+        <button type="submit">Поиск</button>
+      </div>
+    </form>
   );
 }
 

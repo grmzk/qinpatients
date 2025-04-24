@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import DEPARTMENTS from "../../constants/departments";
 import Departments from "../../types/Departments";
@@ -16,11 +16,17 @@ type DepartmentRow = {
 };
 
 function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: DepartmentSelectorProps) {
-  const [departments, setDepartments] = useState<DepartmentRow[]>(
-    DEPARTMENTS.map((department: Departments): DepartmentRow => {
+  const getDepartmentRows = useCallback(() => {
+    return DEPARTMENTS.map((department: Departments): DepartmentRow => {
       return { name: department, selected: department === selectedDepartment };
-    })
-  );
+    });
+  }, [selectedDepartment]);
+
+  const [departments, setDepartments] = useState<DepartmentRow[]>(getDepartmentRows());
+
+  useEffect(() => {
+    setDepartments(getDepartmentRows());
+  }, [getDepartmentRows]);
 
   function handleSelectDepartment(department: Departments) {
     if (department === selectedDepartment) {
@@ -35,7 +41,7 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: Depar
   }
 
   return (
-    <table title="Выбор отделения">
+    <table className={styles.departmentSelector} title="Выбор отделения">
       <tbody>
         {departments.map(({ name, selected }, index) => (
           <tr className={selected ? styles.selected : ""} key={index} onClick={() => handleSelectDepartment(name)}>

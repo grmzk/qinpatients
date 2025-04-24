@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useMonitorContext } from "../../contexts/MonitorContextProvider";
 import { DateISODate } from "../../types/DateISOStrings";
 import Departments from "../../types/Departments";
+import DateSelector from "../common/DateSelector";
+import DepartmentSelector from "../common/DepartmentSelector";
 import MainContentLayout from "../layouts/MainContentLayout";
-import DateSelector from "./DateSelector";
-import DepartmentSelector from "./DepartmentSelector";
 import MonitorTable from "./MonitorTable";
 
 function Monitor() {

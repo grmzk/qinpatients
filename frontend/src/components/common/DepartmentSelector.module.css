@@ -1,3 +1,7 @@
+.departmentSelector {
+    margin-bottom: 1em;
+}
+
 .selected {
     background: #304352;
     color: #fff;
