@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router";
+
 import SummaryResponse from "../../types/SummaryResponse";
 import Table from "../common/Table";
 
@@ -9,6 +11,8 @@ type SearchTableProps = {
 };
 
 function SearchTable({ searchResponse, isLoading }: SearchTableProps) {
+  const navigate = useNavigate();
+
   const headTitles = [
     "№",
     "АСУ",
@@ -33,7 +37,11 @@ function SearchTable({ searchResponse, isLoading }: SearchTableProps) {
           classList.push(styles.processing);
         }
         return (
-          <tr className={classList.join(" ")} key={case_disease.card_id}>
+          <tr
+            className={classList.join(" ")}
+            key={case_disease.card_id}
+            onClick={() => navigate(`/patients/${patient.patient_id}`, { relative: "path" })}
+          >
             <td>{index + 1}</td>
             <td>{case_disease.card_id}</td>
             <td>{patient.full_name}</td>

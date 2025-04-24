@@ -2,7 +2,7 @@ import queryString from "query-string";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
+import { DEFAULT_DEPARTMENT, MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
 import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
 import Departments from "../../types/Departments";
 import { SearchQuery } from "../../types/SearchQuery";
@@ -21,7 +21,7 @@ function SearchForm({ searchQuery }: SearchFormProps) {
   const [surname, setSurname] = useState<string>("");
   const [startDate, setStartDate] = useState<DateISODate>(getDiaryYesterday());
   const [endDate, setEndDate] = useState<DateISODate>(getDiaryToday());
-  const [department, setDepartment] = useState<Departments>("ВСЕ ОТДЕЛЕНИЯ");
+  const [department, setDepartment] = useState<Departments>(DEFAULT_DEPARTMENT);
   const [warning, setWarning] = useState<string>("");
 
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function SearchForm({ searchQuery }: SearchFormProps) {
     setSurname(searchQuery.surname ?? "");
     setStartDate(searchQuery.startDate ?? getDiaryYesterday());
     setEndDate(searchQuery.endDate ?? getDiaryToday());
-    setDepartment(searchQuery.department ?? "ВСЕ ОТДЕЛЕНИЯ");
+    setDepartment(searchQuery.department ?? DEFAULT_DEPARTMENT);
   }, [searchQuery]);
 
   function handleDateChange(e: ChangeEvent<HTMLInputElement>) {
