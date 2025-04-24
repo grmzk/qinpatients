@@ -2,6 +2,7 @@ import queryString from "query-string";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
+import { MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
 import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
 import Departments from "../../types/Departments";
 import { SearchQuery } from "../../types/SearchQuery";
@@ -21,6 +22,7 @@ function SearchForm({ searchQuery }: SearchFormProps) {
   const [startDate, setStartDate] = useState<DateISODate>(getDiaryYesterday());
   const [endDate, setEndDate] = useState<DateISODate>(getDiaryToday());
   const [department, setDepartment] = useState<Departments>("ВСЕ ОТДЕЛЕНИЯ");
+  const [warning, setWarning] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -49,6 +51,17 @@ function SearchForm({ searchQuery }: SearchFormProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (family.length + name.length + surname.length < MIN_CHARS_IN_SEARCH_INPUT) {
+      setWarning(
+        `Суммарное количество символов в полях фамилия, имя и отчество должно быть не менее ${MIN_CHARS_IN_SEARCH_INPUT}`
+      );
+      return;
+    }
+    if (new Date(endDate).getFullYear() - new Date(startDate).getFullYear() > MAX_YEARS_RANGE_IN_SEARCH_INPUT) {
+      setWarning(`Диапазон дат должен быть не более ${MAX_YEARS_RANGE_IN_SEARCH_INPUT} лет`);
+      return;
+    }
+    setWarning("");
     const searchQuery = queryString.stringify({ family, name, surname, department, startDate, endDate });
     navigate(`?${searchQuery}`);
   }
@@ -85,10 +98,13 @@ function SearchForm({ searchQuery }: SearchFormProps) {
           </li>
         </ul>
       </div>
-      <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} />
-      <div>
+      <div className={styles.departmentSelector}>
+        <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} />
+      </div>
+      <div className={styles.block}>
         <button type="submit">Поиск</button>
       </div>
+      {!!warning && <div className={styles.warning}>{warning}</div>}
     </form>
   );
 }

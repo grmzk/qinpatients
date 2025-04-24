@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.searchForm > div {
+.block, .warning, .searchInputs {
     display: block;
     width: auto;
     background-color: #d7d2cc;
@@ -71,4 +71,14 @@
 
 .searchInputs hr {
     margin: 0.5em 0;
+}
+
+.warning {
+    color: red;
+}
+
+@media (max-height: 900px) {
+   .departmentSelector {
+        display: none;
+    }
 }
