@@ -89,9 +89,17 @@ class CaseDisease:
             'admission_date': self.get_admission_date(),
             'admission_outcome_date': self.get_admission_outcome_date(),
             'department': self.department,
-            'incoming_diagnosis': self.incoming_diagnosis or '',
-            'admission_diagnosis': self.admission_diagnosis or '',
-            'diagnosis': self.get_diagnosis(),
+            'incoming_diagnosis': (
+                self.incoming_diagnosis.upper()
+                    if self.incoming_diagnosis else ''
+            ),
+            'admission_diagnosis': (
+                self.admission_diagnosis.upper()
+                    if self.admission_diagnosis else ''
+            ),
+            'diagnosis': (
+                self.get_diagnosis().upper() if self.get_diagnosis() else ''
+            ),
             'inpatient_id': self.get_inpatient_id(),
             'inpatient_department': self.inpatient_department or '',
             'doctor': self.doctor or '',

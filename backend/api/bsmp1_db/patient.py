@@ -50,14 +50,18 @@ class Patient:
     def as_dict(self, at_date: date = datetime.now().date()) -> dict:
         return {
             'patient_id': self.patient_id,
-            'family': self.family or '',
-            'name': self.name or '',
-            'surname': self.surname or '',
+            'family': self.family.upper() if self.family else '',
+            'name': self.name.upper() if self.name else '',
+            'surname': self.surname.upper() if self.surname else '',
             'full_name': self.get_full_name(),
             'birthday': self.get_birthday(),
             'age': self.get_age(at_date),
             'sex': self.sex or '',
-            'workplace': self.get_workplace(),
-            'address': self.address or '',
-            'extra_info': self.get_extra_info(),
+            'workplace': (
+                self.get_workplace().upper() if self.workplace else ''
+            ),
+            'address': self.address.upper() if self.address else '',
+            'extra_info': (
+                self.get_extra_info().upper() if self.extra_info else ''
+            ),
         }
