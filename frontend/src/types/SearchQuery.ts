@@ -1,11 +1,11 @@
 import { DateISODate, isDateISODate } from "./DateISOStrings";
-import Departments from "./Departments";
+import Department from "./Department";
 
 export type SearchQuery = {
   family?: string;
   name?: string;
   surname?: string;
-  department?: Departments;
+  department?: Department;
   startDate: DateISODate;
   endDate: DateISODate;
 };

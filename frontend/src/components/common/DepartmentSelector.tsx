@@ -1,23 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
 
 import DEPARTMENTS from "../../constants/departments";
-import Departments from "../../types/Departments";
+import Department, { isDepartment } from "../../types/Department";
 
 import styles from "./DepartmentSelector.module.css";
 
 type DepartmentSelectorProps = {
-  selectedDepartment: Departments;
-  setSelectedDepartment: (department: Departments) => void;
+  selectedDepartment: Department;
+  setSelectedDepartment: (department: Department) => void;
+  slim?: boolean;
 };
 
 type DepartmentRow = {
-  name: Departments;
+  name: Department;
   selected: boolean;
 };
 
-function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: DepartmentSelectorProps) {
+function DepartmentSelector({ selectedDepartment, setSelectedDepartment, slim = false }: DepartmentSelectorProps) {
   const getDepartmentRows = useCallback(() => {
-    return DEPARTMENTS.map((department: Departments): DepartmentRow => {
+    return DEPARTMENTS.map((department: Department): DepartmentRow => {
       return { name: department, selected: department === selectedDepartment };
     });
   }, [selectedDepartment]);
@@ -28,7 +29,7 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: Depar
     setDepartments(getDepartmentRows());
   }, [getDepartmentRows]);
 
-  function handleSelectDepartment(department: Departments) {
+  function handleSelectDepartment(department: Department) {
     if (department === selectedDepartment) {
       return;
     }
@@ -40,7 +41,21 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment }: Depar
     setSelectedDepartment(department);
   }
 
-  return (
+  return slim ? (
+    <select
+      className={styles.slim}
+      value={selectedDepartment}
+      onChange={(event) =>
+        handleSelectDepartment(isDepartment(event.target.value) ? event.target.value : selectedDepartment)
+      }
+    >
+      {departments.map(({ name }, index) => (
+        <option value={name} key={index}>
+          {name}
+        </option>
+      ))}
+    </select>
+  ) : (
     <table className={styles.departmentSelector} title="Выбор отделения">
       <tbody>
         {departments.map(({ name, selected }, index) => (

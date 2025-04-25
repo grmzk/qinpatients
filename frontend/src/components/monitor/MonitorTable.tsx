@@ -4,14 +4,14 @@ import { useNavigate } from "react-router";
 import { DATE_INPUT_DELAY, SUMMARY_UPDATE_INTERVAL } from "../../configs/config";
 import { getDataRepository } from "../../repositories/DataRepository";
 import { DateISODate } from "../../types/DateISOStrings";
-import Departments from "../../types/Departments";
+import Department from "../../types/Department";
 import SummaryResponse from "../../types/SummaryResponse";
 import Table from "../common/Table";
 
 import styles from "../common/Table.module.css";
 
 type MonitorTableProps = {
-  department: Departments;
+  department: Department;
   diaryDate: DateISODate;
 };
 

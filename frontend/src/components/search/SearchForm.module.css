@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.block, .warning, .searchInputs {
+.block, .warning, .searchInputs, .departmentSelectorSlim {
     display: block;
     width: auto;
     background-color: #d7d2cc;
@@ -79,6 +79,18 @@
 
 @media (max-height: 900px) {
    .departmentSelector {
+        display: none;
+   }
+   .departmentSelectorSlim {
+        display: block;
+   }
+}
+
+@media (min-height: 901px) {
+    .departmentSelector {
+        display: block;
+    }
+    .departmentSelectorSlim {
         display: none;
     }
 }

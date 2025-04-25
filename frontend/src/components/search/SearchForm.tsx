@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 import { DEFAULT_DEPARTMENT, MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
 import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
-import Departments from "../../types/Departments";
+import Department from "../../types/Department";
 import { SearchQuery } from "../../types/SearchQuery";
 import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
 import DepartmentSelector from "../common/DepartmentSelector";
@@ -21,7 +21,7 @@ function SearchForm({ searchQuery }: SearchFormProps) {
   const [surname, setSurname] = useState<string>("");
   const [startDate, setStartDate] = useState<DateISODate>(getDiaryYesterday());
   const [endDate, setEndDate] = useState<DateISODate>(getDiaryToday());
-  const [department, setDepartment] = useState<Departments>(DEFAULT_DEPARTMENT);
+  const [department, setDepartment] = useState<Department>(DEFAULT_DEPARTMENT);
   const [warning, setWarning] = useState<string>("");
 
   const navigate = useNavigate();
@@ -100,6 +100,9 @@ function SearchForm({ searchQuery }: SearchFormProps) {
       </div>
       <div className={styles.departmentSelector}>
         <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} />
+      </div>
+      <div className={styles.departmentSelectorSlim}>
+        <DepartmentSelector selectedDepartment={department} setSelectedDepartment={setDepartment} slim={true} />
       </div>
       <div className={styles.block}>
         <button type="submit">Поиск</button>

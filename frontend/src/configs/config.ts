@@ -1,14 +1,14 @@
 // eslint-disable-next-line
 import dotenv from "dotenv";
 
-import Departments from "../types/Departments";
+import Department from "../types/Department";
 
 let BASE_URL: string;
 process.env.NODE_ENV === "production"
   ? (BASE_URL = "https://qinpatients.m4site.ru/api")
   : (BASE_URL = "http://localhost:8000/api");
 
-const DEFAULT_DEPARTMENT: Departments = "ТРАВМАТОЛОГИЯ";
+const DEFAULT_DEPARTMENT: Department = "ТРАВМАТОЛОГИЯ";
 
 const DATE_INPUT_DELAY = 500;
 

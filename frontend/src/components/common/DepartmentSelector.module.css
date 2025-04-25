@@ -6,3 +6,21 @@
     background: #304352;
     color: #fff;
 }
+
+.slim {
+    width: 10.5em;
+    border-radius: 0;
+    font-family: inherit;
+    background: #eae8e5;
+    padding: 0.1em;
+}
+
+.slim option {
+    background: #eae8e5;
+    text-align: center;
+}
+
+.slim option:checked {
+    background: #304352;
+    color: white;
+}
