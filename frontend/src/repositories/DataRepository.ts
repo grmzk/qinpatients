@@ -1,7 +1,7 @@
 import ApiAdapter from "../adapters/ApiAdapter";
 import { BASE_URL } from "../configs/config";
-import { DateISODate } from "../types/DateISOStrings";
 import Department from "../types/Department";
+import { ISODate } from "../types/ISODateStrings";
 import PatientHistoryResponse from "../types/PatientHistoryResponse";
 import PatientInfoResponse from "../types/PatientInfoResponse";
 import { SearchQuery } from "../types/SearchQuery";
@@ -22,7 +22,7 @@ class DataRepository {
     return await this.adapter.post("/auth/token/login/", { username, password });
   }
 
-  async getSummary(department: Department, date: DateISODate): Promise<SummaryResponse[]> {
+  async getSummary(department: Department, date: ISODate): Promise<SummaryResponse[]> {
     return await this.adapter.get(`/get_summary?department=${department}&date=${date}`);
   }
 

@@ -1,9 +1,9 @@
-import { DateISODate } from "./DateISOStrings";
+import { ISODate } from "./ISODateStrings";
 import Department from "./Department";
 
 export type MonitorState = {
   department: Department;
-  diaryDate: DateISODate;
+  diaryDate: ISODate;
 };
 
 type MonitorContextValue = {

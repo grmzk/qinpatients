@@ -1,7 +1,9 @@
 import { ReactElement, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { isISODate, isISODateTime } from "../../types/ISODateStrings";
 import { TableContent } from "../../types/TableContent";
+import formatToLocaleDate from "../../utils/formatToLocaleDate";
 import Loader from "./Loader";
 
 import styles from "./Table.module.css";
@@ -80,8 +82,8 @@ function Table({ title, tableContent, helpMessage, noDataMessage, isLoading = fa
                 <td>{index + 1}</td>
                 {Object.entries(tableContent.head).map(([_, key]) => (
                   <td key={uuidv4()}>
-                    {key === "admission_date"
-                      ? new Date(Date.parse(contentItem.data[key])).toLocaleString()
+                    {isISODate(contentItem.data[key]) || isISODateTime(contentItem.data[key])
+                      ? formatToLocaleDate(contentItem.data[key])
                       : contentItem.data[key]}
                   </td>
                 ))}

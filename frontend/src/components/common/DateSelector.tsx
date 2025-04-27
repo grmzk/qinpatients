@@ -1,13 +1,13 @@
 import { SyntheticEvent, useEffect } from "react";
 
-import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
+import { ISODate, isISODate } from "../../types/ISODateStrings";
 import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
 
 import styles from "./DateSelector.module.css";
 
 type DateSelectorProps = {
-  diaryDate: DateISODate;
-  setDiaryDate: (diaryDate: DateISODate) => void;
+  diaryDate: ISODate;
+  setDiaryDate: (diaryDate: ISODate) => void;
 };
 
 function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
@@ -29,7 +29,7 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
 
   function setValue(event: SyntheticEvent): void {
     const dateInput = event.target as HTMLInputElement;
-    if (!isDateISODate(dateInput.value)) {
+    if (!isISODate(dateInput.value)) {
       console.error(`Value "${dateInput.value}" returned from DateSelector is not in ISO format.`);
       return;
     }

@@ -1,4 +1,4 @@
-import { DateISODate, isDateISODate } from "./DateISOStrings";
+import { ISODate, isISODate } from "./ISODateStrings";
 import Department from "./Department";
 
 export type SearchQuery = {
@@ -6,8 +6,8 @@ export type SearchQuery = {
   name?: string;
   surname?: string;
   department?: Department;
-  startDate: DateISODate;
-  endDate: DateISODate;
+  startDate: ISODate;
+  endDate: ISODate;
 };
 
 isSearchQuery({});
@@ -17,7 +17,7 @@ export function isSearchQuery(entity: unknown): entity is SearchQuery {
 
   const keys = ["startDate", "endDate"] as (keyof SearchQuery)[];
   for (const key of keys) {
-    if (!isDateISODate(query[key])) {
+    if (!isISODate(query[key])) {
       return false;
     }
   }

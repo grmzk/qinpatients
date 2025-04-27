@@ -1,7 +1,9 @@
+import { ISODate } from "./ISODateStrings";
+
 type PatientInfoResponse = {
   patient_id: number;
   full_name: string;
-  birthday: string;
+  birthday: ISODate;
   age: string;
   workplace: string;
   address: string;

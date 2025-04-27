@@ -1,4 +1,5 @@
 import PatientInfoResponse from "../../types/PatientInfoResponse";
+import formatToLocaleDate from "../../utils/formatToLocaleDate";
 import Loader from "../common/Loader";
 
 import styles from "./PatientInfo.module.css";
@@ -17,7 +18,7 @@ function PatientInfo({ patientInfo }: PatientInfoProps) {
           <hr />
           <div className={styles.title}>Дата рождения</div>
           <div className={styles.info}>
-            {patientInfo.birthday} ({patientInfo.age})
+            {formatToLocaleDate(patientInfo.birthday)} ({patientInfo.age})
           </div>
           <hr />
           <div className={styles.title}>Адрес</div>

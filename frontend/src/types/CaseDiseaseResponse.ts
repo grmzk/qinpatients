@@ -1,7 +1,9 @@
+import { ISODateTime } from "./ISODateStrings";
+
 type CaseDiseaseResponse = {
   card_id: number;
-  admission_date: string;
-  admission_outcome_date: string;
+  admission_date: ISODateTime;
+  admission_outcome_date: ISODateTime;
   department: string;
   diagnosis: string;
   inpatient_id: number;

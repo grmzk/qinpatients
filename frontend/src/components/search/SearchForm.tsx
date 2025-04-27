@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { DEFAULT_DEPARTMENT, MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
-import { DateISODate, isDateISODate } from "../../types/DateISOStrings";
+import { ISODate, isISODate } from "../../types/ISODateStrings";
 import Department from "../../types/Department";
 import { SearchQuery } from "../../types/SearchQuery";
 import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
@@ -19,8 +19,8 @@ function SearchForm({ searchQuery }: SearchFormProps) {
   const [family, setFamily] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
-  const [startDate, setStartDate] = useState<DateISODate>(getDiaryYesterday());
-  const [endDate, setEndDate] = useState<DateISODate>(getDiaryToday());
+  const [startDate, setStartDate] = useState<ISODate>(getDiaryYesterday());
+  const [endDate, setEndDate] = useState<ISODate>(getDiaryToday());
   const [department, setDepartment] = useState<Department>(DEFAULT_DEPARTMENT);
   const [warning, setWarning] = useState<string>("");
 
@@ -37,7 +37,7 @@ function SearchForm({ searchQuery }: SearchFormProps) {
 
   function handleDateChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    if (isDateISODate(value)) {
+    if (isISODate(value)) {
       if (e.target.name === "startDate") {
         setStartDate(value);
         return;

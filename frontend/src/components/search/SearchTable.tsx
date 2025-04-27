@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
@@ -14,50 +15,56 @@ type SearchTableProps = {
 };
 
 function SearchTable({ searchResponse, isLoading }: SearchTableProps) {
+  const [tableContent, setTableContent] = useState<TableContent<PatientInfoResponse & CaseDiseaseResponse>>({
+    head: {},
+    content: [],
+  });
+
   const navigate = useNavigate();
 
-  const tableContent: TableContent<PatientInfoResponse & CaseDiseaseResponse> = {
-    head: {
-      АСУ: "card_id",
-      "Ф. И. О.": "full_name",
-      Возраст: "age",
-      Отделение: "department",
-      Диагноз: "diagnosis",
-      "Время поступления": "admission_date",
-      Врач: "doctor",
-      Исход: "result",
-    },
-    content: searchResponse.reduce<ContentOfTableContent<PatientInfoResponse & CaseDiseaseResponse>[]>(
-      (content, { patient, case_disease }) => {
-        const classList: string[] = [];
-        if (case_disease.is_reanimation) {
-          classList.push(styles.reanimation);
-        } else if (case_disease.is_inpatient) {
-          classList.push(styles.inpatient);
-        }
-        if (!case_disease.is_outcome) {
-          classList.push(styles.processing);
-        }
-        content.push({
-          data: { ...patient, ...case_disease },
-          classList: classList,
-          onClick: () => navigate(`/patients/${patient.patient_id}`, { relative: "path" }),
-        });
-        return content;
+  useEffect(() => {
+    setTableContent({
+      head: {
+        АСУ: "card_id",
+        "Ф. И. О.": "full_name",
+        Возраст: "age",
+        Отделение: "department",
+        Диагноз: "diagnosis",
+        "Время поступления": "admission_date",
+        Врач: "doctor",
+        Исход: "result",
       },
-      []
-    ),
-  };
+      content: searchResponse.reduce<ContentOfTableContent<PatientInfoResponse & CaseDiseaseResponse>[]>(
+        (content, { patient, case_disease }) => {
+          const classList: string[] = [];
+          if (case_disease.is_reanimation) {
+            classList.push(styles.reanimation);
+          } else if (case_disease.is_inpatient) {
+            classList.push(styles.inpatient);
+          }
+          if (!case_disease.is_outcome) {
+            classList.push(styles.processing);
+          }
+          content.push({
+            data: { ...patient, ...case_disease },
+            classList: classList,
+            onClick: () => navigate(`/patients/${patient.patient_id}`, { relative: "path" }),
+          });
+          return content;
+        },
+        []
+      ),
+    });
+  }, [searchResponse, navigate]);
 
   return (
-    <></>
-    // <Table
-    //   title="ПОИСК [БД БСМП №1]"
-    //   helpMessage="Выбор пациента"
-    //   noDataMessage="ОБРАЩЕНИЯ НЕ НАЙДЕНЫ"
-    //   tableContent={tableContent}
-    //   isLoading={isLoading}
-    // />
+    <Table
+      title="ПОИСК [БД БСМП №1]"
+      helpMessage="Выбор пациента"
+      noDataMessage="ОБРАЩЕНИЯ НЕ НАЙДЕНЫ"
+      tableContent={tableContent}
+      isLoading={isLoading}
+    />
   );
 }
 
