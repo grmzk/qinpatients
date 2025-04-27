@@ -23,7 +23,7 @@ class Patient:
         return full_name
 
     def get_birthday(self) -> str:
-        return self.birthday.strftime('%d.%m.%Y')
+        return self.birthday.isoformat()
 
     def get_age(self, at_date: date = datetime.now().date()) -> str:
         birthday = self.birthday

@@ -1,4 +1,5 @@
 import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
+import { ContentOfTableContent, TableContent } from "../../types/TableContent";
 import Table from "../common/Table";
 
 import styles from "../common/Table.module.css";
@@ -9,59 +10,45 @@ type PatientHistoryProps = {
 };
 
 function PatientHistory({ history, isLoading }: PatientHistoryProps) {
-  const headTitles = ["№", "АСУ", "Стац. номер", "Время поступления", "Отделение", "Диагноз", "Врач", "Исход"];
-
-  const rows = history
-    ? history.map(
-        (
-          {
-            card_id,
-            admission_date,
-            department,
-            diagnosis,
-            inpatient_id,
-            doctor,
-            result,
-            is_inpatient,
-            is_outcome,
-            is_reanimation,
-          },
-          index
-        ) => {
+  const tableContent: TableContent<CaseDiseaseResponse> = {
+    head: {
+      АСУ: "card_id",
+      "Стац. номер": "inpatient_id",
+      "Время поступления": "admission_date",
+      Отделение: "department",
+      Диагноз: "diagnosis",
+      Врач: "doctor",
+      Исход: "result",
+    },
+    content: history
+      ? history.reduce<ContentOfTableContent<CaseDiseaseResponse>[]>((content, case_disease) => {
           const classList: string[] = [];
-          if (is_reanimation) {
+          if (case_disease.is_reanimation) {
             classList.push(styles.reanimation);
-          } else if (is_inpatient) {
+          } else if (case_disease.is_inpatient) {
             classList.push(styles.inpatient);
           }
-          if (!is_outcome) {
+          if (!case_disease.is_outcome) {
             classList.push(styles.processing);
           }
-          return (
-            <tr className={classList.join(" ")} key={card_id}>
-              <td>{index + 1}</td>
-              <td>{card_id}</td>
-              <td>{inpatient_id}</td>
-              <td>{admission_date}</td>
-              <td>{department}</td>
-              <td>{diagnosis}</td>
-              <td>{doctor}</td>
-              <td>{result}</td>
-            </tr>
-          );
-        }
-      )
-    : [];
+          content.push({
+            data: case_disease,
+            classList: classList,
+          });
+          return content;
+        }, [])
+      : [],
+  };
 
   return (
-    <Table
-      title="СПИСОК ОБРАЩЕНИЙ ПАЦИЕНТА [БД БСМП №1]"
-      helpMessage=""
-      noDataMessage="НЕТ ОБРАЩЕНИЙ"
-      headTitles={headTitles}
-      rows={rows}
-      isLoading={isLoading}
-    />
+    <></>
+    // <Table
+    //   title="СПИСОК ОБРАЩЕНИЙ ПАЦИЕНТА [БД БСМП №1]"
+    //   helpMessage=""
+    //   noDataMessage="НЕТ ОБРАЩЕНИЙ"
+    //   tableContent={tableContent}
+    //   isLoading={isLoading}
+    // />
   );
 }
 

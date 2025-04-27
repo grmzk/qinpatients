@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router";
 
+import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
+import PatientInfoResponse from "../../types/PatientInfoResponse";
 import SummaryResponse from "../../types/SummaryResponse";
+import { ContentOfTableContent, TableContent } from "../../types/TableContent";
 import Table from "../common/Table";
 
 import styles from "../common/Table.module.css";
@@ -13,20 +16,19 @@ type SearchTableProps = {
 function SearchTable({ searchResponse, isLoading }: SearchTableProps) {
   const navigate = useNavigate();
 
-  const headTitles = [
-    "№",
-    "АСУ",
-    "Ф. И. О.",
-    "Дата рождения",
-    "Отделение",
-    "Диагноз",
-    "Время поступления",
-    "Врач",
-    "Исход",
-  ];
-
-  const rows = searchResponse.length
-    ? searchResponse.map(({ patient, case_disease }, index) => {
+  const tableContent: TableContent<PatientInfoResponse & CaseDiseaseResponse> = {
+    head: {
+      АСУ: "card_id",
+      "Ф. И. О.": "full_name",
+      Возраст: "age",
+      Отделение: "department",
+      Диагноз: "diagnosis",
+      "Время поступления": "admission_date",
+      Врач: "doctor",
+      Исход: "result",
+    },
+    content: searchResponse.reduce<ContentOfTableContent<PatientInfoResponse & CaseDiseaseResponse>[]>(
+      (content, { patient, case_disease }) => {
         const classList: string[] = [];
         if (case_disease.is_reanimation) {
           classList.push(styles.reanimation);
@@ -36,35 +38,26 @@ function SearchTable({ searchResponse, isLoading }: SearchTableProps) {
         if (!case_disease.is_outcome) {
           classList.push(styles.processing);
         }
-        return (
-          <tr
-            className={classList.join(" ")}
-            key={case_disease.card_id}
-            onClick={() => navigate(`/patients/${patient.patient_id}`, { relative: "path" })}
-          >
-            <td>{index + 1}</td>
-            <td>{case_disease.card_id}</td>
-            <td>{patient.full_name}</td>
-            <td>{patient.birthday}</td>
-            <td>{case_disease.department}</td>
-            <td>{case_disease.diagnosis}</td>
-            <td>{case_disease.admission_date}</td>
-            <td>{case_disease.doctor}</td>
-            <td>{case_disease.result}</td>
-          </tr>
-        );
-      })
-    : [];
+        content.push({
+          data: { ...patient, ...case_disease },
+          classList: classList,
+          onClick: () => navigate(`/patients/${patient.patient_id}`, { relative: "path" }),
+        });
+        return content;
+      },
+      []
+    ),
+  };
 
   return (
-    <Table
-      title="ПОИСК [БД БСМП №1]"
-      helpMessage="Выбор пациента"
-      noDataMessage="ОБРАЩЕНИЯ НЕ НАЙДЕНЫ"
-      headTitles={headTitles}
-      rows={rows}
-      isLoading={isLoading}
-    />
+    <></>
+    // <Table
+    //   title="ПОИСК [БД БСМП №1]"
+    //   helpMessage="Выбор пациента"
+    //   noDataMessage="ОБРАЩЕНИЯ НЕ НАЙДЕНЫ"
+    //   tableContent={tableContent}
+    //   isLoading={isLoading}
+    // />
   );
 }
 

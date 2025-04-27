@@ -21,12 +21,12 @@ class CaseDisease:
     doctor: str
 
     def get_admission_date(self) -> str:
-        return self.admission_date.strftime('%d.%m.%Y %H:%M')
+        return self.admission_date.isoformat()
 
     def get_admission_outcome_date(self) -> str | None:
         if not self.admission_outcome_date:
             return None
-        return self.admission_outcome_date.strftime('%d.%m.%Y %H:%M')
+        return self.admission_outcome_date.isoformat()
 
     def is_reanimation(self) -> bool:
         if self.reanimation == 'F':

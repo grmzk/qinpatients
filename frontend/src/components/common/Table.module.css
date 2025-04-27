@@ -12,6 +12,12 @@
     border: 1px solid #999999;
 }
 
+.sortTh:hover {
+    background: #304352;
+    color: #fff;
+    cursor: pointer;
+}
+
 .loading {
     height: 7.5em;
     background-color: #d7d2cc;
