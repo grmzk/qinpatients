@@ -91,11 +91,11 @@ class CaseDisease:
             'department': self.department,
             'incoming_diagnosis': (
                 self.incoming_diagnosis.upper()
-                    if self.incoming_diagnosis else ''
+                if self.incoming_diagnosis else ''
             ),
             'admission_diagnosis': (
                 self.admission_diagnosis.upper()
-                    if self.admission_diagnosis else ''
+                if self.admission_diagnosis else ''
             ),
             'diagnosis': (
                 self.get_diagnosis().upper() if self.get_diagnosis() else ''

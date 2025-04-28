@@ -3,6 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
+    REQUIRED_FIELDS = []
+
     username = models.CharField(
         verbose_name='Логин',
         max_length=150,
