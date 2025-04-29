@@ -1,11 +1,11 @@
 from django.urls import include, path
-from djoser.views import TokenCreateView, TokenDestroyView
+from djoser.views import TokenDestroyView
 
 from .views import (GetPatientHistoryView, GetPatientView, GetSummaryView,
-                    SearchView)
+                    SearchView, TokenCreateLogoutView)
 
 auth_patterns = [
-    path('token/login/', TokenCreateView.as_view()),
+    path('token/login/', TokenCreateLogoutView.as_view()),
     path('token/logout/', TokenDestroyView.as_view()),
 ]
 

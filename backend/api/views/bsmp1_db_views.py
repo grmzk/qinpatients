@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .bsmp1_db.repositories import (get_patient, get_patient_history,
-                                    get_summary, search)
+from ..bsmp1_db.repositories import (get_patient, get_patient_history,
+                                     get_summary, search)
 
 
 class GetSummaryView(APIView):

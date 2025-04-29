@@ -4,7 +4,7 @@ type Day = `${number}${number}`;
 type Hours = `${number}${number}`;
 type Minutes = `${number}${number}`;
 type Seconds = `${number}${number}`;
-type Milliseconds = `${number}${number}${number}`;
+// type Milliseconds = `${number}${number}${number}`;
 
 export type ISODate = `${Year}-${Month}-${Day}`;
 // export type ISOTime = `${Hours}:${Minutes}:${Seconds}.${Milliseconds}`;
