@@ -15,6 +15,10 @@ FB_PASSWORD = os.getenv('FB_PASSWORD')
 FB_LIBRARY_NAME = os.getenv('FB_LIBRARY_NAME')
 
 
+class BSMP1DBError(Exception):
+    pass
+
+
 class MyConnection(Connection):
     def __init__(self, db_handle, dpb=None, sql_dialect=3, charset=None,
                  isolation_level=ISOLATION_LEVEL_READ_COMMITED_RO):
@@ -54,22 +58,20 @@ def connect_fdb():
         )
     except Exception as error:
         logging.error(f'FDB CONNECT: {error}')
-        return None
+        raise BSMP1DBError(error)
     return connection
 
 
 def fb_select_data(select_query: str,
                    parameters: Union[list, None] = None) -> list:
     connection = connect_fdb()
-    if not connection:
-        return list()
     cursor = connection.cursor()
     try:
         cursor.execute(select_query, parameters=parameters)
         data = cursor.fetchall()
     except Exception as error:
         logging.error(f'FDB QUERY: {error}')
-        return list()
+        raise BSMP1DBError(error)
     finally:
         cursor.close()
         connection.close()

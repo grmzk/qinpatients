@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from ..bsmp1_db.firebird_db import BSMP1DBError
 from ..bsmp1_db.repositories import (get_patient, get_patient_history,
                                      get_summary, search)
 
@@ -24,7 +25,11 @@ class GetSummaryView(APIView):
             request.query_params.get('date', datetime.now().date().isoformat())
         )
         department = request.query_params.get('department')
-        summary = get_summary(start_date, department)
+        try:
+            summary = get_summary(start_date, department)
+        except BSMP1DBError:
+            return Response(data={"error": "БД БСМП №1 не доступна"},
+                            status=status.HTTP_502_BAD_GATEWAY)
         data = [
             {'patient': item['patient'].as_dict(start_date),
              'case_disease': item['case_disease'].as_dict()}
@@ -46,8 +51,12 @@ class GetPatientView(APIView):
     def get(request):
         patient_id = request.query_params.get('patient_id')
         if not patient_id:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        patient = get_patient(patient_id)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        try:
+            patient = get_patient(patient_id)
+        except BSMP1DBError:
+            return Response(data={"error": "БД БСМП №1 не доступна"},
+                            status=status.HTTP_502_BAD_GATEWAY)
         if not patient:
             return Response(status=status.HTTP_404_NOT_FOUND)
         data = patient.as_dict()
@@ -67,8 +76,12 @@ class GetPatientHistoryView(APIView):
     def get(request):
         patient_id = request.query_params.get('patient_id')
         if not patient_id:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        history = get_patient_history(patient_id)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        try:
+            history = get_patient_history(patient_id)
+        except BSMP1DBError:
+            return Response(data={"error": "БД БСМП №1 не доступна"},
+                            status=status.HTTP_502_BAD_GATEWAY)
         if not history:
             return Response(status=status.HTTP_404_NOT_FOUND)
         data = {'patient': history['patient'].as_dict(),
@@ -107,8 +120,12 @@ class SearchView(APIView):
         name = request.query_params.get('name', '').upper()
         surname = request.query_params.get('surname', '').upper()
         department = request.query_params.get('department', '').upper()
-        search_result = search(family, name, surname,
-                               start_date, end_date, department)
+        try:
+            search_result = search(family, name, surname,
+                                   start_date, end_date, department)
+        except BSMP1DBError:
+            return Response(data={"error": "BSMP №1 DB is not available"},
+                            status=status.HTTP_502_BAD_GATEWAY)
         data = [
             {'patient': item['patient'].as_dict(),
              'case_disease': item['case_disease'].as_dict()}
