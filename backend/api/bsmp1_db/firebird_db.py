@@ -3,9 +3,12 @@ import os
 from typing import Union
 
 import fdb
+from django.core.cache import cache
 from dotenv import load_dotenv
 from fdb.fbcore import (ISOLATION_LEVEL_READ_COMMITED_RO, Connection,
                         InternalError, isc_info_page_size, isc_info_version)
+
+from qinpatients.settings import CACHE_TTL
 
 load_dotenv()
 
@@ -63,7 +66,12 @@ def connect_fdb():
 
 
 def fb_select_data(select_query: str,
-                   parameters: Union[list, None] = None) -> list:
+                   parameters: Union[list, None] = None,
+                   cache_ttl: int = CACHE_TTL) -> list:
+    params_hash = hash(frozenset(parameters))
+    data = cache.get(params_hash)
+    if data:
+        return data
     connection = connect_fdb()
     cursor = connection.cursor()
     try:
@@ -73,7 +81,11 @@ def fb_select_data(select_query: str,
         logging.error(f'FDB QUERY: {error}')
         raise BSMP1DBError(error)
     finally:
-        cursor.close()
-        connection.close()
+        try:
+            cursor.close()
+            connection.close()
+        except Exception as error:
+            logging.error(f'FDB CLOSE: {error}')
+    cache.set(params_hash, data, timeout=cache_ttl)
     logging.info('FDB QUERY SUCCESS')
     return data

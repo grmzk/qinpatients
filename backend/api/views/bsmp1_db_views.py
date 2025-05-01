@@ -28,7 +28,7 @@ class GetSummaryView(APIView):
         try:
             summary = get_summary(start_date, department)
         except BSMP1DBError:
-            return Response(data={"error": "БД БСМП №1 не доступна"},
+            return Response(data={"error": "BSMP №1 DB is not available"},
                             status=status.HTTP_502_BAD_GATEWAY)
         data = [
             {'patient': item['patient'].as_dict(start_date),
@@ -55,7 +55,7 @@ class GetPatientView(APIView):
         try:
             patient = get_patient(patient_id)
         except BSMP1DBError:
-            return Response(data={"error": "БД БСМП №1 не доступна"},
+            return Response(data={"error": "BSMP №1 DB is not available"},
                             status=status.HTTP_502_BAD_GATEWAY)
         if not patient:
             return Response(status=status.HTTP_404_NOT_FOUND)
@@ -80,7 +80,7 @@ class GetPatientHistoryView(APIView):
         try:
             history = get_patient_history(patient_id)
         except BSMP1DBError:
-            return Response(data={"error": "БД БСМП №1 не доступна"},
+            return Response(data={"error": "BSMP №1 DB is not available"},
                             status=status.HTTP_502_BAD_GATEWAY)
         if not history:
             return Response(status=status.HTTP_404_NOT_FOUND)

@@ -3,11 +3,14 @@ from datetime import date, datetime, timedelta
 from api.bsmp1_db.case_disease import CaseDisease
 from api.bsmp1_db.firebird_db import fb_select_data
 from api.bsmp1_db.patient import Patient
-from api.bsmp1_db.utils import get_address_from_array, make_uniq_data
+from api.bsmp1_db.utils import (get_address_from_array, get_diary_today,
+                                make_uniq_data)
+from qinpatients.settings import CACHE_TTL, CACHE_TTL_LONG, CACHE_TTL_SHORT
 
 
 def get_from_db(where: str, params: [],
-                order_by: str = None, rows: int = None) -> list:
+                order_by: str = None, rows: int = None,
+                cache_ttl: int = CACHE_TTL) -> list:
     delimiter = '<|>'
     query = (
         "SELECT patient.id, "
@@ -86,8 +89,8 @@ def get_from_db(where: str, params: [],
         query += f' ORDER BY {order_by}'
     if rows:
         query += f' ROWS {rows}'
-    response = fb_select_data(query, params)
-    data = list()
+    response = fb_select_data(query, params, cache_ttl)
+    data = []
     for item in response:
         patient = Patient(*item[:9])
         if patient.address:
@@ -100,10 +103,18 @@ def get_from_db(where: str, params: [],
 
 
 def get_summary_data(start_datetime: datetime, end_datetime: datetime) -> list:
+    cache_ttl = (
+        CACHE_TTL_SHORT
+        if ((start_datetime.date() == get_diary_today())
+            or (start_datetime.date() == get_diary_today()
+                + timedelta(days=1)))
+        else CACHE_TTL_LONG
+    )
     return get_from_db(
         where='main_card.d_in BETWEEN ? AND ?',
         order_by='main_card.id',
-        params=[start_datetime - timedelta(days=1), end_datetime]
+        params=[start_datetime - timedelta(days=1), end_datetime],
+        cache_ttl=cache_ttl
     )
 
 
@@ -112,7 +123,8 @@ def get_patient_data(patient_id: int):
         where='main_card.id_pac = ?',
         order_by='main_card.id',
         rows=1,
-        params=[patient_id]
+        params=[patient_id],
+        cache_ttl=CACHE_TTL_LONG
     )
 
 
@@ -120,7 +132,8 @@ def get_patient_history_data(patient_id: int) -> list:
     return get_from_db(
         where='main_card.id_pac = ?',
         order_by='main_card.id',
-        params=[patient_id]
+        params=[patient_id],
+        cache_ttl=CACHE_TTL
     )
 
 
@@ -158,5 +171,6 @@ def get_search_data(family: str, name: str, surname: str,
         where=where,
         order_by='main_card.id',
         # rows=200,
-        params=params
+        params=params,
+        cache_ttl=CACHE_TTL_LONG
     )

@@ -1,9 +1,5 @@
 from datetime import date, datetime, timedelta
 
-from django.core.cache import cache
-
-from qinpatients.settings import CACHE_TTL_LONG, CACHE_TTL_SHORT
-
 from .adapters import (get_patient_data, get_patient_history_data,
                        get_search_data, get_summary_data)
 from .patient import Patient
@@ -17,18 +13,8 @@ def get_summary(start_date: date, department: str) -> list[dict]:
                               hour=8,
                               minute=0)
     end_datetime = start_datetime + timedelta(days=1)
-    summary_data: list
-    if start_date.isoformat() not in cache:
-        summary_data = get_summary_data(
-            start_datetime - timedelta(days=1), end_datetime
-        )
-        cache_ttl = CACHE_TTL_SHORT
-        if start_date != get_diary_today():
-            cache_ttl = CACHE_TTL_LONG
-        cache.set(start_date.isoformat(), summary_data, timeout=cache_ttl)
-    else:
-        summary_data = cache.get(start_date.isoformat())
-    summary = list()
+    summary_data = get_summary_data(start_datetime, end_datetime)
+    summary = []
     for item in summary_data:
         case_disease = item['case_disease']
         if (((department == 'РЕАН. ЗАЛ')
