@@ -1,5 +1,6 @@
 import logging
 import os
+from time import sleep
 from typing import Union
 
 import fdb
@@ -8,7 +9,8 @@ from dotenv import load_dotenv
 from fdb.fbcore import (ISOLATION_LEVEL_READ_COMMITED_RO, Connection,
                         InternalError, isc_info_page_size, isc_info_version)
 
-from qinpatients.settings import CACHE_TTL
+from qinpatients.settings import (CACHE_TTL, CACHE_TTL_LONG, CACHE_TTL_SHORT,
+                                  FIREBIRD_SELECT_IDLE_TIME)
 
 load_dotenv()
 
@@ -60,7 +62,6 @@ def connect_fdb():
             fb_library_name=FB_LIBRARY_NAME
         )
     except Exception as error:
-        logging.error(f'FDB CONNECT: {error}')
         raise BSMP1DBError(error)
     return connection
 
@@ -69,16 +70,27 @@ def fb_select_data(select_query: str,
                    parameters: Union[list, None] = None,
                    cache_ttl: int = CACHE_TTL) -> list:
     params_hash = hash(frozenset(parameters))
-    data = cache.get(params_hash)
-    if data:
-        return data
-    connection = connect_fdb()
-    cursor = connection.cursor()
+    if cache.get(params_hash):
+        for _ in range(0, CACHE_TTL_SHORT, FIREBIRD_SELECT_IDLE_TIME):
+            cache_data = cache.get(params_hash)
+            if cache_data and cache_data.get("is_complete"):
+                return cache_data.get("data")
+            sleep(FIREBIRD_SELECT_IDLE_TIME)
+        raise BSMP1DBError("Freeze request")
+    cache.set(params_hash,
+              {'is_complete': False},
+              timeout=CACHE_TTL_LONG)
+    cursor = None
+    connection = None
+    data = None
     try:
+        connection = connect_fdb()
+        cursor = connection.cursor()
         cursor.execute(select_query, parameters=parameters)
         data = cursor.fetchall()
     except Exception as error:
-        logging.error(f'FDB QUERY: {error}')
+        logging.error(f'FDB CONNECT: {error}')
+        cache.delete(params_hash)
         raise BSMP1DBError(error)
     finally:
         try:
@@ -86,6 +98,8 @@ def fb_select_data(select_query: str,
             connection.close()
         except Exception as error:
             logging.error(f'FDB CLOSE: {error}')
-    cache.set(params_hash, data, timeout=cache_ttl)
+    cache.set(params_hash,
+              {"is_complete": True, "data": data},
+              timeout=cache_ttl)
     logging.info('FDB QUERY SUCCESS')
     return data
