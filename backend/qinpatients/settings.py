@@ -33,13 +33,19 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv('DEBUG', default='False').lower() in ('true', '1')
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = [
-    'https://qinpatients.m4site.ru',
-    'http://localhost:8000',
-    'http://backend:8000'
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://qinpatients.m4site.ru',
+#     'https://qinpatients.ru',
+#     'http://localhost:8000',
+#     'http://backend:8000',
+# ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'https://qinpatients.m4site.ru',
+    'https://qinpatients.ru',
+    'http://localhost:3000',
+]
 
 
 # Application definition
