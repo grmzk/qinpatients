@@ -46,11 +46,12 @@ def get_patient(patient_id: int) -> Patient | None:
 
 def get_patient_history(patient_id: int) -> dict | None:
     patient_history_data = get_patient_history_data(patient_id)
-    history = list()
+    history = []
     for item in patient_history_data:
         history.append(item["case_disease"])
-    return {'patient': patient_history_data[0]["patient"],
+    return ({'patient': patient_history_data[0]["patient"],
             'history': history}
+            if history else None)
 
 
 def search(family: str, name: str, surname: str,
