@@ -23,18 +23,18 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment, slim = 
     });
   }, [selectedDepartment]);
 
-  const [departments, setDepartments] = useState<DepartmentRow[]>(getDepartmentRows());
+  const [departmentRows, setDepartmentRows] = useState<DepartmentRow[]>(getDepartmentRows());
 
   useEffect(() => {
-    setDepartments(getDepartmentRows());
+    setDepartmentRows(getDepartmentRows());
   }, [getDepartmentRows]);
 
   function handleSelectDepartment(department: Department) {
     if (department === selectedDepartment) {
       return;
     }
-    setDepartments(
-      departments.map((departmentRow): DepartmentRow => {
+    setDepartmentRows(
+      departmentRows.map((departmentRow): DepartmentRow => {
         return { ...departmentRow, selected: departmentRow.name === department };
       })
     );
@@ -49,7 +49,7 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment, slim = 
         handleSelectDepartment(isDepartment(event.target.value) ? event.target.value : selectedDepartment)
       }
     >
-      {departments.map(({ name }, index) => (
+      {departmentRows.map(({ name }, index) => (
         <option value={name} key={index}>
           {name}
         </option>
@@ -58,7 +58,7 @@ function DepartmentSelector({ selectedDepartment, setSelectedDepartment, slim = 
   ) : (
     <table className={styles.departmentSelector} title="Выбор отделения">
       <tbody>
-        {departments.map(({ name, selected }, index) => (
+        {departmentRows.map(({ name, selected }, index) => (
           <tr className={selected ? styles.selected : ""} key={index} onClick={() => handleSelectDepartment(name)}>
             <td>{name}</td>
           </tr>
