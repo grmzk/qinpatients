@@ -1,10 +1,11 @@
-import queryString from "query-string";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+
+import queryString from "query-string";
 import { useNavigate } from "react-router";
 
 import { DEFAULT_DEPARTMENT, MAX_YEARS_RANGE_IN_SEARCH_INPUT, MIN_CHARS_IN_SEARCH_INPUT } from "../../configs/config";
-import { ISODate, isISODate } from "../../types/ISODateStrings";
 import Department from "../../types/Department";
+import { ISODate, isISODate } from "../../types/ISODateStrings";
 import { SearchQuery } from "../../types/SearchQuery";
 import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
 import DepartmentSelector from "../common/DepartmentSelector";

@@ -10,12 +10,12 @@ class ApiAdapter {
     return response.data;
   }
 
-  async post(url: string, data: {} | {}[]) {
+  async post(url: string, data: object | object[]) {
     const response = await axios.post(url, data);
     return response.data;
   }
 
-  async put(url: string, data: {} | {}[]) {
+  async put(url: string, data: object | object[]) {
     const response = await axios.put(url, data);
     return response.data;
   }

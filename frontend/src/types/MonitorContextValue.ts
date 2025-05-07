@@ -1,5 +1,5 @@
-import { ISODate } from "./ISODateStrings";
 import Department from "./Department";
+import { ISODate } from "./ISODateStrings";
 
 export type MonitorState = {
   department: Department;

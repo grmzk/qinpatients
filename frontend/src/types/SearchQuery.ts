@@ -1,5 +1,5 @@
-import { ISODate, isISODate } from "./ISODateStrings";
 import Department from "./Department";
+import { ISODate, isISODate } from "./ISODateStrings";
 
 export type SearchQuery = {
   family?: string;

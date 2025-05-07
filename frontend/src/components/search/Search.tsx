@@ -1,5 +1,6 @@
-import queryString from "query-string";
 import { useEffect, useState } from "react";
+
+import queryString from "query-string";
 import { useLocation } from "react-router";
 
 import { getDataRepository } from "../../repositories/DataRepository";
@@ -7,6 +8,7 @@ import { SearchQuery, isSearchQuery } from "../../types/SearchQuery";
 import SummaryResponse from "../../types/SummaryResponse";
 import { getDiaryToday, getDiaryYesterday } from "../../utils/getDiaryIsoDate";
 import MainContentLayout from "../layouts/MainContentLayout";
+
 import SearchForm from "./SearchForm";
 import SearchTable from "./SearchTable";
 

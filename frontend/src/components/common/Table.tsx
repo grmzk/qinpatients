@@ -1,15 +1,18 @@
 import { ReactElement, useEffect, useState } from "react";
+
 import { v4 as uuidv4 } from "uuid";
 
 import { isISODate, isISODateTime } from "../../types/ISODateStrings";
 import { TableContent } from "../../types/TableContent";
 import formatToLocaleDate from "../../utils/formatToLocaleDate";
+
 import Loader from "./Loader";
 
 import styles from "./Table.module.css";
 
 type TableProps = {
   title: string;
+  // eslint-disable-next-line
   tableContent: TableContent<any>;
   helpMessage: string;
   noDataMessage: string;

@@ -55,5 +55,7 @@ db.sqlite3-journal
 .env
 .venv/
 
-# .idea
+# IDE
 .idea
+.vscode
+

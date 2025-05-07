@@ -9,9 +9,9 @@ function getDiaryTodayDate(): Date {
 }
 
 function dateToIsoString(date: Date): ISODate {
-  let yyyy = date.getFullYear();
-  let mm = String(date.getMonth() + 1).padStart(2, "0");
-  let dd = String(date.getDate()).padStart(2, "0");
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
   const dateISO = `${yyyy}-${mm}-${dd}`;
   if (!isISODate(dateISO)) {
     console.error(`DateISO format is invalid: ${dateISO}`);

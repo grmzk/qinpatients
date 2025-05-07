@@ -5,6 +5,7 @@ import { ISODate } from "../../types/ISODateStrings";
 import DateSelector from "../common/DateSelector";
 import DepartmentSelector from "../common/DepartmentSelector";
 import MainContentLayout from "../layouts/MainContentLayout";
+
 import MonitorTable from "./MonitorTable";
 
 function Monitor() {

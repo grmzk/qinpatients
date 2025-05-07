@@ -18,12 +18,12 @@ function DateSelector({ diaryDate, setDiaryDate }: DateSelectorProps) {
     });
     if (diaryDate === getDiaryToday()) {
       const button = document.querySelector(`.${styles.dateButton}[name="today"]`);
-      button && button.classList.add(styles.selected);
+      if (button) button.classList.add(styles.selected);
       return;
     }
     if (diaryDate === getDiaryYesterday()) {
       const button = document.querySelector(`.${styles.dateButton}[name="yesterday"]`);
-      button && button.classList.add(styles.selected);
+      if (button) button.classList.add(styles.selected);
     }
   }, [diaryDate]);
 

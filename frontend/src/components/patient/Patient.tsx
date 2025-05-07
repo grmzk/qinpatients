@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+
 import { useNavigate, useParams } from "react-router";
 
 import { PATIENT_INFO_UPDATE_INTERVAL } from "../../configs/config";
 import { getDataRepository } from "../../repositories/DataRepository";
 import PatientHistoryResponse from "../../types/PatientHistoryResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
+
 import PatientHistory from "./PatientHistory";
 import PatientInfo from "./PatientInfo";
 

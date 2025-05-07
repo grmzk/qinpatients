@@ -1,5 +1,6 @@
-import axios from "axios";
 import { Context, ReactNode, createContext, useContext, useEffect, useMemo, useState } from "react";
+
+import axios from "axios";
 
 import AuthContextValue from "../types/AuthContextValue";
 
@@ -9,7 +10,7 @@ type AuthContextProviderProps = {
 
 const initialValue: AuthContextValue = {
   token: localStorage.getItem("token"),
-  setToken: (newToken: string | null) => {},
+  setToken: (_newToken: string | null) => {},
 };
 
 const AuthContext: Context<AuthContextValue> = createContext(initialValue);
