@@ -1,5 +1,6 @@
 import { RouteObject, RouterProvider, createBrowserRouter } from "react-router";
 
+import Editor from "../components/editor/Editor";
 import Header from "../components/header/Header";
 import Login from "../components/login/Login";
 import Monitor from "../components/monitor/Monitor";
@@ -48,6 +49,10 @@ function AuthRoutes() {
             {
               path: "search",
               Component: Search,
+            },
+            {
+              path: "editor",
+              Component: Editor,
             },
           ],
         },

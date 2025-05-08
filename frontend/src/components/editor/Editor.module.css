@@ -1,0 +1,14 @@
+.editor {
+  width: 90%;
+  margin: 1em auto 5em auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d7d2cc;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  padding: 0.25em 0;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: 1px solid #999999;
+}
