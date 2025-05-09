@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
 
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { addTabEditor } from "../../redux/slices/editorSlice";
 import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
+import PatientInfoResponse from "../../types/PatientInfoResponse";
 import { ContentOfTableContent, TableContent } from "../../types/TableContent";
 import Table from "../common/Table";
 
 import styles from "../common/Table.module.css";
 
 type PatientHistoryProps = {
+  patientInfo: PatientInfoResponse | undefined;
   history: CaseDiseaseResponse[] | undefined;
   isLoading: boolean;
 };
 
-function PatientHistory({ history, isLoading }: PatientHistoryProps) {
+function PatientHistory({ patientInfo, history, isLoading }: PatientHistoryProps) {
   const [tableContent, setTableContent] = useState<TableContent<CaseDiseaseResponse>>({
     head: {},
     content: [],
   });
+
+  const dispatch = useAppDispatch();
+  const addTab = (fullname: string) => dispatch(addTabEditor(fullname));
 
   useEffect(() => {
     setTableContent({
@@ -42,12 +49,13 @@ function PatientHistory({ history, isLoading }: PatientHistoryProps) {
             content.push({
               data: case_disease,
               classList: classList,
+              onClick: () => addTab(patientInfo?.full_name ?? ""),
             });
             return content;
           }, [])
         : [],
     });
-  }, [history]);
+  }, [history, patientInfo]);
 
   return (
     <Table

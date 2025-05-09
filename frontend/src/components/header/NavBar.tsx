@@ -1,12 +1,14 @@
 import { NavLink } from "react-router";
 
 import { useAuth } from "../../contexts/AuthContextProvider";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import { getDataRepository } from "../../repositories/DataRepository";
 
 import styles from "./NavBar.module.css";
 
 function NavBar() {
   const { token, setToken } = useAuth();
+  const tabsCount: number = useAppSelector((state) => state.editor.length);
 
   async function handleLogoutClick() {
     await getDataRepository()
@@ -24,6 +26,9 @@ function NavBar() {
       </NavLink>
       <NavLink to="search">
         <button>Поиск</button>
+      </NavLink>
+      <NavLink to="editor">
+        <button>Редактор: {tabsCount}</button>
       </NavLink>
       <NavLink to="login">
         {token ? <button onClick={() => handleLogoutClick()}>Выход</button> : <button>Вход</button>}

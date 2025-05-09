@@ -50,7 +50,7 @@ function Patient() {
   return (
     <MainContentLayout>
       <PatientInfo patientInfo={response?.patient} />
-      <PatientHistory history={response?.history} isLoading={isLoading} />
+      <PatientHistory patientInfo={response?.patient} history={response?.history} isLoading={isLoading} />
     </MainContentLayout>
   );
 }
