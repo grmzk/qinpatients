@@ -1,7 +1,10 @@
 .editor {
   width: 90%;
+  min-height: 1.5em;
   margin: 1em auto 5em auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-rows: auto;
   align-items: center;
   justify-content: flex-start;
   background-color: #d7d2cc;
@@ -9,17 +12,14 @@
   padding: 0.5em 0.75em;
   margin-bottom: 1em;
   font-size: 0.9em;
-  font-weight: bold;
   border: 1px solid #999999;
   gap: 0.5em;
-  flex-wrap: wrap;
 }
 
 .editor button {
   font-family: inherit;
   font-size: inherit;
-  width: 16em;
-  min-width: 15em;
+  min-width: 5em;
   height: 1.5em;
   padding: 0 0.5em;
   border: rgba(0, 0, 0, 0.15) solid 1px;
@@ -51,10 +51,20 @@
   overflow: hidden;
 }
 
-.closeIcon {
+.icon {
   color: #304352;
 }
 
-.editor button:hover .closeIcon {
+.editor button:hover .icon {
   color: white;
+}
+
+.editor button:hover .icon.close:hover {
+  color: #c4c2be;
+}
+
+@media (max-width: 1000px) {
+  .editor {
+    grid-template-columns: 1fr 1fr;
+  }
 }

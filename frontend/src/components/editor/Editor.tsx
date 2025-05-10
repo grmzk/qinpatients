@@ -1,3 +1,4 @@
+import { FaBookMedical } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
@@ -24,9 +25,10 @@ function Editor() {
     <div className={styles.editor}>
       {tabs.map((tab) => (
         <button onClick={handleButtonOnClick} key={tab.id}>
+          <FaBookMedical className={styles.icon} />
           <div className={styles.buttonText}>{tab.fullname}</div>
           <IoMdCloseCircle
-            className={styles.closeIcon}
+            className={`${styles.icon} ${styles.close}`}
             size="1.25em"
             title="закрыть"
             onClick={(event) => handleCloseIconOnClick(event, tab.id)}
