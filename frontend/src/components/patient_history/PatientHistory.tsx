@@ -7,10 +7,10 @@ import { getDataRepository } from "../../repositories/DataRepository";
 import PatientHistoryResponse from "../../types/PatientHistoryResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
 
-import PatientHistory from "./PatientHistory";
+import PatientHistoryTable from "./PatientHistoryTable";
 import PatientInfo from "./PatientInfo";
 
-function Patient() {
+function PatientHistory() {
   const [response, setResponse] = useState<PatientHistoryResponse>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,9 +50,9 @@ function Patient() {
   return (
     <MainContentLayout>
       <PatientInfo patientInfo={response?.patient} />
-      <PatientHistory patientInfo={response?.patient} history={response?.history} isLoading={isLoading} />
+      <PatientHistoryTable patientInfo={response?.patient} history={response?.history} isLoading={isLoading} />
     </MainContentLayout>
   );
 }
 
-export default Patient;
+export default PatientHistory;
