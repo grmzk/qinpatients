@@ -2,11 +2,16 @@ import CaseDiseaseResponse from "./CaseDiseaseResponse";
 import EditorType from "./EditorType";
 import PatientInfoResponse from "./PatientInfoResponse";
 
-export type EditorState = {
+export type EditorTab = {
   id: string;
   editorType: EditorType;
   patientInfo: PatientInfoResponse;
   caseDisease: CaseDiseaseResponse;
 };
 
-export type EditorPayload = Omit<EditorState, "id">;
+export type EditorState = {
+  storedEditorId?: string;
+  editorTabs: EditorTab[];
+};
+
+export type EditorTabPayload = Omit<EditorTab, "id">;

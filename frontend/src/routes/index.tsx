@@ -53,6 +53,12 @@ function AuthRoutes() {
             {
               path: "editor",
               Component: Editor,
+              children: [
+                {
+                  path: ":editorId",
+                  Component: Editor,
+                },
+              ],
             },
           ],
         },

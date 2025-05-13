@@ -1,23 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
-import { EditorPayload, EditorState } from "../../types/EditorState";
+import { EditorTabPayload, EditorState } from "../../types/EditorState";
 
-const initialState: EditorState[] = [];
+const initialState: EditorState = {
+  editorTabs: [],
+};
 
 const editorSlice = createSlice({
   name: "editor",
   initialState,
   reducers: {
-    addTabEditor: (state: EditorState[], action: PayloadAction<EditorPayload>) => {
-      state.push({ ...action.payload, id: uuidv4() });
+    addEditorTab: (state: EditorState, action: PayloadAction<EditorTabPayload>) => {
+      const id = uuidv4();
+      state.storedEditorId = id;
+      state.editorTabs.push({ ...action.payload, id: id });
     },
-    deleteTabEditor: (state: EditorState[], action: PayloadAction<string>) => {
-      return state.filter((tab) => tab.id !== action.payload);
+    deleteEditorTab: (state: EditorState, action: PayloadAction<string>) => {
+      state.editorTabs = state.editorTabs.filter((editorTab) => editorTab.id !== action.payload);
+      if (state.storedEditorId === action.payload) {
+        state.storedEditorId = undefined;
+      }
+    },
+    setStoredEditorId: (state: EditorState, action: PayloadAction<string | undefined>) => {
+      state.storedEditorId = action.payload;
     },
   },
 });
 
-export const { addTabEditor, deleteTabEditor } = editorSlice.actions;
+export const { addEditorTab, deleteEditorTab, setStoredEditorId } = editorSlice.actions;
 
 export default editorSlice.reducer;

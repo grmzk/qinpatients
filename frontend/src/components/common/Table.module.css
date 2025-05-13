@@ -1,44 +1,45 @@
-.title, .loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #d7d2cc;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
-    padding: 0.25em 0;
-    margin-bottom: 1em;
-    font-size: 0.9em;
-    font-weight: bold;
-    border: 1px solid #999999;
+.title,
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #d7d2cc;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  padding: 0.25em 0;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+  font-weight: bold;
+  border: 1px solid #999999;
 }
 
 .sortTh:hover {
-    background: #304352;
-    color: #fff;
-    cursor: pointer;
+  background: #304352;
+  color: #fff;
+  cursor: pointer;
 }
 
 .loading {
-    height: 7.5em;
-    background-color: #d7d2cc;
+  height: 7.5em;
+  background-color: #d7d2cc;
 }
 
 .inpatient {
-    color: #00f;
+  color: #00f;
 }
 
 .reanimation {
-    color: #aa0000;
+  color: #aa0000;
 }
 
 .processing {
-    background-color: white;
+  background-color: white;
 }
 
 .toOtherDepartment {
-    background-color: #8a8f93;
+  background-color: #8a8f93;
 }
 
 .fromOtherDepartment {
-    background-color: #c2c0bc;
+  background-color: #c2c0bc;
 }

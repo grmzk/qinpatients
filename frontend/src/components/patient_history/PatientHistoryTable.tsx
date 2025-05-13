@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch } from "../../hooks/reduxHooks";
-import { addTabEditor } from "../../redux/slices/editorSlice";
+import { useNavigate } from "react-router";
+
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { addEditorTab } from "../../redux/slices/editorSlice";
 import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
 import PatientInfoResponse from "../../types/PatientInfoResponse";
 import { ContentOfTableContent, TableContent } from "../../types/TableContent";
@@ -20,8 +22,17 @@ function PatientHistoryTable({ patientInfo, history, isLoading }: PatientHistory
     head: {},
     content: [],
   });
+  const storedEditorId = useAppSelector((state) => state.editor.storedEditorId);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      const path = "/editor/" + storedEditorId;
+      navigate(path);
+    };
+  }, [storedEditorId, navigate]);
 
   useEffect(() => {
     if (patientInfo && history) {
@@ -49,7 +60,7 @@ function PatientHistoryTable({ patientInfo, history, isLoading }: PatientHistory
             data: case_disease,
             classList: classList,
             onClick: () =>
-              dispatch(addTabEditor({ patientInfo, caseDisease: case_disease, editorType: "FIRST_EXAMINATION" })),
+              dispatch(addEditorTab({ patientInfo, caseDisease: case_disease, editorType: "FIRST_EXAMINATION" })),
           });
           return content;
         }, []),
