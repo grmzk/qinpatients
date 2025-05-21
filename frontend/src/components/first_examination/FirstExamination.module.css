@@ -1,0 +1,25 @@
+.mainArea {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  align-items: start;
+  justify-content: start;
+  gap: 1em;
+  height: 0;
+}
+
+.block,
+.title {
+  background-color: #d7d2cc;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  font-size: 0.9em;
+  border: 1px solid #999999;
+}
+
+.title {
+  grid-column: 1 / span 2;
+  padding: 0.25em 0;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-transform: uppercase;
+}

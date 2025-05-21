@@ -1,12 +1,13 @@
 import CaseDiseaseResponse from "./CaseDiseaseResponse";
-import EditorType from "./EditorType";
+import { EditorTabType, FirstExaminationTabState } from "./EditorTabTypes";
 import PatientInfoResponse from "./PatientInfoResponse";
 
 export type EditorTab = {
   id: string;
-  editorType: EditorType;
+  editorType: EditorTabType;
   patientInfo: PatientInfoResponse;
   caseDisease: CaseDiseaseResponse;
+  state?: FirstExaminationTabState;
 };
 
 export type EditorState = {

@@ -24,7 +24,6 @@ function Editor() {
   console.log("RENDER");
 
   useEffect(() => {
-    console.log("EFFECT");
     currentEditorId && dispatch(setStoredEditorId(currentEditorId));
   }, [dispatch, currentEditorId]);
 
@@ -56,7 +55,7 @@ function Editor() {
   }
 
   const EditorWorkspace = () =>
-    currentEditorTab ? <FirstExamination patientInfo={currentEditorTab.patientInfo} /> : null;
+    currentEditorTab ? <FirstExamination id={currentEditorTab.id} patientInfo={currentEditorTab.patientInfo} /> : null;
 
   function handleCloseIconOnClick(event: SyntheticEvent, id: string) {
     event.preventDefault();

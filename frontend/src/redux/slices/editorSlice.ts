@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 import { EditorTabPayload, EditorState } from "../../types/EditorState";
+import { FirstExaminationTabState } from "../../types/EditorTabTypes";
 
 const initialState: EditorState = {
   editorTabs: [],
@@ -25,9 +26,15 @@ const editorSlice = createSlice({
     setStoredEditorId: (state: EditorState, action: PayloadAction<string | undefined>) => {
       state.storedEditorId = action.payload;
     },
+    setEditorTabState: (state: EditorState, action: PayloadAction<{ id: string; state: FirstExaminationTabState }>) => {
+      const tab = state.editorTabs.find((tab) => tab.id === action.payload.id);
+      if (tab) {
+        tab.state = action.payload.state;
+      }
+    },
   },
 });
 
-export const { addEditorTab, deleteEditorTab, setStoredEditorId } = editorSlice.actions;
+export const { addEditorTab, deleteEditorTab, setStoredEditorId, setEditorTabState } = editorSlice.actions;
 
 export default editorSlice.reducer;
