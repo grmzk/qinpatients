@@ -17,12 +17,7 @@ type FirstExaminationProps = {
 function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
   const state = useAppSelector((state) => state.editor.editorTabs.find((tab) => tab.id === id)?.state);
 
-  const dispatch = useAppDispatch();
-  const setComplaintsState = (complaintsState: TextareaExtendedState) => {
-    dispatch(setEditorTabState({ id, state: { complaints: complaintsState } }));
-  };
-
-  const complaintsInitialState = {
+  const complaintsInitialState: TextareaExtendedState = {
     title: "Жалобы",
     text: "",
     rows: 1,
@@ -30,14 +25,60 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
       encephalopathy: {
         title: "энцефалопатия",
         text: "невозможно выяснить ввиду выраженной энцефалопатии у пациента. ",
-        isChecked: false,
+        checked: false,
       },
       graveCondition: {
         title: "тяжёлое состояние",
         text: "невозможно выяснить ввиду тяжести состояния пациента. ",
-        isChecked: false,
+        checked: false,
       },
     },
+  };
+  const anamnesisMorbiInitialState: TextareaExtendedState = {
+    title: "Anamnesis morbi",
+    text: "",
+    rows: 1,
+    options: {
+      patientTell: {
+        title: "со слов пациента",
+        text: "со слов пациента: ",
+        checked: true,
+      },
+      escortTell: {
+        title: "со слов сопровождения",
+        text: "со слов сопровождения: ",
+        checked: false,
+      },
+      emergencyTell: {
+        title: "со слов бригады СМП",
+        text: "со слов бригады СМП: ",
+        checked: false,
+      },
+      withoutAdditions: {
+        title: "без дополнений",
+        text: "без дополнений",
+        checked: false,
+      },
+    },
+  };
+
+  const dispatch = useAppDispatch();
+
+  if (!state) {
+    dispatch(
+      setEditorTabState({
+        id,
+        state: { complaints: complaintsInitialState, anamnesisMorbi: anamnesisMorbiInitialState },
+      })
+    );
+    return <></>;
+  }
+
+  const setComplaintsState = (complaintsState: TextareaExtendedState) => {
+    dispatch(setEditorTabState({ id, state: { ...state, complaints: complaintsState } }));
+  };
+  const setAnamnesisMorbiState = (anamnesisMorbiState: TextareaExtendedState) => {
+    dispatch(setEditorTabState({ id, state: { ...state, anamnesisMorbi: anamnesisMorbiState } }));
   };
 
   return (
@@ -46,7 +87,8 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
       <div className={styles.mainArea}>
         <div className={styles.title}>Первичный осмотр</div>
         <div className={styles.block}>
-          <TextareaExtended state={state?.complaints ?? complaintsInitialState} setState={setComplaintsState} />
+          <TextareaExtended state={state.complaints} setState={setComplaintsState} />
+          <TextareaExtended state={state.anamnesisMorbi} setState={setAnamnesisMorbiState} />
         </div>
         <div className={styles.block}></div>
       </div>

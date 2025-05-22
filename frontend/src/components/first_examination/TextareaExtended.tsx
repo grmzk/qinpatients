@@ -13,6 +13,14 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
   const [text, setText] = useState(state.text);
   const [rows, setRows] = useState(state.rows);
 
+  if (!text) {
+    for (const option of Object.values(state.options)) {
+      if (option.checked) {
+        setText(option.text);
+      }
+    }
+  }
+
   function handleFieldsetOnChange(event: SyntheticEvent<HTMLFieldSetElement>) {
     const newState = structuredClone(state);
     for (const element of event.currentTarget.elements) {
@@ -20,11 +28,11 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
         continue;
       }
       if (element === event.target) {
-        newState.options[element.id].isChecked = !newState.options[element.id].isChecked;
+        newState.options[element.id].checked = !newState.options[element.id].checked;
       } else {
-        newState.options[element.id].isChecked = false;
+        newState.options[element.id].checked = false;
       }
-      if (newState.options[element.id].isChecked) {
+      if (newState.options[element.id].checked) {
         newState.text = newState.options[element.id].text + newState.text;
       } else {
         newState.text = newState.text.replace(newState.options[element.id].text, "");
@@ -45,7 +53,7 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
               type="checkbox"
               name="textareaExtended"
               id={key}
-              checked={state.options[key].isChecked}
+              checked={state.options[key].checked}
               readOnly
             />
             <label className={styles.checkboxLabel} htmlFor={key}>

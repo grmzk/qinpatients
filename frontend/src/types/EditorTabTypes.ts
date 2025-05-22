@@ -8,11 +8,12 @@ export type TextareaExtendedState = {
     [key: string]: {
       title: string;
       text: string;
-      isChecked: boolean;
+      checked: boolean;
     };
   };
 };
 
 export type FirstExaminationTabState = {
   complaints: TextareaExtendedState;
+  anamnesisMorbi: TextareaExtendedState;
 };

@@ -23,3 +23,11 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.block > div {
+  border-bottom: #999999 1px solid;
+}
+
+.block > div:nth-last-child(1) {
+  border-bottom: none;
+}
