@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router";
 
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { useAppDispatch } from "../../hooks/reduxHooks";
 import { addEditorTab } from "../../redux/slices/editorSlice";
 import CaseDiseaseResponse from "../../types/CaseDiseaseResponse";
 import PatientInfoResponse from "../../types/PatientInfoResponse";
@@ -18,55 +16,43 @@ type PatientHistoryTableProps = {
 };
 
 function PatientHistoryTable({ patientInfo, history, isLoading }: PatientHistoryTableProps) {
-  const [tableContent, setTableContent] = useState<TableContent<CaseDiseaseResponse>>({
-    head: {},
-    content: [],
-  });
-  const storedEditorId = useAppSelector((state) => state.editor.storedEditorId);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    return () => {
-      const path = "/editor/" + storedEditorId;
-      navigate(path);
-    };
-  }, [storedEditorId, navigate]);
-
-  useEffect(() => {
-    if (patientInfo && history) {
-      setTableContent({
-        head: {
-          АСУ: "card_id",
-          "Стац. номер": "inpatient_id",
-          "Время поступления": "admission_date",
-          Отделение: "department",
-          Диагноз: "diagnosis",
-          Врач: "doctor",
-          Исход: "result",
-        },
-        content: history.reduce<ContentOfTableContent<CaseDiseaseResponse>[]>((content, case_disease) => {
-          const classList: string[] = [];
-          if (case_disease.is_reanimation) {
-            classList.push(styles.reanimation);
-          } else if (case_disease.is_inpatient) {
-            classList.push(styles.inpatient);
-          }
-          if (!case_disease.is_outcome) {
-            classList.push(styles.processing);
-          }
-          content.push({
-            data: case_disease,
-            classList: classList,
-            onClick: () =>
-              dispatch(addEditorTab({ patientInfo, caseDisease: case_disease, editorType: "FIRST_EXAMINATION" })),
-          });
-          return content;
-        }, []),
-      });
-    }
-  }, [history, patientInfo, dispatch]);
+  const tableContent = {
+    head: {
+      АСУ: "card_id",
+      "Стац. номер": "inpatient_id",
+      "Время поступления": "admission_date",
+      Отделение: "department",
+      Диагноз: "diagnosis",
+      Врач: "doctor",
+      Исход: "result",
+    },
+    content:
+      patientInfo && history
+        ? history.reduce<ContentOfTableContent<CaseDiseaseResponse>[]>((content, case_disease) => {
+            const classList: string[] = [];
+            if (case_disease.is_reanimation) {
+              classList.push(styles.reanimation);
+            } else if (case_disease.is_inpatient) {
+              classList.push(styles.inpatient);
+            }
+            if (!case_disease.is_outcome) {
+              classList.push(styles.processing);
+            }
+            content.push({
+              data: case_disease,
+              classList: classList,
+              onClick: () => {
+                dispatch(addEditorTab({ patientInfo, caseDisease: case_disease, editorType: "FIRST_EXAMINATION" }));
+                navigate("/editor");
+              },
+            });
+            return content;
+          }, [])
+        : [],
+  } satisfies TableContent<CaseDiseaseResponse>;
 
   return (
     <Table

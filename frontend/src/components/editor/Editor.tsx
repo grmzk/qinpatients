@@ -36,9 +36,7 @@ function Editor() {
   }
 
   if (!storedEditorId) {
-    console.log(editorTabs);
     const lastEditorId = editorTabs.at(-1)?.id ?? "";
-    console.log(lastEditorId);
     if (lastEditorId !== urlEditorId) {
       return <Navigate to={lastEditorId} />;
     }
