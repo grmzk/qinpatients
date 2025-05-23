@@ -14,17 +14,17 @@ const editorSlice = createSlice({
   reducers: {
     addEditorTab: (state: EditorState, action: PayloadAction<EditorTabPayload>) => {
       const id = uuidv4();
-      state.storedEditorId = id;
+      state.currentEditorTabId = id;
       state.editorTabs.push({ ...action.payload, id: id });
     },
     deleteEditorTab: (state: EditorState, action: PayloadAction<string>) => {
       state.editorTabs = state.editorTabs.filter((editorTab) => editorTab.id !== action.payload);
-      if (state.storedEditorId === action.payload) {
-        state.storedEditorId = undefined;
+      if (state.currentEditorTabId === action.payload) {
+        state.currentEditorTabId = state.editorTabs.at(-1)?.id;
       }
     },
-    setStoredEditorId: (state: EditorState, action: PayloadAction<string | undefined>) => {
-      state.storedEditorId = action.payload;
+    setCurrentEditorTabId: (state: EditorState, action: PayloadAction<string | undefined>) => {
+      state.currentEditorTabId = action.payload;
     },
     setEditorTabState: (state: EditorState, action: PayloadAction<{ id: string; state: FirstExaminationTabState }>) => {
       const tab = state.editorTabs.find((tab) => tab.id === action.payload.id);
@@ -35,6 +35,6 @@ const editorSlice = createSlice({
   },
 });
 
-export const { addEditorTab, deleteEditorTab, setStoredEditorId, setEditorTabState } = editorSlice.actions;
+export const { addEditorTab, deleteEditorTab, setCurrentEditorTabId, setEditorTabState } = editorSlice.actions;
 
 export default editorSlice.reducer;

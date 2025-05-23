@@ -1,11 +1,10 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent } from "react";
 
 import { FaBookMedical } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
-import { Navigate, NavLink, useParams } from "react-router";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { deleteEditorTab, setStoredEditorId } from "../../redux/slices/editorSlice";
+import { deleteEditorTab, setCurrentEditorTabId } from "../../redux/slices/editorSlice";
 import { EditorTab } from "../../types/EditorState";
 import { capitalizeString } from "../../utils/capitalizeString";
 import FirstExamination from "../first_examination/FirstExamination";
@@ -14,20 +13,13 @@ import styles from "./Editor.module.css";
 
 function Editor() {
   const editorTabs: EditorTab[] = useAppSelector((state) => state.editor.editorTabs);
-  const storedEditorId = useAppSelector((state) => state.editor.storedEditorId);
-  const [currentEditorId, setCurrentEditorId] = useState<string>();
-
-  const { editorId: urlEditorId } = useParams();
+  const currentEditorTabId = useAppSelector((state) => state.editor.currentEditorTabId);
 
   const dispatch = useAppDispatch();
 
   console.log("RENDER");
 
-  useEffect(() => {
-    currentEditorId && dispatch(setStoredEditorId(currentEditorId));
-  }, [dispatch, currentEditorId]);
-
-  if (!editorTabs.length) {
+  if (!editorTabs.length || !currentEditorTabId) {
     return (
       <div className={styles.editorTabsMain}>
         <div className={styles.noEditorTabs}>Нет открытых вкладок</div>
@@ -35,24 +27,8 @@ function Editor() {
     );
   }
 
-  if (!storedEditorId) {
-    const lastEditorId = editorTabs.at(-1)?.id ?? "";
-    if (lastEditorId !== urlEditorId) {
-      return <Navigate to={lastEditorId} />;
-    }
-  }
-
-  if (!urlEditorId && storedEditorId) {
-    return <Navigate to={storedEditorId} />;
-  }
-
-  const currentEditorTab = editorTabs.find((editorTab) => editorTab.id === urlEditorId);
-
-  if (currentEditorTab && currentEditorTab.id !== currentEditorId) {
-    setCurrentEditorId(currentEditorTab.id);
-  }
-
-  const EditorWorkspace = () =>
+  const currentEditorTab = editorTabs.find((editorTab) => editorTab.id === currentEditorTabId);
+  const CurrentEditorTabComponent = () =>
     currentEditorTab ? <FirstExamination id={currentEditorTab.id} patientInfo={currentEditorTab.patientInfo} /> : null;
 
   function handleCloseIconOnClick(event: SyntheticEvent, id: string) {
@@ -61,27 +37,37 @@ function Editor() {
     dispatch(deleteEditorTab(id));
   }
 
+  function handleEditorTabsInputOnChange(editorId: string) {
+    dispatch(setCurrentEditorTabId(editorId));
+  }
+
   return (
     <>
       <div className={styles.editorTabsMain}>
         <div className={styles.editorTabs}>
           {editorTabs.map((editorTab) => (
-            <NavLink className={styles.navLink} to={editorTab.id} key={editorTab.id}>
-              <button>
-                <FaBookMedical className={styles.icon} />
-                <div className={styles.buttonText}>{capitalizeString(editorTab.patientInfo.full_name)}</div>
-                <IoMdCloseCircle
-                  className={`${styles.icon} ${styles.close}`}
-                  size="1.25em"
-                  title="закрыть"
-                  onClick={(event) => handleCloseIconOnClick(event, editorTab.id)}
-                />
-              </button>
-            </NavLink>
+            <div key={editorTab.id}>
+              <input
+                type="radio"
+                name="editorTabs"
+                id={editorTab.id}
+                value={editorTab.id}
+                checked={editorTab.id === currentEditorTabId}
+                onChange={() => handleEditorTabsInputOnChange(editorTab.id)}
+              />
+              <FaBookMedical className={styles.icon} />
+              <label htmlFor={editorTab.id}>{capitalizeString(editorTab.patientInfo.full_name)}</label>
+              <IoMdCloseCircle
+                className={`${styles.icon} ${styles.close}`}
+                size="1.25em"
+                title="закрыть"
+                onClick={(event) => handleCloseIconOnClick(event, editorTab.id)}
+              />
+            </div>
           ))}
         </div>
       </div>
-      <EditorWorkspace />
+      <CurrentEditorTabComponent />
     </>
   );
 }

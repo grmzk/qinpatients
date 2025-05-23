@@ -11,7 +11,7 @@ export type EditorTab = {
 };
 
 export type EditorState = {
-  storedEditorId?: string;
+  currentEditorTabId?: string;
   editorTabs: EditorTab[];
 };
 
