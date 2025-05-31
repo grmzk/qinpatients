@@ -7,7 +7,7 @@ type ComplaintsProps = {
   setState: (state: TextareaExtendedState) => void;
 };
 
-function Complaits({ state, setState }: ComplaintsProps) {
+function Complaints({ state, setState }: ComplaintsProps) {
   const complaintsState: TextareaExtendedState = state ?? {
     title: "Жалобы",
     text: "",
@@ -15,7 +15,7 @@ function Complaits({ state, setState }: ComplaintsProps) {
     options: {
       encephalopathy: {
         title: "энцефалопатия",
-        text: "невозможно выяснить ввиду выраженной энцефалопатии у пациента. ",
+        text: "невозможно достоверно выяснить ввиду выраженной энцефалопатии у пациента. ",
         checked: false,
       },
       graveCondition: {
@@ -29,4 +29,4 @@ function Complaits({ state, setState }: ComplaintsProps) {
   return <TextareaExtended state={complaintsState} setState={setState} />;
 }
 
-export default Complaits;
+export default Complaints;

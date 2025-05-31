@@ -14,6 +14,6 @@ export type TextareaExtendedState = {
 };
 
 export type FirstExaminationTabState = {
-  complaints: TextareaExtendedState;
-  anamnesisMorbi: TextareaExtendedState;
+  complaints?: TextareaExtendedState;
+  anamnesisMorbi?: TextareaExtendedState;
 };
