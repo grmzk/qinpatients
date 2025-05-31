@@ -43,7 +43,6 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
             <input
               className={styles.checkbox}
               type="checkbox"
-              name="textareaExtended"
               id={key}
               checked={state.options[key].checked}
               onChange={() => handleOptionsOnChange(key)}
