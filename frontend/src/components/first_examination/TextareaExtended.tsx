@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 
 import { TextareaExtendedState } from "../../types/EditorTabTypes";
 
@@ -21,31 +21,23 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
     }
   }
 
-  function handleFieldsetOnChange(event: SyntheticEvent<HTMLFieldSetElement>) {
+  function handleOptionsOnChange(optionKey: string) {
     const newState = structuredClone(state);
-    for (const element of event.currentTarget.elements) {
-      if (!(element instanceof HTMLInputElement)) {
-        continue;
-      }
-      if (element === event.target) {
-        newState.options[element.id].checked = !newState.options[element.id].checked;
+    Object.entries(newState.options).map(([key, option]) => {
+      if (key === optionKey) {
+        option.checked = !option.checked;
       } else {
-        newState.options[element.id].checked = false;
+        option.checked = false;
       }
-      if (newState.options[element.id].checked) {
-        newState.text = newState.options[element.id].text + newState.text;
-      } else {
-        newState.text = newState.text.replace(newState.options[element.id].text, "");
-      }
-    }
-    newState.rows = rows;
+      newState.text = option.checked ? option.text + newState.text : newState.text.replace(option.text, "");
+    });
     setState(newState);
   }
 
   return (
     <div className={styles.main}>
       <div className={styles.title}>{state.title}</div>
-      <fieldset className={styles.fieldset} onChange={handleFieldsetOnChange}>
+      <div className={styles.options}>
         {Object.keys(state.options).map((key, index) => (
           <div key={index}>
             <input
@@ -54,14 +46,14 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
               name="textareaExtended"
               id={key}
               checked={state.options[key].checked}
-              readOnly
+              onChange={() => handleOptionsOnChange(key)}
             />
             <label className={styles.checkboxLabel} htmlFor={key}>
               {state.options[key].title}
             </label>
           </div>
         ))}
-      </fieldset>
+      </div>
       <div className={styles.textareaBlock}>
         <textarea
           className={styles.textarea}

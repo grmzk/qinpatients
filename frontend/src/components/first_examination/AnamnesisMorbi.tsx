@@ -30,7 +30,7 @@ function AnamnesisMorbi({ state, setState }: AnamnesisMorbiProps) {
       },
       withoutAdditions: {
         title: "без дополнений",
-        text: "без дополнений",
+        text: "без дополнений.",
         checked: false,
       },
     },
