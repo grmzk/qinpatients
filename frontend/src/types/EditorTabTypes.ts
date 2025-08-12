@@ -41,8 +41,17 @@ export interface AnamnesisVitaeState extends FormTextOrOptionsState {
   };
 }
 
+export interface AnamnesisGynecologicalState extends FormTextOrOptionsState {
+  textOrOptions: {
+    pregnancies?: TextOrOptionState;
+    childbirths?: TextOrOptionState;
+    mensis?: TextOrOptionState;
+  };
+}
+
 export type FirstExaminationTabState = {
   complaints: TextareaExtendedState;
   anamnesisMorbi: TextareaExtendedState;
   anamnesisVitae: AnamnesisVitaeState;
+  anamnesisGynecological: AnamnesisGynecologicalState;
 };

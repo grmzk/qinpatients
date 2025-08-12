@@ -2,7 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 import { EditorTabPayload, EditorState } from "../../types/EditorState";
-import { AnamnesisVitaeState, FirstExaminationTabState, TextareaExtendedState } from "../../types/EditorTabTypes";
+import {
+  AnamnesisGynecologicalState,
+  AnamnesisVitaeState,
+  FirstExaminationTabState,
+  TextareaExtendedState,
+} from "../../types/EditorTabTypes";
 
 const initialState: EditorState = {
   editorTabs: [],
@@ -114,6 +119,30 @@ const anamnesisVitaeInitialState: AnamnesisVitaeState = {
   },
 };
 
+const anamnesisGynecologicalInitialState: AnamnesisGynecologicalState = {
+  title: "Anamnesis gynecological",
+  textOrOptions: {
+    pregnancies: {
+      title: "Беременности",
+      optionChecked: true,
+      optionText: "нет данных",
+      text: "",
+    },
+    childbirths: {
+      title: "Роды",
+      optionChecked: true,
+      optionText: "нет данных",
+      text: "",
+    },
+    mensis: {
+      title: "Менструация",
+      optionChecked: true,
+      optionText: "нет данных",
+      text: "",
+    },
+  },
+};
+
 const editorSlice = createSlice({
   name: "editor",
   initialState,
@@ -128,6 +157,7 @@ const editorSlice = createSlice({
           complaints: complaintsInitialState,
           anamnesisMorbi: anamnesisMorbiInitialState,
           anamnesisVitae: anamnesisVitaeInitialState,
+          anamnesisGynecological: anamnesisGynecologicalInitialState,
         },
       });
     },

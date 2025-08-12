@@ -31,3 +31,9 @@
 .block > div:nth-last-child(1) {
   border-bottom: none;
 }
+
+@media (max-width: 1525px) {
+  .mainArea {
+    grid-template-columns: 1fr;
+  }
+}

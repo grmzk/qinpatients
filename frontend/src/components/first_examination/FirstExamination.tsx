@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { setEditorTabState } from "../../redux/slices/editorSlice";
-import { AnamnesisVitaeState, TextareaExtendedState } from "../../types/EditorTabTypes";
+import { AnamnesisGynecologicalState, AnamnesisVitaeState, TextareaExtendedState } from "../../types/EditorTabTypes";
 import PatientInfoResponse from "../../types/PatientInfoResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
 import PatientInfo from "../patient_history/PatientInfo";
@@ -33,6 +33,11 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
   const setAnamnesisVitaeState = (anamnesisVitaeState: AnamnesisVitaeState) => {
     dispatch(setEditorTabState({ id, state: { ...editorTabState, anamnesisVitae: anamnesisVitaeState } }));
   };
+  const setAnamnesisGynecologicalState = (anamnesisGynecologicalState: AnamnesisGynecologicalState) => {
+    dispatch(
+      setEditorTabState({ id, state: { ...editorTabState, anamnesisGynecological: anamnesisGynecologicalState } })
+    );
+  };
 
   return (
     <MainContentLayout>
@@ -43,6 +48,7 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
           <TextareaExtended state={editorTabState.complaints} setState={setComplaintsState} />
           <TextareaExtended state={editorTabState.anamnesisMorbi} setState={setAnamnesisMorbiState} />
           <FormTextOrOptions state={editorTabState.anamnesisVitae} setState={setAnamnesisVitaeState} />
+          <FormTextOrOptions state={editorTabState.anamnesisGynecological} setState={setAnamnesisGynecologicalState} />
         </div>
         <div className={styles.block}></div>
       </div>
