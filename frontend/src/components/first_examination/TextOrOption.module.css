@@ -1,6 +1,7 @@
 .main {
   display: flex;
   gap: 0.5em;
+  padding: 0.2em 0.5em;
 }
 
 .title {
@@ -8,7 +9,7 @@
   font-size: inherit;
   text-decoration: underline;
   text-align: left;
-  width: 10em;
+  width: 13em;
 }
 
 .optionCheckbox {
@@ -18,7 +19,7 @@
 .optionLabel {
   font-family: inherit;
   font-size: inherit;
-  width: 7.5em;
+  width: 8.5em;
   padding: 0 0.5em 0.15em;
   border: rgba(0, 0, 0, 0.15) solid 1px;
   color: rgba(0, 0, 0, 0.8);
@@ -30,7 +31,8 @@
   border: rgba(255, 255, 255, 0.5) solid 1px;
 }
 
-.optionCheckbox:checked + label {
+.optionCheckbox:checked + label,
+.optionCheckbox:not(:checked) ~ .text {
   background: #304352;
   color: #fff;
 }

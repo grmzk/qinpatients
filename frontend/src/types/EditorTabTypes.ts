@@ -20,21 +20,24 @@ export type TextOrOptionState = {
   text: string;
 };
 
-export type TextOrOptionStateSetState = {
-  state: TextOrOptionState;
-  setState: (state: TextOrOptionState) => void;
-};
-
 export interface FormTextOrOptionsState {
   title: string;
   textOrOptions: {
-    [key: string]: TextOrOptionStateSetState;
+    [key: string]: TextOrOptionState;
   };
 }
 
 export interface AnamnesisVitaeState extends FormTextOrOptionsState {
   textOrOptions: {
-    tuberculosis?: TextOrOptionStateSetState;
+    tuberculosis?: TextOrOptionState;
+    hepatitis?: TextOrOptionState;
+    hiv?: TextOrOptionState;
+    diabetes?: TextOrOptionState;
+    drugs?: TextOrOptionState;
+    allergy?: TextOrOptionState;
+    tetanus?: TextOrOptionState;
+    operations?: TextOrOptionState;
+    trauma?: TextOrOptionState;
   };
 }
 

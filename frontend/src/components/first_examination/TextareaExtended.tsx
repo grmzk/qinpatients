@@ -61,7 +61,7 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
           value={text}
           onScrollEnd={(event) => setRows(++event.currentTarget.rows)}
           onChange={(event) => setText(event.target.value)}
-          onBlur={(event) => setState({ ...state, text: event.target.value, rows: rows })}
+          onBlur={() => state.text !== text && setState({ ...state, text: text, rows: rows })}
         ></textarea>
       </div>
     </div>
