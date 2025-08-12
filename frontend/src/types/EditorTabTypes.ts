@@ -42,7 +42,7 @@ export interface AnamnesisVitaeState extends FormTextOrOptionsState {
 }
 
 export type FirstExaminationTabState = {
-  complaints?: TextareaExtendedState;
-  anamnesisMorbi?: TextareaExtendedState;
-  anamnesisVitae?: AnamnesisVitaeState;
+  complaints: TextareaExtendedState;
+  anamnesisMorbi: TextareaExtendedState;
+  anamnesisVitae: AnamnesisVitaeState;
 };

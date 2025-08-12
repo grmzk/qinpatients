@@ -7,7 +7,7 @@ export type EditorTab = {
   editorType: EditorTabType;
   patientInfo: PatientInfoResponse;
   caseDisease: CaseDiseaseResponse;
-  state?: FirstExaminationTabState;
+  state: FirstExaminationTabState;
 };
 
 export type EditorState = {
@@ -15,4 +15,4 @@ export type EditorState = {
   editorTabs: EditorTab[];
 };
 
-export type EditorTabPayload = Omit<EditorTab, "id">;
+export type EditorTabPayload = Omit<EditorTab, "id" | "state">;
