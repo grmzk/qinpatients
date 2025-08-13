@@ -84,9 +84,34 @@ export interface AdditionalSupportState extends TitleOptionsState {
   };
 }
 
+export interface MindState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    lucid?: TitleOption;
+    encephalopathy?: TitleOption;
+    disoriented?: TitleOption;
+    confusion?: TitleOption;
+    stun?: TitleOption;
+    sopor?: TitleOption;
+    coma?: TitleOption;
+  };
+}
+
+export interface IntoxicationState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    alcohol?: TitleOption;
+    drug?: TitleOption;
+  };
+}
+
 export type StatusPraesensState = {
   condition: ConditionState;
   additionalSupport: AdditionalSupportState;
+  mind: MindState;
+  intoxication: IntoxicationState;
 };
 
 export type FirstExaminationTabState = {

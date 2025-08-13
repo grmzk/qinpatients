@@ -8,6 +8,8 @@ import {
   AnamnesisVitaeState,
   ConditionState,
   FirstExaminationTabState,
+  IntoxicationState,
+  MindState,
   StatusPraesensState,
   TextareaExtendedState,
 } from "../../types/EditorTabTypes";
@@ -192,9 +194,61 @@ const additionalSupportInitialState: AdditionalSupportState = {
   },
 };
 
+const mindInitialState: MindState = {
+  name: "mind",
+  title: "Сознание",
+  options: {
+    lucid: {
+      optionTitle: "ясное",
+      optionChecked: true,
+    },
+    encephalopathy: {
+      optionTitle: "энцефалопатия",
+      optionChecked: false,
+    },
+    disoriented: {
+      optionTitle: "дезориентирован",
+      optionChecked: false,
+    },
+    confusion: {
+      optionTitle: "спутанное",
+      optionChecked: false,
+    },
+    stun: {
+      optionTitle: "оглушение",
+      optionChecked: false,
+    },
+    sopor: {
+      optionTitle: "сопор",
+      optionChecked: false,
+    },
+    coma: {
+      optionTitle: "кома",
+      optionChecked: false,
+    },
+  },
+};
+
+const intoxicationInitialState: IntoxicationState = {
+  name: "intoxication",
+  title: "Опьянение",
+  options: {
+    alcohol: {
+      optionTitle: "алкогольное опьянение",
+      optionChecked: false,
+    },
+    drug: {
+      optionTitle: "наркотическое опьянение",
+      optionChecked: false,
+    },
+  },
+};
+
 const statusPraesensInitialState: StatusPraesensState = {
   condition: conditionInitialState,
   additionalSupport: additionalSupportInitialState,
+  mind: mindInitialState,
+  intoxication: intoxicationInitialState,
 };
 
 const editorSlice = createSlice({
