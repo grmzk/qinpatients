@@ -1,8 +1,10 @@
 import {
   AdditionalSupportState,
+  BreathState,
   ConditionState,
   IntoxicationState,
   MindState,
+  SkinState,
   StatusPraesensState,
 } from "../../types/EditorTabTypes";
 
@@ -28,6 +30,15 @@ function StatusPraesens({ state, setState }: StatusPraesensProps) {
   const setIntoxicationState = (newIntoxicationState: IntoxicationState) => {
     setState({ ...state, intoxication: newIntoxicationState });
   };
+  const setSkinState = (newSkinState: SkinState) => {
+    setState({ ...state, skin: newSkinState });
+  };
+  const setBreathRightState = (newBreathRightState: BreathState) => {
+    setState({ ...state, breathRight: newBreathRightState });
+  };
+  const setBreathLeftState = (newBreathLeftState: BreathState) => {
+    setState({ ...state, breathRight: newBreathLeftState });
+  };
   return (
     <div className={styles.main}>
       <div className={styles.title}>Status praesens</div>
@@ -35,6 +46,9 @@ function StatusPraesens({ state, setState }: StatusPraesensProps) {
       <TitleOptions state={state.additionalSupport} setState={setAdditionalSupportState} />
       <TitleOptions state={state.mind} setState={setMindState} radio />
       <TitleOptions state={state.intoxication} setState={setIntoxicationState} />
+      <TitleOptions state={state.skin} setState={setSkinState} radio />
+      <TitleOptions state={state.breathRight} setState={setBreathRightState} radio />
+      <TitleOptions state={state.breathLeft} setState={setBreathLeftState} radio />
     </div>
   );
 }

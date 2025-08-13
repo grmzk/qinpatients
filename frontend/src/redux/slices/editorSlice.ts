@@ -6,10 +6,12 @@ import {
   AdditionalSupportState,
   AnamnesisGynecologicalState,
   AnamnesisVitaeState,
+  BreathState,
   ConditionState,
   FirstExaminationTabState,
   IntoxicationState,
   MindState,
+  SkinState,
   StatusPraesensState,
   TextareaExtendedState,
 } from "../../types/EditorTabTypes";
@@ -244,11 +246,83 @@ const intoxicationInitialState: IntoxicationState = {
   },
 };
 
+const skinInitialState: SkinState = {
+  name: "skin",
+  title: "Кожные покровы",
+  options: {
+    normal: {
+      optionTitle: "обычной окраски",
+      optionChecked: true,
+    },
+    palePink: {
+      optionTitle: "бледно-розовые",
+      optionChecked: false,
+    },
+    pale: {
+      optionTitle: "бледные",
+      optionChecked: false,
+    },
+    acrocyanosis: {
+      optionTitle: "акроцианоз",
+      optionChecked: false,
+    },
+    cyanosis: {
+      optionTitle: "цианоз",
+      optionChecked: false,
+    },
+    icteric: {
+      optionTitle: "иктеричные",
+      optionChecked: false,
+    },
+  },
+};
+
+const breathRightInitialState: BreathState = {
+  name: "breathRight",
+  title: "Дыхание справа",
+  options: {
+    transferred: {
+      optionTitle: "проводится",
+      optionChecked: true,
+    },
+    weaked: {
+      optionTitle: "ослаблено",
+      optionChecked: false,
+    },
+    notTransferred: {
+      optionTitle: "не проводится",
+      optionChecked: false,
+    },
+  },
+};
+
+const breathLeftInitialState: BreathState = {
+  name: "breathLeft",
+  title: "Дыхание слева",
+  options: {
+    transferred: {
+      optionTitle: "проводится",
+      optionChecked: true,
+    },
+    weaked: {
+      optionTitle: "ослаблено",
+      optionChecked: false,
+    },
+    notTransferred: {
+      optionTitle: "не проводится",
+      optionChecked: false,
+    },
+  },
+};
+
 const statusPraesensInitialState: StatusPraesensState = {
   condition: conditionInitialState,
   additionalSupport: additionalSupportInitialState,
   mind: mindInitialState,
   intoxication: intoxicationInitialState,
+  skin: skinInitialState,
+  breathRight: breathRightInitialState,
+  breathLeft: breathLeftInitialState,
 };
 
 const editorSlice = createSlice({

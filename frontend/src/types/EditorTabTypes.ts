@@ -107,11 +107,37 @@ export interface IntoxicationState extends TitleOptionsState {
   };
 }
 
+export interface SkinState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    normal?: TitleOption;
+    palePink?: TitleOption;
+    pale?: TitleOption;
+    acrocyanosis?: TitleOption;
+    cyanosis?: TitleOption;
+    icteric?: TitleOption;
+  };
+}
+
+export interface BreathState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    transferred?: TitleOption;
+    weaked?: TitleOption;
+    notTransferred?: TitleOption;
+  };
+}
+
 export type StatusPraesensState = {
   condition: ConditionState;
   additionalSupport: AdditionalSupportState;
   mind: MindState;
   intoxication: IntoxicationState;
+  skin: SkinState;
+  breathRight: BreathState;
+  breathLeft: BreathState;
 };
 
 export type FirstExaminationTabState = {
