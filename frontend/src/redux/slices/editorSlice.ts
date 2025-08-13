@@ -5,7 +5,9 @@ import { EditorTabPayload, EditorState } from "../../types/EditorState";
 import {
   AnamnesisGynecologicalState,
   AnamnesisVitaeState,
+  ConditionState,
   FirstExaminationTabState,
+  StatusPraesensState,
   TextareaExtendedState,
 } from "../../types/EditorTabTypes";
 
@@ -143,6 +145,37 @@ const anamnesisGynecologicalInitialState: AnamnesisGynecologicalState = {
   },
 };
 
+const conditionInitialState: ConditionState = {
+  name: "condition",
+  title: "Общее состояние",
+  options: {
+    satisfactory: {
+      optionTitle: "удовлетворительное",
+      optionChecked: true,
+    },
+    relativelySatisfactory: {
+      optionTitle: "относительно удовлетворительное",
+      optionChecked: false,
+    },
+    middleGrave: {
+      optionTitle: "средней тяжести",
+      optionChecked: false,
+    },
+    grave: {
+      optionTitle: "тяжелое",
+      optionChecked: false,
+    },
+    critical: {
+      optionTitle: "крайне тяжелое",
+      optionChecked: false,
+    },
+  },
+};
+
+const statusPraesensInitialState: StatusPraesensState = {
+  condition: conditionInitialState,
+};
+
 const editorSlice = createSlice({
   name: "editor",
   initialState,
@@ -158,6 +191,7 @@ const editorSlice = createSlice({
           anamnesisMorbi: anamnesisMorbiInitialState,
           anamnesisVitae: anamnesisVitaeInitialState,
           anamnesisGynecological: anamnesisGynecologicalInitialState,
+          statusPraesens: statusPraesensInitialState,
         },
       });
     },

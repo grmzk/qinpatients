@@ -1,11 +1,17 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { setEditorTabState } from "../../redux/slices/editorSlice";
-import { AnamnesisGynecologicalState, AnamnesisVitaeState, TextareaExtendedState } from "../../types/EditorTabTypes";
+import {
+  AnamnesisGynecologicalState,
+  AnamnesisVitaeState,
+  StatusPraesensState,
+  TextareaExtendedState,
+} from "../../types/EditorTabTypes";
 import PatientInfoResponse from "../../types/PatientInfoResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
 import PatientInfo from "../patient_history/PatientInfo";
 
 import FormTextOrOptions from "./FormTextOrOptions";
+import StatusPraesens from "./StatusPraesens";
 import TextareaExtended from "./TextareaExtended";
 
 import styles from "./FirstExamination.module.css";
@@ -38,6 +44,9 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
       setEditorTabState({ id, state: { ...editorTabState, anamnesisGynecological: anamnesisGynecologicalState } })
     );
   };
+  const setStatusPraesensState = (statusPraesensState: StatusPraesensState) => {
+    dispatch(setEditorTabState({ id, state: { ...editorTabState, statusPraesens: statusPraesensState } }));
+  };
 
   return (
     <MainContentLayout>
@@ -49,8 +58,11 @@ function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
           <TextareaExtended state={editorTabState.anamnesisMorbi} setState={setAnamnesisMorbiState} />
           <FormTextOrOptions state={editorTabState.anamnesisVitae} setState={setAnamnesisVitaeState} />
           <FormTextOrOptions state={editorTabState.anamnesisGynecological} setState={setAnamnesisGynecologicalState} />
+          <StatusPraesens state={editorTabState.statusPraesens} setState={setStatusPraesensState} />
         </div>
-        <div className={styles.block}></div>
+        <div className={styles.block}>
+          <TextareaExtended state={editorTabState.complaints} setState={setComplaintsState} />
+        </div>
       </div>
     </MainContentLayout>
   );

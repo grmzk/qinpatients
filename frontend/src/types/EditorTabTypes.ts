@@ -49,9 +49,39 @@ export interface AnamnesisGynecologicalState extends FormTextOrOptionsState {
   };
 }
 
+type TitleOption = {
+  optionTitle: string;
+  optionChecked: boolean;
+};
+
+export interface TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    [key: string]: TitleOption;
+  };
+}
+
+export interface ConditionState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    satisfactory?: TitleOption;
+    relativelySatisfactory?: TitleOption;
+    middleGrave?: TitleOption;
+    grave?: TitleOption;
+    critical?: TitleOption;
+  };
+}
+
+export type StatusPraesensState = {
+  condition: ConditionState;
+};
+
 export type FirstExaminationTabState = {
   complaints: TextareaExtendedState;
   anamnesisMorbi: TextareaExtendedState;
   anamnesisVitae: AnamnesisVitaeState;
   anamnesisGynecological: AnamnesisGynecologicalState;
+  statusPraesens: StatusPraesensState;
 };

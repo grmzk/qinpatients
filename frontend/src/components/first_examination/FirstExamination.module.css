@@ -32,8 +32,11 @@
   border-bottom: none;
 }
 
-@media (max-width: 1525px) {
+@media (max-width: 1280px) {
   .mainArea {
     grid-template-columns: 1fr;
+  }
+  .title {
+    grid-column: 1;
   }
 }
