@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { EditorTabPayload, EditorState } from "../../types/EditorState";
 import {
+  AdditionalSupportState,
   AnamnesisGynecologicalState,
   AnamnesisVitaeState,
   ConditionState,
@@ -172,8 +173,28 @@ const conditionInitialState: ConditionState = {
   },
 };
 
+const additionalSupportInitialState: AdditionalSupportState = {
+  name: "additionalSupport",
+  title: "Доп. поддержка",
+  options: {
+    oxygen: {
+      optionTitle: "подача увлажненного кислорода",
+      optionChecked: false,
+    },
+    vent: {
+      optionTitle: "ИВЛ",
+      optionChecked: false,
+    },
+    vasopressors: {
+      optionTitle: "вазопрессорная поддержка",
+      optionChecked: false,
+    },
+  },
+};
+
 const statusPraesensInitialState: StatusPraesensState = {
   condition: conditionInitialState,
+  additionalSupport: additionalSupportInitialState,
 };
 
 const editorSlice = createSlice({

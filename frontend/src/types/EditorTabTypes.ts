@@ -74,8 +74,19 @@ export interface ConditionState extends TitleOptionsState {
   };
 }
 
+export interface AdditionalSupportState extends TitleOptionsState {
+  name: string;
+  title: string;
+  options: {
+    oxygen?: TitleOption;
+    vent?: TitleOption;
+    vasopressors?: TitleOption;
+  };
+}
+
 export type StatusPraesensState = {
   condition: ConditionState;
+  additionalSupport: AdditionalSupportState;
 };
 
 export type FirstExaminationTabState = {
