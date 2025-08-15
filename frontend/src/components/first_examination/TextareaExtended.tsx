@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { TextareaExtendedState } from "../../types/EditorTabTypes";
 
 import styles from "./TextareaExtended.module.css";
@@ -10,17 +8,6 @@ type TextareaExtendedProps = {
 };
 
 function TextareaExtended({ state, setState }: TextareaExtendedProps) {
-  const [text, setText] = useState(state.text);
-  const [rows, setRows] = useState(state.rows);
-
-  if (!text) {
-    for (const option of Object.values(state.options)) {
-      if (option.checked) {
-        setText(option.text);
-      }
-    }
-  }
-
   function handleOptionsOnChange(optionKey: string) {
     const newState = structuredClone(state);
     Object.entries(newState.options).map(([key, option]) => {
@@ -57,11 +44,10 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
         <textarea
           className={styles.textarea}
           name="complaintsText"
-          rows={rows}
-          value={text}
-          onScrollEnd={(event) => setRows(++event.currentTarget.rows)}
-          onChange={(event) => setText(event.target.value)}
-          onBlur={() => state.text !== text && setState({ ...state, text: text, rows: rows })}
+          rows={state.rows}
+          value={state.text}
+          onScrollEnd={(event) => setState({ ...state, rows: ++event.currentTarget.rows })}
+          onChange={(event) => setState({ ...state, text: event.currentTarget.value })}
         ></textarea>
       </div>
     </div>

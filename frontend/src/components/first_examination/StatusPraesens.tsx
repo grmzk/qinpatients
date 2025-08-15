@@ -1,3 +1,5 @@
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { setEditorTabStatusPraesensState } from "../../redux/slices/editorSlice";
 import {
   AdditionalSupportState,
   BreathState,
@@ -13,11 +15,23 @@ import TitleOptions from "./TitleOptions";
 import styles from "./StatusPraesens.module.css";
 
 type StatusPraesensProps = {
-  state: StatusPraesensState;
-  setState: (newState: StatusPraesensState) => void;
+  id: string;
 };
 
-function StatusPraesens({ state, setState }: StatusPraesensProps) {
+function StatusPraesens({ id }: StatusPraesensProps) {
+  console.log("RENDER STATUS PRAESENS");
+
+  const state = useAppSelector((state) => state.editor.editorTabs[id]?.state.statusPraesens);
+
+  if (!state) {
+    throw "Tab with id=" + id + " not found!";
+  }
+
+  const dispatch = useAppDispatch();
+
+  const setState = (newState: StatusPraesensState) => {
+    dispatch(setEditorTabStatusPraesensState({ id, state: newState }));
+  };
   const setConditionState = (newConditionState: ConditionState) => {
     setState({ ...state, condition: newConditionState });
   };
@@ -37,7 +51,7 @@ function StatusPraesens({ state, setState }: StatusPraesensProps) {
     setState({ ...state, breathRight: newBreathRightState });
   };
   const setBreathLeftState = (newBreathLeftState: BreathState) => {
-    setState({ ...state, breathRight: newBreathLeftState });
+    setState({ ...state, breathLeft: newBreathLeftState });
   };
   return (
     <div className={styles.main}>

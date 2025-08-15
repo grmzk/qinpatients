@@ -8,7 +8,7 @@ import styles from "./NavBar.module.css";
 
 function NavBar() {
   const { token, setToken } = useAuth();
-  const tabsCount: number = useAppSelector((state) => state.editor.editorTabs.length);
+  const tabsCount: number = useAppSelector((state) => state.editor.order.length);
 
   async function handleLogoutClick() {
     await getDataRepository()

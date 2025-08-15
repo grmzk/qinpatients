@@ -5,21 +5,20 @@ import { IoMdCloseCircle } from "react-icons/io";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { deleteEditorTab, setCurrentEditorTabId } from "../../redux/slices/editorSlice";
-import { EditorTab } from "../../types/EditorState";
 import { capitalizeString } from "../../utils/capitalizeString";
 import FirstExamination from "../first_examination/FirstExamination";
 
 import styles from "./Editor.module.css";
 
 function Editor() {
-  const editorTabs: EditorTab[] = useAppSelector((state) => state.editor.editorTabs);
   const currentEditorTabId = useAppSelector((state) => state.editor.currentEditorTabId);
+  const tabsOrder = useAppSelector((state) => state.editor.order);
 
   const dispatch = useAppDispatch();
 
-  console.log("RENDER");
+  console.log("RENDER EDITOR");
 
-  if (!editorTabs.length || !currentEditorTabId) {
+  if (!tabsOrder.length || !currentEditorTabId) {
     return (
       <div className={styles.editorTabsMain}>
         <div className={styles.noEditorTabs}>Нет открытых вкладок</div>
@@ -27,9 +26,7 @@ function Editor() {
     );
   }
 
-  const currentEditorTab = editorTabs.find((editorTab) => editorTab.id === currentEditorTabId);
-  const CurrentEditorTabComponent = () =>
-    currentEditorTab ? <FirstExamination id={currentEditorTab.id} patientInfo={currentEditorTab.patientInfo} /> : null;
+  const CurrentEditorTabComponent = () => (currentEditorTabId ? <FirstExamination id={currentEditorTabId} /> : null);
 
   function handleCloseIconOnClick(event: SyntheticEvent, id: string) {
     event.preventDefault();
@@ -45,23 +42,23 @@ function Editor() {
     <>
       <div className={styles.editorTabsMain}>
         <div className={styles.editorTabs}>
-          {editorTabs.map((editorTab) => (
-            <div key={editorTab.id}>
+          {tabsOrder.map(({ id, title }) => (
+            <div key={id}>
               <input
                 type="radio"
                 name="editorTabs"
-                id={editorTab.id}
-                value={editorTab.id}
-                checked={editorTab.id === currentEditorTabId}
-                onChange={() => handleEditorTabsInputOnChange(editorTab.id)}
+                id={id}
+                value={id}
+                checked={id === currentEditorTabId}
+                onChange={() => handleEditorTabsInputOnChange(id)}
               />
               <FaBookMedical className={styles.icon} />
-              <label htmlFor={editorTab.id}>{capitalizeString(editorTab.patientInfo.full_name)}</label>
+              <label htmlFor={id}>{capitalizeString(title)}</label>
               <IoMdCloseCircle
                 className={`${styles.icon} ${styles.close}`}
                 size="1.25em"
                 title="закрыть"
-                onClick={(event) => handleCloseIconOnClick(event, editorTab.id)}
+                onClick={(event) => handleCloseIconOnClick(event, id)}
               />
             </div>
           ))}

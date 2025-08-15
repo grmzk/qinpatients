@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { v4 as uuidv4 } from "uuid";
 
 import { TextOrOptionState } from "../../types/EditorTabTypes";
@@ -12,8 +10,6 @@ type TextOrOptionProps = {
 };
 
 function TextOrOption({ state, setState }: TextOrOptionProps) {
-  const [text, setText] = useState<string>(state.text);
-
   const optionId = uuidv4();
 
   return (
@@ -32,9 +28,9 @@ function TextOrOption({ state, setState }: TextOrOptionProps) {
       <input
         type="text"
         className={styles.text}
-        value={text}
-        onChange={(event) => setText(event.currentTarget.value)}
-        onBlur={() => state.text !== text && setState({ ...state, text: text })}
+        id={uuidv4()}
+        value={state.text}
+        onChange={(event) => setState({ ...state, text: event.currentTarget.value })}
         onFocus={() => state.optionChecked && setState({ ...state, optionChecked: false })}
       />
     </div>

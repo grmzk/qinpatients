@@ -1,68 +1,33 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { setEditorTabState } from "../../redux/slices/editorSlice";
-import {
-  AnamnesisGynecologicalState,
-  AnamnesisVitaeState,
-  StatusPraesensState,
-  TextareaExtendedState,
-} from "../../types/EditorTabTypes";
-import PatientInfoResponse from "../../types/PatientInfoResponse";
 import MainContentLayout from "../layouts/MainContentLayout";
-import PatientInfo from "../patient_history/PatientInfo";
 
-import FormTextOrOptions from "./FormTextOrOptions";
+import AnamnesisGynecological from "./AnamnesisGynecological";
+import AnamnesisMorbi from "./AnamnesisMorbi";
+import AnamnesisVitae from "./AnamnesisVitae";
+import Complaints from "./Complaints";
+import EditorPatientInfo from "./EditorPatientInfo";
 import StatusPraesens from "./StatusPraesens";
-import TextareaExtended from "./TextareaExtended";
 
 import styles from "./FirstExamination.module.css";
 
 type FirstExaminationProps = {
   id: string;
-  patientInfo: PatientInfoResponse;
 };
 
-function FirstExamination({ id, patientInfo }: FirstExaminationProps) {
-  const editorTabState = useAppSelector((state) => state.editor.editorTabs.find((tab) => tab.id === id)?.state);
-
-  const dispatch = useAppDispatch();
-
-  if (!editorTabState) {
-    throw "Tab with id=" + id + " not found!";
-  }
-
-  const setComplaintsState = (complaintsState: TextareaExtendedState) => {
-    dispatch(setEditorTabState({ id, state: { ...editorTabState, complaints: complaintsState } }));
-  };
-  const setAnamnesisMorbiState = (anamnesisMorbiState: TextareaExtendedState) => {
-    dispatch(setEditorTabState({ id, state: { ...editorTabState, anamnesisMorbi: anamnesisMorbiState } }));
-  };
-  const setAnamnesisVitaeState = (anamnesisVitaeState: AnamnesisVitaeState) => {
-    dispatch(setEditorTabState({ id, state: { ...editorTabState, anamnesisVitae: anamnesisVitaeState } }));
-  };
-  const setAnamnesisGynecologicalState = (anamnesisGynecologicalState: AnamnesisGynecologicalState) => {
-    dispatch(
-      setEditorTabState({ id, state: { ...editorTabState, anamnesisGynecological: anamnesisGynecologicalState } })
-    );
-  };
-  const setStatusPraesensState = (statusPraesensState: StatusPraesensState) => {
-    dispatch(setEditorTabState({ id, state: { ...editorTabState, statusPraesens: statusPraesensState } }));
-  };
-
+function FirstExamination({ id }: FirstExaminationProps) {
+  console.log("RENDER FIRST EXAMINATION");
   return (
     <MainContentLayout>
-      <PatientInfo patientInfo={patientInfo} />
+      <EditorPatientInfo id={id} />
       <div className={styles.mainArea}>
         <div className={styles.title}>Первичный осмотр</div>
         <div className={styles.block}>
-          <TextareaExtended state={editorTabState.complaints} setState={setComplaintsState} />
-          <TextareaExtended state={editorTabState.anamnesisMorbi} setState={setAnamnesisMorbiState} />
-          <FormTextOrOptions state={editorTabState.anamnesisVitae} setState={setAnamnesisVitaeState} />
-          <FormTextOrOptions state={editorTabState.anamnesisGynecological} setState={setAnamnesisGynecologicalState} />
-          <StatusPraesens state={editorTabState.statusPraesens} setState={setStatusPraesensState} />
+          <Complaints id={id} />
+          <AnamnesisMorbi id={id} />
+          <AnamnesisVitae id={id} />
+          <AnamnesisGynecological id={id} />
+          <StatusPraesens id={id} />
         </div>
-        <div className={styles.block}>
-          <TextareaExtended state={editorTabState.complaints} setState={setComplaintsState} />
-        </div>
+        <div className={styles.block}></div>
       </div>
     </MainContentLayout>
   );

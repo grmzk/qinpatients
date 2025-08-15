@@ -16,21 +16,22 @@ import {
   TextareaExtendedState,
 } from "../../types/EditorTabTypes";
 
-const initialState: EditorState = {
-  editorTabs: [],
-};
+// const initialState: EditorState = {
+//   order: [],
+//   editorTabs: {},
+// };
 
 const complaintsInitialState: TextareaExtendedState = {
   title: "Жалобы",
   text: "",
   rows: 1,
   options: {
-    encephalopathy: {
+    complaintsEncephalopathy: {
       title: "энцефалопатия",
       text: "невозможно достоверно выяснить ввиду выраженной энцефалопатии у пациента. ",
       checked: false,
     },
-    graveCondition: {
+    complaintsGraveCondition: {
       title: "тяжёлое состояние",
       text: "невозможно выяснить ввиду тяжести состояния пациента. ",
       checked: false,
@@ -40,7 +41,7 @@ const complaintsInitialState: TextareaExtendedState = {
 
 const anamnesisMorbiInitialState: TextareaExtendedState = {
   title: "Anamnesis morbi",
-  text: "",
+  text: "со слов пациента: ",
   rows: 1,
   options: {
     patientTell: {
@@ -325,43 +326,117 @@ const statusPraesensInitialState: StatusPraesensState = {
   breathLeft: breathLeftInitialState,
 };
 
+const firstExaminationInitialState: FirstExaminationTabState = {
+  complaints: complaintsInitialState,
+  anamnesisMorbi: anamnesisMorbiInitialState,
+  anamnesisVitae: anamnesisVitaeInitialState,
+  anamnesisGynecological: anamnesisGynecologicalInitialState,
+  statusPraesens: statusPraesensInitialState,
+};
+
+const initialState: EditorState = {
+  currentEditorTabId: "0",
+  order: [{ id: "0", title: "ГРИШКОВА ГАЛИНА НИКОЛАЕВНА" }],
+  editorTabs: {
+    "0": {
+      editorType: "FIRST_EXAMINATION",
+      patientInfo: {
+        patient_id: 7681403,
+        full_name: "ГРИШКОВА ГАЛИНА НИКОЛАЕВНА",
+        birthday: "1956-07-30",
+        age: "69 лет",
+        workplace: "",
+        address: "ОМСКАЯ ОБЛАСТЬ, Г. ОМСК, ЛЕНИНСКИЙ ОКРУГ, УЛ. СЕРОВА, Д. 18, КВ. 19",
+        extra_info: "ВЗЯТА ЛЕНИНГРАДСКАЯ ПЛОЩАДЬ 1 ДТП",
+      },
+      caseDisease: {
+        card_id: 1367418,
+        admission_date: "2025-08-14T07:15:00",
+        admission_outcome_date: "2025-08-14T09:10:00",
+        department: "ТРАВМАТОЛОГИЯ",
+        diagnosis: "УШ М ТК ГОЛОВЫ РАСТЯЖ МЫШЦ ШЕИ З ПЕРЕЛОМ ПРОКСИМАЛЬНОГО МЕТАЭПИФЕЗА ЛЕВ БОЛЬШЕБЕРЦ КОСТИ ",
+        inpatient_id: 13221,
+        inpatient_department: "ТРАВМАТОЛОГИЯ",
+        doctor: "Поздеев Максим Владимирович",
+        result: "ГОСПИТАЛИЗАЦИЯ [ТРАВМАТОЛОГИЯ]",
+        is_reanimation: false,
+        is_outcome: true,
+        is_inpatient: true,
+      },
+      state: firstExaminationInitialState,
+    },
+  },
+};
+
 const editorSlice = createSlice({
   name: "editor",
   initialState,
   reducers: {
     addEditorTab: (state: EditorState, action: PayloadAction<EditorTabPayload>) => {
       const id = uuidv4();
+      state.order.push({ id: id, title: action.payload.patientInfo.full_name });
       state.currentEditorTabId = id;
-      state.editorTabs.push({
+      state.editorTabs[id] = {
         ...action.payload,
-        id: id,
-        state: {
-          complaints: complaintsInitialState,
-          anamnesisMorbi: anamnesisMorbiInitialState,
-          anamnesisVitae: anamnesisVitaeInitialState,
-          anamnesisGynecological: anamnesisGynecologicalInitialState,
-          statusPraesens: statusPraesensInitialState,
-        },
-      });
+        state: firstExaminationInitialState,
+      };
     },
     deleteEditorTab: (state: EditorState, action: PayloadAction<string>) => {
-      state.editorTabs = state.editorTabs.filter((editorTab) => editorTab.id !== action.payload);
+      state.order = state.order.filter((item) => item.id !== action.payload);
+      delete state.editorTabs[action.payload];
       if (state.currentEditorTabId === action.payload) {
-        state.currentEditorTabId = state.editorTabs.at(-1)?.id;
+        state.currentEditorTabId = state.order.at(-1)?.id;
       }
     },
     setCurrentEditorTabId: (state: EditorState, action: PayloadAction<string | undefined>) => {
       state.currentEditorTabId = action.payload;
     },
     setEditorTabState: (state: EditorState, action: PayloadAction<{ id: string; state: FirstExaminationTabState }>) => {
-      const tab = state.editorTabs.find((tab) => tab.id === action.payload.id);
-      if (tab) {
-        tab.state = action.payload.state;
-      }
+      state.editorTabs[action.payload.id].state = action.payload.state;
+    },
+    setEditorTabComplaintsState: (
+      state: EditorState,
+      action: PayloadAction<{ id: string; state: TextareaExtendedState }>
+    ) => {
+      state.editorTabs[action.payload.id].state.complaints = action.payload.state;
+    },
+    setEditorTabAnamnesisMorbiState: (
+      state: EditorState,
+      action: PayloadAction<{ id: string; state: TextareaExtendedState }>
+    ) => {
+      state.editorTabs[action.payload.id].state.anamnesisMorbi = action.payload.state;
+    },
+    setEditorTabAnamnesisVitaeState: (
+      state: EditorState,
+      action: PayloadAction<{ id: string; state: AnamnesisVitaeState }>
+    ) => {
+      state.editorTabs[action.payload.id].state.anamnesisVitae = action.payload.state;
+    },
+    setEditorTabAnamnesisGynecologicalState: (
+      state: EditorState,
+      action: PayloadAction<{ id: string; state: AnamnesisGynecologicalState }>
+    ) => {
+      state.editorTabs[action.payload.id].state.anamnesisGynecological = action.payload.state;
+    },
+    setEditorTabStatusPraesensState: (
+      state: EditorState,
+      action: PayloadAction<{ id: string; state: StatusPraesensState }>
+    ) => {
+      state.editorTabs[action.payload.id].state.statusPraesens = action.payload.state;
     },
   },
 });
 
-export const { addEditorTab, deleteEditorTab, setCurrentEditorTabId, setEditorTabState } = editorSlice.actions;
+export const {
+  addEditorTab,
+  deleteEditorTab,
+  setCurrentEditorTabId,
+  setEditorTabState,
+  setEditorTabComplaintsState,
+  setEditorTabAnamnesisMorbiState,
+  setEditorTabAnamnesisVitaeState,
+  setEditorTabAnamnesisGynecologicalState,
+  setEditorTabStatusPraesensState,
+} = editorSlice.actions;
 
 export default editorSlice.reducer;

@@ -3,16 +3,23 @@ import { EditorTabType, FirstExaminationTabState } from "./EditorTabTypes";
 import PatientInfoResponse from "./PatientInfoResponse";
 
 export type EditorTab = {
-  id: string;
   editorType: EditorTabType;
   patientInfo: PatientInfoResponse;
   caseDisease: CaseDiseaseResponse;
   state: FirstExaminationTabState;
 };
 
+export type EditorTabIdTitle = {
+  id: string;
+  title: string;
+};
+
 export type EditorState = {
   currentEditorTabId?: string;
-  editorTabs: EditorTab[];
+  order: EditorTabIdTitle[];
+  editorTabs: {
+    [key: string]: EditorTab;
+  };
 };
 
 export type EditorTabPayload = Omit<EditorTab, "id" | "state">;
