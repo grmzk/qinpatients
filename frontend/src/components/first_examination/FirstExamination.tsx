@@ -8,6 +8,7 @@ import EditorPatientInfo from "./EditorPatientInfo";
 import StatusPraesens from "./StatusPraesens";
 
 import styles from "./FirstExamination.module.css";
+import Head from "./Head";
 
 type FirstExaminationProps = {
   id: string;
@@ -27,7 +28,10 @@ function FirstExamination({ id }: FirstExaminationProps) {
           <AnamnesisGynecological id={id} />
           <StatusPraesens id={id} />
         </div>
-        <div className={styles.block}></div>
+        <div className={styles.block}>
+          <Head id={id} />
+          <Complaints id={id} />
+        </div>
       </div>
     </MainContentLayout>
   );

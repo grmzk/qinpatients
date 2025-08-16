@@ -1,0 +1,16 @@
+.main {
+  padding: 0.5em;
+}
+
+.main hr {
+  margin: 0.25em 0;
+}
+
+.title {
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: underline;
+  text-align: left;
+  min-width: 8.5em;
+  max-width: 8.5em;
+}

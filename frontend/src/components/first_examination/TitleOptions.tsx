@@ -16,9 +16,9 @@ function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
     const newState = structuredClone(state);
     Object.entries(newState.options).map(([key, option]) => {
       if (radio) {
-        option.optionChecked = state.name + key === event.target.id;
+        option.checked = state.name + key === event.target.id;
       } else if (state.name + key === event.target.id) {
-        option.optionChecked = event.target.checked;
+        option.checked = event.target.checked;
       }
     });
     setState(newState);
@@ -37,11 +37,11 @@ function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
                 className={styles.option}
                 id={id}
                 name={state.name}
-                checked={option.optionChecked}
+                checked={option.checked}
                 readOnly
               />
               <label className={styles.optionLabel} htmlFor={id}>
-                {option.optionTitle}
+                {option.title}
               </label>
             </div>
           );

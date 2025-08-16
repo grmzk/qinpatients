@@ -157,24 +157,24 @@ const conditionInitialState: ConditionState = {
   title: "Общее состояние",
   options: {
     satisfactory: {
-      optionTitle: "удовлетворительное",
-      optionChecked: true,
+      title: "удовлетворительное",
+      checked: true,
     },
     relativelySatisfactory: {
-      optionTitle: "относительно удовлетворительное",
-      optionChecked: false,
+      title: "относительно удовлетворительное",
+      checked: false,
     },
     middleGrave: {
-      optionTitle: "средней тяжести",
-      optionChecked: false,
+      title: "средней тяжести",
+      checked: false,
     },
     grave: {
-      optionTitle: "тяжелое",
-      optionChecked: false,
+      title: "тяжелое",
+      checked: false,
     },
     critical: {
-      optionTitle: "крайне тяжелое",
-      optionChecked: false,
+      title: "крайне тяжелое",
+      checked: false,
     },
   },
 };
@@ -184,16 +184,16 @@ const additionalSupportInitialState: AdditionalSupportState = {
   title: "Доп. поддержка",
   options: {
     oxygen: {
-      optionTitle: "подача увлажненного кислорода",
-      optionChecked: false,
+      title: "подача увлажненного кислорода",
+      checked: false,
     },
     vent: {
-      optionTitle: "ИВЛ",
-      optionChecked: false,
+      title: "ИВЛ",
+      checked: false,
     },
     vasopressors: {
-      optionTitle: "вазопрессорная поддержка",
-      optionChecked: false,
+      title: "вазопрессорная поддержка",
+      checked: false,
     },
   },
 };
@@ -203,32 +203,32 @@ const mindInitialState: MindState = {
   title: "Сознание",
   options: {
     lucid: {
-      optionTitle: "ясное",
-      optionChecked: true,
+      title: "ясное",
+      checked: true,
     },
     encephalopathy: {
-      optionTitle: "энцефалопатия",
-      optionChecked: false,
+      title: "энцефалопатия",
+      checked: false,
     },
     disoriented: {
-      optionTitle: "дезориентирован",
-      optionChecked: false,
+      title: "дезориентирован",
+      checked: false,
     },
     confusion: {
-      optionTitle: "спутанное",
-      optionChecked: false,
+      title: "спутанное",
+      checked: false,
     },
     stun: {
-      optionTitle: "оглушение",
-      optionChecked: false,
+      title: "оглушение",
+      checked: false,
     },
     sopor: {
-      optionTitle: "сопор",
-      optionChecked: false,
+      title: "сопор",
+      checked: false,
     },
     coma: {
-      optionTitle: "кома",
-      optionChecked: false,
+      title: "кома",
+      checked: false,
     },
   },
 };
@@ -238,12 +238,12 @@ const intoxicationInitialState: IntoxicationState = {
   title: "Опьянение",
   options: {
     alcohol: {
-      optionTitle: "алкогольное опьянение",
-      optionChecked: false,
+      title: "алкогольное опьянение",
+      checked: false,
     },
     drug: {
-      optionTitle: "наркотическое опьянение",
-      optionChecked: false,
+      title: "наркотическое опьянение",
+      checked: false,
     },
   },
 };
@@ -253,28 +253,28 @@ const skinInitialState: SkinState = {
   title: "Кожные покровы",
   options: {
     normal: {
-      optionTitle: "обычной окраски",
-      optionChecked: true,
+      title: "обычной окраски",
+      checked: true,
     },
     palePink: {
-      optionTitle: "бледно-розовые",
-      optionChecked: false,
+      title: "бледно-розовые",
+      checked: false,
     },
     pale: {
-      optionTitle: "бледные",
-      optionChecked: false,
+      title: "бледные",
+      checked: false,
     },
     acrocyanosis: {
-      optionTitle: "акроцианоз",
-      optionChecked: false,
+      title: "акроцианоз",
+      checked: false,
     },
     cyanosis: {
-      optionTitle: "цианоз",
-      optionChecked: false,
+      title: "цианоз",
+      checked: false,
     },
     icteric: {
-      optionTitle: "иктеричные",
-      optionChecked: false,
+      title: "иктеричные",
+      checked: false,
     },
   },
 };
@@ -284,16 +284,16 @@ const breathRightInitialState: BreathState = {
   title: "Дыхание справа",
   options: {
     transferred: {
-      optionTitle: "проводится",
-      optionChecked: true,
+      title: "проводится",
+      checked: true,
     },
     weaked: {
-      optionTitle: "ослаблено",
-      optionChecked: false,
+      title: "ослаблено",
+      checked: false,
     },
     notTransferred: {
-      optionTitle: "не проводится",
-      optionChecked: false,
+      title: "не проводится",
+      checked: false,
     },
   },
 };
@@ -303,16 +303,16 @@ const breathLeftInitialState: BreathState = {
   title: "Дыхание слева",
   options: {
     transferred: {
-      optionTitle: "проводится",
-      optionChecked: true,
+      title: "проводится",
+      checked: true,
     },
     weaked: {
-      optionTitle: "ослаблено",
-      optionChecked: false,
+      title: "ослаблено",
+      checked: false,
     },
     notTransferred: {
-      optionTitle: "не проводится",
-      optionChecked: false,
+      title: "не проводится",
+      checked: false,
     },
   },
 };

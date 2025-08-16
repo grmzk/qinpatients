@@ -50,8 +50,8 @@ export interface AnamnesisGynecologicalState extends FormTextOrOptionsState {
 }
 
 type TitleOption = {
-  optionTitle: string;
-  optionChecked: boolean;
+  title: string;
+  checked: boolean;
 };
 
 export interface TitleOptionsState {
@@ -152,6 +152,16 @@ export interface FunctionalState extends TitleTextsState {
     saturation?: TitleText;
     pulse?: TitleText;
     bloodPressure?: TitleText;
+  };
+}
+
+export interface WoundState {
+  area: string;
+  wound: {
+    checked: boolean;
+    straightEdges: boolean;
+    unstraightEdges: boolean;
+    size: string;
   };
 }
 
