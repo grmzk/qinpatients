@@ -9,6 +9,7 @@ import {
   BreathState,
   ConditionState,
   FirstExaminationTabState,
+  FunctionalState,
   IntoxicationState,
   MindState,
   SkinState,
@@ -316,6 +317,33 @@ const breathLeftInitialState: BreathState = {
   },
 };
 
+const functionalInitialState: FunctionalState = {
+  name: "functionalState",
+  title: "",
+  options: {
+    temperature: {
+      title: "T тела",
+      text: "36,6",
+    },
+    breathRate: {
+      title: "ЧДД",
+      text: "16",
+    },
+    saturation: {
+      title: "SpO2",
+      text: "97%",
+    },
+    pulse: {
+      title: "ЧСС",
+      text: "76",
+    },
+    bloodPressure: {
+      title: "АД",
+      text: "120/70",
+    },
+  },
+};
+
 const statusPraesensInitialState: StatusPraesensState = {
   condition: conditionInitialState,
   additionalSupport: additionalSupportInitialState,
@@ -324,6 +352,7 @@ const statusPraesensInitialState: StatusPraesensState = {
   skin: skinInitialState,
   breathRight: breathRightInitialState,
   breathLeft: breathLeftInitialState,
+  functionalState: functionalInitialState,
 };
 
 const firstExaminationInitialState: FirstExaminationTabState = {

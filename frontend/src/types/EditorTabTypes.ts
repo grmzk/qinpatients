@@ -130,6 +130,31 @@ export interface BreathState extends TitleOptionsState {
   };
 }
 
+type TitleText = {
+  title: string;
+  text: string;
+};
+
+export interface TitleTextsState {
+  name: string;
+  title: string;
+  options: {
+    [key: string]: TitleText;
+  };
+}
+
+export interface FunctionalState extends TitleTextsState {
+  name: string;
+  title: string;
+  options: {
+    temperature?: TitleText;
+    breathRate?: TitleText;
+    saturation?: TitleText;
+    pulse?: TitleText;
+    bloodPressure?: TitleText;
+  };
+}
+
 export type StatusPraesensState = {
   condition: ConditionState;
   additionalSupport: AdditionalSupportState;
@@ -138,6 +163,7 @@ export type StatusPraesensState = {
   skin: SkinState;
   breathRight: BreathState;
   breathLeft: BreathState;
+  functionalState: FunctionalState;
 };
 
 export type FirstExaminationTabState = {

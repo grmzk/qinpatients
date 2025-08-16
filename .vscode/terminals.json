@@ -1,0 +1,23 @@
+{
+  "autorun": true,
+  "autokill": true,
+  "terminals": [
+    {
+      "name": "backend",
+      "description": "",
+      "icon": "database",
+      "color": "terminal.ansiCyan",
+      "cwd": "backend",
+      "commands": ["source .venv/bin/activate", "python3 manage.py runserver"],
+      "open": true
+    },
+    {
+      "name": "frontend",
+      "icon": "code",
+      "color": "terminal.ansiCyan",
+      "cwd": "frontend",
+      "commands": ["npm run start"],
+      "split": "backend"
+    }
+  ]
+}

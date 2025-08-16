@@ -26,7 +26,7 @@ function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
 
   return (
     <div className={styles.main}>
-      <div className={styles.title}>{state.title + ":"}</div>
+      <div className={styles.title}>{state.title ? state.title + ":" : ""}</div>
       <div className={styles.optionsLayout} onChange={handleOptionOnChange}>
         {Object.entries(state.options).map(([key, option]) => {
           const id = state.name + key;
