@@ -1,9 +1,8 @@
 @font-face {
   font-family: "PT Astra Serif";
-  src: url(/public/fonts/pt-astra-serif_regular.ttf),
-       url(/public/fonts/pt-astra-serif_italic.ttf),
-       url(/public/fonts/pt-astra-serif_bold.ttf),
-       url(/public/fonts/pt-astra-serif_bold-italic.ttf);
+  src:
+    url(/public/fonts/pt-astra-serif_regular.ttf), url(/public/fonts/pt-astra-serif_italic.ttf),
+    url(/public/fonts/pt-astra-serif_bold.ttf), url(/public/fonts/pt-astra-serif_bold-italic.ttf);
 }
 
 * {
@@ -17,32 +16,46 @@ body {
 }
 
 table {
-    display: table;
-    font-size: 0.8em;
-    text-align: center;
-    background-color: #d7d2cc;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
-    width: 100%;
-    margin: 0;
-    border-collapse: collapse;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+  display: table;
+  font-size: 0.8em;
+  text-align: center;
+  background-color: #d7d2cc;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
-th, td {
-    border: 1px solid #999999;
-    padding: 0.25em;
+th,
+td {
+  border: 1px solid #999999;
+  padding: 0.25em;
 }
 
 th {
-    border-bottom: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 tbody > tr:hover {
-    background: #304352;
-    color: #fff;
-    cursor: pointer;
+  background: #304352;
+  color: #fff;
+  cursor: pointer;
+}
+
+button {
+  background: #5c6972;
+  border: rgba(0, 0, 0, 0.25) solid 1px;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5c6972;
+  color: #fff;
+  border: rgba(255, 255, 255, 0.5) solid 1px;
 }
 
 /*div, section {*/

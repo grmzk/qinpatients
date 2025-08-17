@@ -1,23 +1,16 @@
-import { TitleTextsState, WoundState } from "../../types/EditorTabTypes";
+import { v4 as uuidv4 } from "uuid";
+
+import { WoundState } from "../../types/EditorTabTypes";
 
 import styles from "./Wound.module.css";
 
 type WoundProps = {
-  state: TitleTextsState;
-  setState: (newState: TitleTextsState) => void;
+  state: WoundState;
+  setState: (newState: WoundState) => void;
 };
 
-// function Wound({ state, setState }: WoundProps) {
-function Wound() {
-  const state: WoundState = {
-    area: "frontalRegion",
-    wound: {
-      checked: false,
-      straightEdges: false,
-      unstraightEdges: false,
-      size: "2,0 x 0,5 см",
-    },
-  };
+function Wound({ state, setState }: WoundProps) {
+  const uuid = uuidv4();
   return (
     <div className={styles.main}>
       <div className={styles.title}></div>
@@ -25,61 +18,46 @@ function Wound() {
         <input
           type="checkbox"
           className={styles.option}
-          id={state.area + "Wound"}
-          checked={state.wound.checked}
-          // onChange={(event) =>
-          //   setState({
-          //     ...state,
-          //     options: { ...state.options, [key]: { ...state.options[key], text: event.currentTarget.value } },
-          //   })
-          // }
+          id={"wound" + uuid}
+          checked={state.woundChecked}
+          onChange={() => setState({ ...state, woundChecked: !state.woundChecked })}
         />
-        <label className={styles.optionLabel} htmlFor={state.area + "Wound"}>
+        <label className={styles.optionLabel} htmlFor={"wound" + uuid}>
           рана
         </label>
         <input
           type="radio"
           className={styles.option}
-          id={state.area + "WoundStraightEdges"}
-          name={state.area + "WoundEdges"}
-          checked={state.wound.straightEdges}
-          // onChange={(event) =>
-          //   setState({
-          //     ...state,
-          //     options: { ...state.options, [key]: { ...state.options[key], text: event.currentTarget.value } },
-          //   })
-          // }
+          id={"woundStraightEdges" + uuid}
+          name={"woundEdges" + uuid}
+          value={state.edges}
+          checked={state.edges === "straight"}
+          disabled={!state.woundChecked}
+          onChange={() => setState({ ...state, edges: "straight" })}
         />
-        <label className={styles.optionLabel} htmlFor={state.area + "WoundStraightEdges"}>
+        <label className={styles.optionLabel} htmlFor={"woundStraightEdges" + uuid}>
           ровные края
         </label>
         <input
           type="radio"
           className={styles.option}
-          id={state.area + "WoundUnstraightEdges"}
-          name={state.area + "WoundEdges"}
-          checked={state.wound.unstraightEdges}
-          // onChange={(event) =>
-          //   setState({
-          //     ...state,
-          //     options: { ...state.options, [key]: { ...state.options[key], text: event.currentTarget.value } },
-          //   })
-          // }
+          id={"woundUnstraightEdges" + uuid}
+          name={"woundEdges" + uuid}
+          value={state.edges}
+          checked={state.edges === "unstraight"}
+          disabled={!state.woundChecked}
+          onChange={() => setState({ ...state, edges: "unstraight" })}
         />
-        <label className={styles.optionLabel} htmlFor={state.area + "WoundUnstraightEdges"}>
+        <label className={styles.optionLabel} htmlFor={"woundUnstraightEdges" + uuid}>
           неровные края
         </label>
         <input
           type="text"
           className={styles.text}
-          id={state.area + "WoundSize"}
-          value={state.wound.size}
-          // onChange={(event) =>
-          //   setState({
-          //     ...state,
-          //     options: { ...state.options, [key]: { ...state.options[key], text: event.currentTarget.value } },
-          //   })
-          // }
+          id={"woundSize" + uuid}
+          value={state.size}
+          disabled={!state.woundChecked}
+          onChange={(event) => setState({ ...state, size: event.currentTarget.value })}
         />
       </div>
     </div>

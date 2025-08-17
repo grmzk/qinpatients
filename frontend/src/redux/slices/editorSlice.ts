@@ -10,6 +10,7 @@ import {
   ConditionState,
   FirstExaminationTabState,
   FunctionalState,
+  HeadState,
   IntoxicationState,
   MindState,
   SkinState,
@@ -355,12 +356,56 @@ const statusPraesensInitialState: StatusPraesensState = {
   functionalState: functionalInitialState,
 };
 
+const headInitialState: HeadState = {
+  areas: [
+    {
+      title: "Лобная область",
+      name: "frontalArea",
+      side: "",
+      damages: {
+        visualPalpation: {
+          name: "frontalArea",
+          title: "",
+          options: {
+            edema: {
+              title: "отёк",
+              checked: false,
+            },
+            ecchymosis: {
+              title: "кровоподтёк",
+              checked: false,
+            },
+            pain: {
+              title: "боль",
+              checked: false,
+            },
+            crepitation: {
+              title: "крепитация",
+              checked: false,
+            },
+            abrasions: {
+              title: "ссадины",
+              checked: false,
+            },
+          },
+        },
+        wound: {
+          woundChecked: false,
+          edges: "straight",
+          size: "2,0 x 0,5 см",
+        },
+      },
+    },
+  ],
+};
+
 const firstExaminationInitialState: FirstExaminationTabState = {
   complaints: complaintsInitialState,
   anamnesisMorbi: anamnesisMorbiInitialState,
   anamnesisVitae: anamnesisVitaeInitialState,
   anamnesisGynecological: anamnesisGynecologicalInitialState,
   statusPraesens: statusPraesensInitialState,
+  head: headInitialState,
 };
 
 const initialState: EditorState = {
@@ -453,6 +498,9 @@ const editorSlice = createSlice({
     ) => {
       state.editorTabs[action.payload.id].state.statusPraesens = action.payload.state;
     },
+    setEditorTabHeadState: (state: EditorState, action: PayloadAction<{ id: string; state: HeadState }>) => {
+      state.editorTabs[action.payload.id].state.head = action.payload.state;
+    },
   },
 });
 
@@ -466,6 +514,7 @@ export const {
   setEditorTabAnamnesisVitaeState,
   setEditorTabAnamnesisGynecologicalState,
   setEditorTabStatusPraesensState,
+  setEditorTabHeadState,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

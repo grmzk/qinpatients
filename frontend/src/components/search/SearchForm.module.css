@@ -1,96 +1,89 @@
 .searchForm {
-    width: 100%;
+  width: 100%;
 }
 
-.block, .warning, .searchInputs, .departmentSelectorSlim {
-    display: block;
-    width: auto;
-    background-color: #d7d2cc;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, .5);
-    padding: 1em 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #999999;
-    font-family: inherit;
-    font-size: 0.9em;
-    text-align: center;
+.block,
+.warning,
+.searchInputs,
+.departmentSelectorSlim {
+  display: block;
+  width: auto;
+  background-color: #d7d2cc;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+  padding: 1em 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid #999999;
+  font-family: inherit;
+  font-size: 0.9em;
+  text-align: center;
 }
 
 .searchInputs ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .searchInputs > ul > li > label,
 .searchInputs > ul > li > input {
-    display: block;
+  display: block;
 }
 
 .searchInputs > ul > li > label {
-    text-align: center;
-    font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 
 .searchInputs input {
-    width: 80%;
-    margin: 0.2em auto;
-    font-family: inherit;
-    font-size: 1em;
-    padding: 0.15em 0.25em;
-    border: none;
+  width: 80%;
+  margin: 0.2em auto;
+  font-family: inherit;
+  font-size: 1em;
+  padding: 0.15em 0.25em;
+  border: none;
 }
 
 .searchForm button {
-    font-family: inherit;
-    font-size: 1em;
-    padding: 0.2em 1.5em;
-    margin: 0.1em;
-    background: #304352;
-    border: rgba(0, 0, 0, 0.7) solid 1px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.searchForm button:hover {
-    background: #304352;
-    color: #fff;
-    border: rgba(255, 255, 255, 0.5) solid 1px;
+  font-family: inherit;
+  font-size: 1em;
+  padding: 0.2em 1.5em;
+  margin: 0.1em;
 }
 
 .dateInput > label {
-    text-align: right;
-    font-weight: bold;
-    width: 1.5em;
-    margin-right: 0.5em;
-    display: inline-block;
+  text-align: right;
+  font-weight: bold;
+  width: 1.5em;
+  margin-right: 0.5em;
+  display: inline-block;
 }
 
 .dateInput > input {
-    display: inline-block;
-    width: 6.5em;
-    padding: 0 0.5em;
+  display: inline-block;
+  width: 6.5em;
+  padding: 0 0.5em;
 }
 
 .searchInputs hr {
-    margin: 0.5em 0;
+  margin: 0.5em 0;
 }
 
 .warning {
-    color: red;
+  color: red;
 }
 
 @media (max-height: 900px) {
-   .departmentSelector {
-        display: none;
-   }
-   .departmentSelectorSlim {
-        display: block;
-   }
+  .departmentSelector {
+    display: none;
+  }
+  .departmentSelectorSlim {
+    display: block;
+  }
 }
 
 @media (min-height: 901px) {
-    .departmentSelector {
-        display: block;
-    }
-    .departmentSelectorSlim {
-        display: none;
-    }
+  .departmentSelector {
+    display: block;
+  }
+  .departmentSelectorSlim {
+    display: none;
+  }
 }

@@ -5,10 +5,10 @@ import AnamnesisMorbi from "./AnamnesisMorbi";
 import AnamnesisVitae from "./AnamnesisVitae";
 import Complaints from "./Complaints";
 import EditorPatientInfo from "./EditorPatientInfo";
+import Head from "./Head";
 import StatusPraesens from "./StatusPraesens";
 
 import styles from "./FirstExamination.module.css";
-import Head from "./Head";
 
 type FirstExaminationProps = {
   id: string;

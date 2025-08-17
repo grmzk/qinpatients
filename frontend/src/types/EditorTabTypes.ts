@@ -155,14 +155,55 @@ export interface FunctionalState extends TitleTextsState {
   };
 }
 
+type WoundEdges = "straight" | "unstraight";
+
 export interface WoundState {
-  area: string;
-  wound: {
-    checked: boolean;
-    straightEdges: boolean;
-    unstraightEdges: boolean;
-    size: string;
+  woundChecked: boolean;
+  edges: WoundEdges;
+  size: string;
+}
+
+export interface VisualPalpationState extends TitleOptionsState {
+  options: {
+    edema?: {
+      title: "отёк";
+      checked: boolean;
+    };
+    ecchymosis?: {
+      title: "кровоподтёк";
+      checked: boolean;
+    };
+    pain?: {
+      title: "боль";
+      checked: boolean;
+    };
+    crepitation?: {
+      title: "крепитация";
+      checked: boolean;
+    };
+    abrasions?: {
+      title: "ссадины";
+      checked: boolean;
+    };
   };
+}
+
+export interface DamagesState {
+  visualPalpation: VisualPalpationState;
+  wound: WoundState;
+}
+
+export type AreaSide = "right" | "left" | "";
+
+export interface HeadAreaState {
+  title: string;
+  name: string;
+  side: AreaSide;
+  damages: DamagesState;
+}
+
+export interface HeadState {
+  areas: HeadAreaState[];
 }
 
 export type StatusPraesensState = {
@@ -182,4 +223,5 @@ export type FirstExaminationTabState = {
   anamnesisVitae: AnamnesisVitaeState;
   anamnesisGynecological: AnamnesisGynecologicalState;
   statusPraesens: StatusPraesensState;
+  head: HeadState;
 };

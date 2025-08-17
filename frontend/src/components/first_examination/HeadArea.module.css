@@ -1,9 +1,17 @@
-.main {
-  padding: 0.5em;
-}
-
 .main hr {
   margin: 0.25em 0;
+  line-height: 1px;
+}
+
+.titleBlock {
+  display: flex;
+}
+
+.sideBlock {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 0.25em;
 }
 
 .title {
@@ -11,6 +19,42 @@
   font-size: inherit;
   text-decoration: underline;
   text-align: left;
+  padding: 0 0.5em;
   min-width: 8.5em;
   max-width: 8.5em;
+}
+
+.option {
+  display: none;
+}
+
+.optionLabel {
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0 0.5em;
+  max-height: 1.15em;
+  min-height: 1.15em;
+  border: rgba(0, 0, 0, 0.15) solid 1px;
+  color: rgba(0, 0, 0, 0.8);
+  background: #c4c2be;
+  cursor: pointer;
+}
+
+.optionLabel:hover {
+  border: rgba(255, 255, 255, 0.5) solid 1px;
+}
+
+.option:checked + label {
+  background: #304352;
+  color: #fff;
+}
+
+.titleBlock > button {
+  font-family: inherit;
+  font-size: inherit;
+  max-height: 1.25em;
+  min-height: 1.25em;
+  padding: 0 0.5em;
+  margin-left: 2.6em;
 }

@@ -32,8 +32,26 @@
   max-height: 1.15em;
   min-height: 1.15em;
   border: rgba(0, 0, 0, 0.15) solid 1px;
+  color: rgba(0, 0, 0, 0.8);
+  background: #c4c2be;
+  cursor: pointer;
+}
+
+.optionLabel:hover {
+  border: rgba(255, 255, 255, 0.5) solid 1px;
+}
+
+.option:checked + label {
   background: #304352;
   color: #fff;
+}
+
+.option:disabled + label {
+  opacity: 0.25;
+  border: rgba(0, 0, 0, 0.15) solid 1px;
+  color: rgba(0, 0, 0, 0.8);
+  background: #c4c2be;
+  cursor: default;
 }
 
 .text {
@@ -46,4 +64,8 @@
   max-height: 1.25em;
   min-height: 1.25em;
   border: none;
+}
+
+.text:disabled {
+  opacity: 0.25;
 }
