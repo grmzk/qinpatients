@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { v4 as uuidv4 } from "uuid";
 
 import { WoundState } from "../../types/EditorTabTypes";
@@ -10,6 +12,8 @@ type WoundProps = {
 };
 
 function Wound({ state, setState }: WoundProps) {
+  const [size, setSize] = useState<string>(state.size);
+
   const uuid = uuidv4();
   return (
     <div className={styles.main}>
@@ -55,9 +59,10 @@ function Wound({ state, setState }: WoundProps) {
           type="text"
           className={styles.text}
           id={"woundSize" + uuid}
-          value={state.size}
+          value={size}
           disabled={!state.woundChecked}
-          onChange={(event) => setState({ ...state, size: event.currentTarget.value })}
+          onChange={(event) => setSize(event.currentTarget.value)}
+          onBlur={(event) => setState({ ...state, size: event.currentTarget.value })}
         />
       </div>
     </div>

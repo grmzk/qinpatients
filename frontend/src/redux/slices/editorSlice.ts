@@ -10,12 +10,14 @@ import {
   ConditionState,
   FirstExaminationTabState,
   FunctionalState,
-  HeadState,
+  BodyPartState,
   IntoxicationState,
   MindState,
   SkinState,
   StatusPraesensState,
   TextareaExtendedState,
+  AreaTitleName,
+  AreaState,
 } from "../../types/EditorTabTypes";
 
 // const initialState: EditorState = {
@@ -356,47 +358,65 @@ const statusPraesensInitialState: StatusPraesensState = {
   functionalState: functionalInitialState,
 };
 
-const headInitialState: HeadState = {
-  areas: [
-    {
-      title: "Лобная область",
-      name: "frontalArea",
-      side: "",
-      damages: {
-        visualPalpation: {
-          name: "frontalArea",
-          title: "",
-          options: {
-            edema: {
-              title: "отёк",
-              checked: false,
-            },
-            ecchymosis: {
-              title: "кровоподтёк",
-              checked: false,
-            },
-            pain: {
-              title: "боль",
-              checked: false,
-            },
-            crepitation: {
-              title: "крепитация",
-              checked: false,
-            },
-            abrasions: {
-              title: "ссадины",
-              checked: false,
-            },
+export const headAreas: AreaTitleName[] = [
+  { title: "Лобная область", name: "frontalArea" },
+  { title: "Височная область", name: "temporalArea" },
+  { title: "Теменная область", name: "parietalArea" },
+  { title: "Затылочная область", name: "occipitalArea" },
+  { title: "Ушная раковина", name: "auricle" },
+  { title: "Сосцевидная область", name: "occipitalArea" },
+  { title: "Бровная область", name: "occipitalArea" },
+  { title: "Параорбитальная область", name: "occipitalArea" },
+  { title: "Скуловая область", name: "occipitalArea" },
+  { title: "Нижнечелюстная область", name: "occipitalArea" },
+  { title: "Область носа", name: "occipitalArea" },
+  { title: "Верхняя губа", name: "occipitalArea" },
+  { title: "Нижняя губа", name: "occipitalArea" },
+];
+
+export function makeAreaState(areaTitleName: AreaTitleName): AreaState {
+  return {
+    title: areaTitleName.title,
+    name: areaTitleName.name,
+    side: "",
+    damages: {
+      visualPalpation: {
+        name: "frontalArea",
+        title: "",
+        options: {
+          edema: {
+            title: "отёк",
+            checked: false,
+          },
+          ecchymosis: {
+            title: "кровоподтёк",
+            checked: false,
+          },
+          pain: {
+            title: "боль",
+            checked: false,
+          },
+          crepitation: {
+            title: "крепитация",
+            checked: false,
+          },
+          abrasions: {
+            title: "ссадины",
+            checked: false,
           },
         },
-        wound: {
-          woundChecked: false,
-          edges: "straight",
-          size: "2,0 x 0,5 см",
-        },
+      },
+      wound: {
+        woundChecked: false,
+        edges: "straight",
+        size: "2,0 x 0,5 см",
       },
     },
-  ],
+  };
+}
+
+const bodyPartInitialState: BodyPartState = {
+  areas: [],
 };
 
 const firstExaminationInitialState: FirstExaminationTabState = {
@@ -405,7 +425,7 @@ const firstExaminationInitialState: FirstExaminationTabState = {
   anamnesisVitae: anamnesisVitaeInitialState,
   anamnesisGynecological: anamnesisGynecologicalInitialState,
   statusPraesens: statusPraesensInitialState,
-  head: headInitialState,
+  head: bodyPartInitialState,
 };
 
 const initialState: EditorState = {
@@ -498,7 +518,7 @@ const editorSlice = createSlice({
     ) => {
       state.editorTabs[action.payload.id].state.statusPraesens = action.payload.state;
     },
-    setEditorTabHeadState: (state: EditorState, action: PayloadAction<{ id: string; state: HeadState }>) => {
+    setEditorTabHeadState: (state: EditorState, action: PayloadAction<{ id: string; state: BodyPartState }>) => {
       state.editorTabs[action.payload.id].state.head = action.payload.state;
     },
   },

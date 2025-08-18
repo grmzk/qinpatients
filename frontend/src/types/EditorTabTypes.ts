@@ -195,15 +195,20 @@ export interface DamagesState {
 
 export type AreaSide = "right" | "left" | "";
 
-export interface HeadAreaState {
+export interface AreaState {
   title: string;
   name: string;
   side: AreaSide;
   damages: DamagesState;
 }
 
-export interface HeadState {
-  areas: HeadAreaState[];
+export interface AreaTitleName {
+  title: string;
+  name: string;
+}
+
+export interface BodyPartState {
+  areas: AreaState[];
 }
 
 export type StatusPraesensState = {
@@ -223,5 +228,5 @@ export type FirstExaminationTabState = {
   anamnesisVitae: AnamnesisVitaeState;
   anamnesisGynecological: AnamnesisGynecologicalState;
   statusPraesens: StatusPraesensState;
-  head: HeadState;
+  head: BodyPartState;
 };

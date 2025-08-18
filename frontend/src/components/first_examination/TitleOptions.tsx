@@ -1,5 +1,7 @@
 import { SyntheticEvent } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+
 import { TitleOptionsState } from "../../types/EditorTabTypes";
 
 import styles from "./TitleOptions.module.css";
@@ -11,13 +13,15 @@ type TitleOptionsProps = {
 };
 
 function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
+  const uuid = uuidv4();
+
   function handleOptionOnChange(e: SyntheticEvent) {
     const event = e as React.ChangeEvent<HTMLInputElement>;
     const newState = structuredClone(state);
     Object.entries(newState.options).map(([key, option]) => {
       if (radio) {
-        option.checked = state.name + key === event.target.id;
-      } else if (state.name + key === event.target.id) {
+        option.checked = key === event.target.value;
+      } else if (key === event.target.value) {
         option.checked = event.target.checked;
       }
     });
@@ -29,14 +33,15 @@ function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
       <div className={styles.title}>{state.title ? state.title + ":" : ""}</div>
       <div className={styles.optionsLayout} onChange={handleOptionOnChange}>
         {Object.entries(state.options).map(([key, option]) => {
-          const id = state.name + key;
+          const id = state.name + key + uuid;
           return (
             <div key={id}>
               <input
                 type={radio ? "radio" : "checkbox"}
                 className={styles.option}
                 id={id}
-                name={state.name}
+                name={state.name + uuid}
+                value={key}
                 checked={option.checked}
                 readOnly
               />

@@ -6,3 +6,18 @@
   font-weight: bold;
   text-align: left;
 }
+
+.areaSelectors {
+  display: flex;
+  padding: 0 0.5em 0.5em 0.5em;
+  flex-wrap: wrap;
+  gap: 0.25em 0.5em;
+}
+
+.areaSelectors > button {
+  font-family: inherit;
+  font-size: inherit;
+  max-height: 1.25em;
+  min-height: 1.25em;
+  padding: 0 0.5em;
+}

@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { DamagesState, HeadAreaState } from "../../types/EditorTabTypes";
+import { DamagesState, AreaState } from "../../types/EditorTabTypes";
 
 import Damages from "./Damages";
 
 import styles from "./HeadArea.module.css";
 
 type HeadAreaProps = {
-  state: HeadAreaState;
-  setState: (newState: HeadAreaState) => void;
+  state: AreaState;
+  setState: (newState: AreaState) => void;
   deleteArea: () => void;
 };
 
@@ -16,7 +16,7 @@ function HeadArea({ state, setState, deleteArea }: HeadAreaProps) {
   const uuid = uuidv4();
   return (
     <div className={styles.main}>
-      <hr />
+      {/* <hr /> */}
       <div className={styles.titleBlock}>
         <div className={styles.title}>{state.title}:</div>
         <div className={styles.sideBlock}>

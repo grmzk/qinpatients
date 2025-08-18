@@ -43,7 +43,6 @@ function TextareaExtended({ state, setState }: TextareaExtendedProps) {
       <div className={styles.textareaBlock}>
         <textarea
           className={styles.textarea}
-          name="complaintsText"
           rows={state.rows}
           value={state.text}
           onScrollEnd={(event) => setState({ ...state, rows: ++event.currentTarget.rows })}

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { setEditorTabHeadState } from "../../redux/slices/editorSlice";
-import { HeadAreaState, HeadState } from "../../types/EditorTabTypes";
+import { headAreas, makeAreaState, setEditorTabHeadState } from "../../redux/slices/editorSlice";
+import { AreaState, AreaTitleName, BodyPartState } from "../../types/EditorTabTypes";
 
 import HeadArea from "./HeadArea";
 
@@ -23,25 +23,35 @@ function Head({ id }: HeadProps) {
 
   const dispatch = useAppDispatch();
 
-  const setState = (newState: HeadState) => {
+  const setState = (newState: BodyPartState) => {
     dispatch(setEditorTabHeadState({ id, state: newState }));
   };
 
-  const setHeadAreaState = (newState: HeadAreaState, index: number) => {
+  const setHeadAreaState = (newState: AreaState, index: number) => {
     setState({ ...state, areas: state.areas.map((area, i) => (i === index ? newState : area)) });
   };
-  const deleteHeadAreaState = (index: number) => {
+  const deleteArea = (index: number) => {
     setState({ ...state, areas: state.areas.filter((_, i) => i !== index) });
+  };
+  const unshiftArea = (newAreaTitleName: AreaTitleName) => {
+    setState({ ...state, areas: [makeAreaState(newAreaTitleName), ...state.areas] });
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.title}>Голова</div>
+      <div className={styles.areaSelectors}>
+        {headAreas.map(({ title, name }, index) => (
+          <button key={index} onClick={() => unshiftArea({ title, name })}>
+            {title}
+          </button>
+        ))}
+      </div>
       {state.areas.map((area, index) => (
         <HeadArea
           state={area}
-          setState={(newState: HeadAreaState) => setHeadAreaState(newState, index)}
-          deleteArea={() => deleteHeadAreaState(index)}
+          setState={(newState: AreaState) => setHeadAreaState(newState, index)}
+          deleteArea={() => deleteArea(index)}
           key={uuidv4()}
         />
       ))}
