@@ -208,6 +208,7 @@ export interface AreaTitleName {
 }
 
 export interface BodyPartState {
+  enable: boolean;
   areas: AreaState[];
 }
 

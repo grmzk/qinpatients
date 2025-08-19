@@ -4,19 +4,18 @@ import { DamagesState, AreaState } from "../../types/EditorTabTypes";
 
 import Damages from "./Damages";
 
-import styles from "./HeadArea.module.css";
+import styles from "./Area.module.css";
 
-type HeadAreaProps = {
+type AreaProps = {
   state: AreaState;
   setState: (newState: AreaState) => void;
   deleteArea: () => void;
 };
 
-function HeadArea({ state, setState, deleteArea }: HeadAreaProps) {
+function Area({ state, setState, deleteArea }: AreaProps) {
   const uuid = uuidv4();
   return (
     <div className={styles.main}>
-      {/* <hr /> */}
       <div className={styles.titleBlock}>
         <div className={styles.title}>{state.title}:</div>
         <div className={styles.sideBlock}>
@@ -51,4 +50,4 @@ function HeadArea({ state, setState, deleteArea }: HeadAreaProps) {
   );
 }
 
-export default HeadArea;
+export default Area;

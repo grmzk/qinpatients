@@ -1,43 +1,44 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    padding: 0.5em 0;
-    background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
-    gap: 0.5em 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 0.5em 0;
+  background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+  gap: 0.5em 0;
+  z-index: 100;
 }
 
 .brand {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.25em;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
 .logo {
-    display: inline-block;
-    width: 3em;
+  display: inline-block;
+  width: 3em;
 }
 
 .title {
-    display: inline-block;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-shadow: black 1px 1px 1px;
-    color: #5a6771;
+  display: inline-block;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: black 1px 1px 1px;
+  color: #5a6771;
 }
 
 @media (max-width: 1000px) {
-    .header {
-        position: static;
-    }
+  .header {
+    position: static;
+  }
 }

@@ -416,6 +416,7 @@ export function makeAreaState(areaTitleName: AreaTitleName): AreaState {
 }
 
 const bodyPartInitialState: BodyPartState = {
+  enable: true,
   areas: [],
 };
 
