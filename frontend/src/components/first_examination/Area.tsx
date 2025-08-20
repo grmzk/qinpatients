@@ -1,3 +1,4 @@
+import { MdDeleteForever } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 
 import { DamagesState, AreaState } from "../../types/EditorTabTypes";
@@ -40,7 +41,8 @@ function Area({ state, setState, deleteArea }: AreaProps) {
             слева
           </label>
         </div>
-        <button onClick={deleteArea}>удалить область</button>
+        <MdDeleteForever className={styles.deleteIcon} size={19} onClick={deleteArea} />
+        {/* <button onClick={deleteArea}>удалить область</button> */}
       </div>
       <Damages
         state={state.damages}

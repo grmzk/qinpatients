@@ -11,12 +11,6 @@
   display: flex;
 }
 
-.title {
-  font-weight: bold;
-  text-align: left;
-  width: 9.5em;
-}
-
 .areaSelector {
   display: flex;
   padding: 0.5em;
@@ -35,4 +29,34 @@
 
 .titleBlock > button {
   width: 6em;
+}
+
+.titleCheckbox {
+  display: none;
+}
+
+.titleLabel {
+  display: flex;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  text-align: left;
+  padding: 0.1em 1em;
+  max-height: 1.15em;
+  min-height: 1.15em;
+  border: rgba(0, 0, 0, 0.15) solid 1px;
+  color: rgba(0, 0, 0, 0.8);
+  background: #c4c2be;
+  cursor: pointer;
+  gap: 0.25em;
+  flex-wrap: nowrap;
+}
+
+.titleLabel:hover {
+  border: rgba(255, 255, 255, 0.5) solid 1px;
+}
+
+.titleCheckbox:checked + label {
+  background: #304352;
+  color: #fff;
 }

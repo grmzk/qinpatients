@@ -410,14 +410,27 @@ export function makeAreaState(areaTitleName: AreaTitleName): AreaState {
         woundChecked: false,
         edges: "straight",
         size: "2,0 x 0,5 см",
+        bandageChecked: false,
+        bandage: "dry",
       },
     },
   };
 }
 
-const bodyPartInitialState: BodyPartState = {
+const headInitialState: BodyPartState = {
+  title: "Голова",
   enable: true,
   areas: [],
+  symptoms: {
+    name: "headSymptoms",
+    title: "Симптомы",
+    options: {
+      odEqualOs: {
+        checked: true,
+        title: "зрачки OD=OS",
+      },
+    },
+  },
 };
 
 const firstExaminationInitialState: FirstExaminationTabState = {
@@ -426,7 +439,7 @@ const firstExaminationInitialState: FirstExaminationTabState = {
   anamnesisVitae: anamnesisVitaeInitialState,
   anamnesisGynecological: anamnesisGynecologicalInitialState,
   statusPraesens: statusPraesensInitialState,
-  head: bodyPartInitialState,
+  head: headInitialState,
 };
 
 const initialState: EditorState = {

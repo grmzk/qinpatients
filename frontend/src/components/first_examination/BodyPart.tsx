@@ -1,9 +1,11 @@
+import { IoBody } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 
 import { headAreas, makeAreaState } from "../../redux/slices/editorSlice";
-import { AreaState, AreaTitleName, BodyPartState } from "../../types/EditorTabTypes";
+import { AreaState, AreaTitleName, BodyPartState, TitleOptionsState } from "../../types/EditorTabTypes";
 
 import Area from "./Area";
+import TitleOptions from "./TitleOptions";
 
 import styles from "./BodyPart.module.css";
 
@@ -13,6 +15,8 @@ type BodyPartProps = {
 };
 
 function BodyPart({ state, setState }: BodyPartProps) {
+  const uuid = uuidv4();
+
   const setAreaState = (newState: AreaState, index: number) => {
     setState({ ...state, areas: state.areas.map((area, i) => (i === index ? newState : area)) });
   };
@@ -22,14 +26,24 @@ function BodyPart({ state, setState }: BodyPartProps) {
   const unshiftArea = (newAreaTitleName: AreaTitleName) => {
     setState({ ...state, areas: [makeAreaState(newAreaTitleName), ...state.areas] });
   };
+  const setSymptoms = (newState: TitleOptionsState) => {
+    setState({ ...state, symptoms: newState });
+  };
 
   return (
     <div className={styles.main}>
       <div className={styles.titleBlock}>
-        <div className={styles.title}>Голова</div>
-        <button onClick={() => setState({ ...state, enable: !state.enable })}>
-          {state.enable ? "отключить" : "включить"}
-        </button>
+        <input
+          type="checkbox"
+          className={styles.titleCheckbox}
+          id={uuid}
+          checked={state.enable}
+          onChange={() => setState({ ...state, enable: !state.enable })}
+        />
+        <label className={styles.titleLabel} htmlFor={uuid}>
+          <IoBody />
+          {state.title}
+        </label>
       </div>
       <div className={state.enable ? "" : styles.disabled}>
         <div className={styles.areaSelector}>
@@ -47,6 +61,7 @@ function BodyPart({ state, setState }: BodyPartProps) {
             key={uuidv4()}
           />
         ))}
+        {state.symptoms && <TitleOptions state={state.symptoms} setState={setSymptoms} />}
       </div>
     </div>
   );

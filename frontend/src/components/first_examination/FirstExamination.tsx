@@ -30,7 +30,6 @@ function FirstExamination({ id }: FirstExaminationProps) {
         </div>
         <div className={styles.block}>
           <Head id={id} />
-          <Complaints id={id} />
         </div>
       </div>
     </MainContentLayout>

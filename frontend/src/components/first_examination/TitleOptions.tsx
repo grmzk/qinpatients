@@ -10,9 +10,10 @@ type TitleOptionsProps = {
   state: TitleOptionsState;
   setState: (newState: TitleOptionsState) => void;
   radio?: boolean;
+  titleField?: boolean;
 };
 
-function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
+function TitleOptions({ state, setState, radio = false, titleField = true }: TitleOptionsProps) {
   const uuid = uuidv4();
 
   function handleOptionOnChange(e: SyntheticEvent) {
@@ -30,7 +31,7 @@ function TitleOptions({ state, setState, radio = false }: TitleOptionsProps) {
 
   return (
     <div className={styles.main}>
-      <div className={styles.title}>{state.title ? state.title + ":" : ""}</div>
+      {titleField && <div className={styles.title}>{state.title ? state.title + ":" : ""}</div>}
       <div className={styles.optionsLayout} onChange={handleOptionOnChange}>
         {Object.entries(state.options).map(([key, option]) => {
           const id = state.name + key + uuid;

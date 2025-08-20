@@ -155,12 +155,16 @@ export interface FunctionalState extends TitleTextsState {
   };
 }
 
-type WoundEdges = "straight" | "unstraight";
+export type WoundEdges = "straight" | "unstraight";
+
+export type Bandage = "dry" | "blood";
 
 export interface WoundState {
   woundChecked: boolean;
   edges: WoundEdges;
   size: string;
+  bandageChecked: boolean;
+  bandage: Bandage;
 }
 
 export interface VisualPalpationState extends TitleOptionsState {
@@ -208,8 +212,10 @@ export interface AreaTitleName {
 }
 
 export interface BodyPartState {
+  title: string;
   enable: boolean;
   areas: AreaState[];
+  symptoms?: TitleOptionsState;
 }
 
 export type StatusPraesensState = {

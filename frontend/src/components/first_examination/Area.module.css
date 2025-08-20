@@ -54,11 +54,14 @@
   color: #fff;
 }
 
-.titleBlock > button {
-  font-family: inherit;
-  font-size: inherit;
-  max-height: 1.25em;
-  min-height: 1.25em;
-  padding: 0 0.5em;
-  margin-left: 2.5em;
+.deleteIcon {
+  color: #5c6972;
+  margin-left: 3em;
+  cursor: pointer;
+}
+
+.deleteIcon:hover {
+  background: #5c6972;
+  color: #fff;
+  border: rgba(255, 255, 255, 0.5) solid 1px;
 }
