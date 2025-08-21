@@ -210,6 +210,7 @@ export interface AreaState {
   name: string;
   side: AreaSide;
   damages: DamagesState;
+  symptoms?: TitleOptionsState;
   extraLocalization?: ExtraLocalization;
 }
 

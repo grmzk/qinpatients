@@ -3,9 +3,10 @@ import { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 
-import { DamagesState, AreaState } from "../../types/EditorTabTypes";
+import { DamagesState, AreaState, TitleOptionsState } from "../../types/EditorTabTypes";
 
 import Damages from "./Damages";
+import TitleOptions from "./TitleOptions";
 
 import styles from "./Area.module.css";
 
@@ -73,6 +74,12 @@ function Area({ state, setState, deleteArea }: AreaProps) {
         state={state.damages}
         setState={(newState: DamagesState) => setState({ ...state, damages: { ...newState } })}
       />
+      {state.symptoms && (
+        <TitleOptions
+          state={state.symptoms}
+          setState={(newState: TitleOptionsState) => setState({ ...state, symptoms: newState })}
+        />
+      )}
     </div>
   );
 }

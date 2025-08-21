@@ -451,6 +451,16 @@ const headInitialState: BodyPartState = {
 
 export const chestAreaInitialState: AreaState = {
   ...areaInitialState,
+  symptoms: {
+    name: "chestAreaSymptoms",
+    title: "",
+    options: {
+      subcutaneousEmphysema: {
+        checked: false,
+        title: "подкожная эмфизема",
+      },
+    },
+  },
   extraLocalization: { text: "", unit: "ребро", placeHolder: "1-12" },
 };
 
