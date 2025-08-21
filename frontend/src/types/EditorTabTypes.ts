@@ -199,11 +199,18 @@ export interface DamagesState {
 
 export type AreaSide = "right" | "left" | "";
 
+export type ExtraLocalization = {
+  text: string;
+  unit: string;
+  placeHolder: string;
+};
+
 export interface AreaState {
   title: string;
   name: string;
   side: AreaSide;
   damages: DamagesState;
+  extraLocalization?: ExtraLocalization;
 }
 
 export interface AreaTitleName {
@@ -236,4 +243,5 @@ export type FirstExaminationTabState = {
   anamnesisGynecological: AnamnesisGynecologicalState;
   statusPraesens: StatusPraesensState;
   head: BodyPartState;
+  chest: BodyPartState;
 };

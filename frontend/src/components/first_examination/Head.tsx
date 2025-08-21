@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { setEditorTabHeadState } from "../../redux/slices/editorSlice";
-import { BodyPartState } from "../../types/EditorTabTypes";
+import { setEditorTabHeadState, headAreas, makeAreaState, headAreaInitialState } from "../../redux/slices/editorSlice";
+import { AreaTitleName, BodyPartState } from "../../types/EditorTabTypes";
 
 import BodyPart from "./BodyPart";
 
@@ -23,7 +23,14 @@ function Head({ id }: HeadProps) {
     dispatch(setEditorTabHeadState({ id, state: newState }));
   };
 
-  return <BodyPart state={state} setState={setState} />;
+  return (
+    <BodyPart
+      state={state}
+      setState={setState}
+      areas={headAreas}
+      makeAreaState={(newAreaTitleName: AreaTitleName) => makeAreaState(headAreaInitialState, newAreaTitleName)}
+    />
+  );
 }
 
 export default Head;

@@ -3,6 +3,7 @@ import MainContentLayout from "../layouts/MainContentLayout";
 import AnamnesisGynecological from "./AnamnesisGynecological";
 import AnamnesisMorbi from "./AnamnesisMorbi";
 import AnamnesisVitae from "./AnamnesisVitae";
+import Chest from "./Chest";
 import Complaints from "./Complaints";
 import EditorPatientInfo from "./EditorPatientInfo";
 import Head from "./Head";
@@ -30,6 +31,7 @@ function FirstExamination({ id }: FirstExaminationProps) {
         </div>
         <div className={styles.block}>
           <Head id={id} />
+          <Chest id={id} />
         </div>
       </div>
     </MainContentLayout>

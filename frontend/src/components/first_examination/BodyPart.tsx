@@ -1,7 +1,6 @@
 import { IoBody } from "react-icons/io5";
 import { v4 as uuidv4 } from "uuid";
 
-import { headAreas, makeAreaState } from "../../redux/slices/editorSlice";
 import { AreaState, AreaTitleName, BodyPartState, TitleOptionsState } from "../../types/EditorTabTypes";
 
 import Area from "./Area";
@@ -12,9 +11,11 @@ import styles from "./BodyPart.module.css";
 type BodyPartProps = {
   state: BodyPartState;
   setState: (newState: BodyPartState) => void;
+  areas: AreaTitleName[];
+  makeAreaState: (newAreaTitleName: AreaTitleName) => AreaState;
 };
 
-function BodyPart({ state, setState }: BodyPartProps) {
+function BodyPart({ state, setState, areas, makeAreaState }: BodyPartProps) {
   const uuid = uuidv4();
 
   const setAreaState = (newState: AreaState, index: number) => {
@@ -47,7 +48,7 @@ function BodyPart({ state, setState }: BodyPartProps) {
       </div>
       <div className={state.enable ? "" : styles.disabled}>
         <div className={styles.areaSelector}>
-          {headAreas.map(({ title, name }, index) => (
+          {areas.map(({ title, name }, index) => (
             <button key={index} onClick={() => unshiftArea({ title, name })}>
               {title}
             </button>

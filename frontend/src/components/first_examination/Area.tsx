@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { MdDeleteForever } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,6 +16,8 @@ type AreaProps = {
 };
 
 function Area({ state, setState, deleteArea }: AreaProps) {
+  const [extraLocalizationText, setExtraLocalizationText] = useState(state.extraLocalization?.text);
+
   const uuid = uuidv4();
   return (
     <div className={styles.main}>
@@ -41,8 +45,29 @@ function Area({ state, setState, deleteArea }: AreaProps) {
             слева
           </label>
         </div>
+        {state.extraLocalization && state.name !== "nonLocalized" && (
+          <>
+            <input
+              type="text"
+              className={styles.optionText}
+              id={state.name + "text" + uuid}
+              placeholder={state.extraLocalization.placeHolder}
+              value={extraLocalizationText}
+              onChange={(event) => setExtraLocalizationText(event.currentTarget.value)}
+              onBlur={(event) =>
+                state.extraLocalization &&
+                setState({
+                  ...state,
+                  extraLocalization: { ...state.extraLocalization, text: event.currentTarget.value },
+                })
+              }
+            />
+            <label className={styles.optionTextLabel} htmlFor={state.name + "text" + uuid}>
+              {state.extraLocalization.unit}
+            </label>
+          </>
+        )}
         <MdDeleteForever className={styles.deleteIcon} size={19} onClick={deleteArea} />
-        {/* <button onClick={deleteArea}>удалить область</button> */}
       </div>
       <Damages
         state={state.damages}

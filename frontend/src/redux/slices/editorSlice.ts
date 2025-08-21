@@ -359,67 +359,83 @@ const statusPraesensInitialState: StatusPraesensState = {
 };
 
 export const headAreas: AreaTitleName[] = [
-  { title: "Лобная область", name: "frontalArea" },
-  { title: "Височная область", name: "temporalArea" },
-  { title: "Теменная область", name: "parietalArea" },
-  { title: "Затылочная область", name: "occipitalArea" },
-  { title: "Ушная раковина", name: "auricle" },
-  { title: "Сосцевидная область", name: "occipitalArea" },
-  { title: "Бровная область", name: "occipitalArea" },
-  { title: "Параорбитальная область", name: "occipitalArea" },
-  { title: "Скуловая область", name: "occipitalArea" },
-  { title: "Нижнечелюстная область", name: "occipitalArea" },
-  { title: "Область носа", name: "occipitalArea" },
-  { title: "Верхняя губа", name: "occipitalArea" },
-  { title: "Нижняя губа", name: "occipitalArea" },
+  { title: "лобная область", name: "frontalArea" },
+  { title: "височная область", name: "temporalArea" },
+  { title: "теменная область", name: "parietalArea" },
+  { title: "затылочная область", name: "occipitalArea" },
+  { title: "ушная раковина", name: "auricle" },
+  { title: "сосцевидная область", name: "mastoidArea" },
+  { title: "бровная область", name: "browArea" },
+  { title: "параорбитальная область", name: "paraorbitalArea" },
+  { title: "скуловая область", name: "zygomaticArea" },
+  { title: "нижнечелюстная область", name: "mandibularArea" },
+  { title: "область носа", name: "noseArea" },
+  { title: "верхняя губа", name: "upperLipArea" },
+  { title: "нижняя губа", name: "lowerLipArea" },
 ];
 
-export function makeAreaState(areaTitleName: AreaTitleName): AreaState {
-  return {
-    title: areaTitleName.title,
-    name: areaTitleName.name,
-    side: "",
-    damages: {
-      visualPalpation: {
-        name: "frontalArea",
-        title: "",
-        options: {
-          edema: {
-            title: "отёк",
-            checked: false,
-          },
-          ecchymosis: {
-            title: "кровоподтёк",
-            checked: false,
-          },
-          pain: {
-            title: "боль",
-            checked: false,
-          },
-          crepitation: {
-            title: "крепитация",
-            checked: false,
-          },
-          abrasions: {
-            title: "ссадины",
-            checked: false,
-          },
+export const chestAreas: AreaTitleName[] = [
+  { title: "без точной локализации", name: "nonLocalized" },
+  { title: "грудинная линия", name: "sternalLine" },
+  { title: "окологрудинная линия", name: "parasternalLine" },
+  { title: "среднеключичная линия", name: "midclavicularLine" },
+  { title: "переднеподмышечная линия", name: "anteriorAxillaryLine" },
+  { title: "подмышечная линия", name: "axillaryLine" },
+  { title: "заднеподмышечная линия", name: "posteriorAxillaryLine" },
+  { title: "лопаточная линия", name: "scapularLine" },
+  { title: "околопозвоночная линия", name: "paravertebralLine" },
+];
+
+export function makeAreaState(initialState: AreaState, areaTitleName: AreaTitleName): AreaState {
+  return { ...initialState, ...areaTitleName };
+}
+
+const areaInitialState: AreaState = {
+  title: "",
+  name: "",
+  side: "",
+  damages: {
+    visualPalpation: {
+      name: "",
+      title: "",
+      options: {
+        edema: {
+          title: "отёк",
+          checked: false,
+        },
+        ecchymosis: {
+          title: "кровоподтёк",
+          checked: false,
+        },
+        pain: {
+          title: "боль",
+          checked: false,
+        },
+        crepitation: {
+          title: "крепитация",
+          checked: false,
+        },
+        abrasions: {
+          title: "ссадины",
+          checked: false,
         },
       },
-      wound: {
-        woundChecked: false,
-        edges: "straight",
-        size: "2,0 x 0,5 см",
-        bandageChecked: false,
-        bandage: "dry",
-      },
     },
-  };
-}
+    wound: {
+      woundChecked: false,
+      edges: "straight",
+      size: "2,0 x 0,5 см",
+      bandageChecked: false,
+      bandage: "dry",
+    },
+  },
+};
+
+export const headAreaInitialState: AreaState = { ...areaInitialState };
 
 const headInitialState: BodyPartState = {
   title: "Голова",
-  enable: true,
+  enable: false,
   areas: [],
   symptoms: {
     name: "headSymptoms",
@@ -433,6 +449,17 @@ const headInitialState: BodyPartState = {
   },
 };
 
+export const chestAreaInitialState: AreaState = {
+  ...areaInitialState,
+  extraLocalization: { text: "", unit: "ребро", placeHolder: "1-12" },
+};
+
+const chestInitialState: BodyPartState = {
+  title: "Грудь",
+  enable: true,
+  areas: [],
+};
+
 const firstExaminationInitialState: FirstExaminationTabState = {
   complaints: complaintsInitialState,
   anamnesisMorbi: anamnesisMorbiInitialState,
@@ -440,6 +467,7 @@ const firstExaminationInitialState: FirstExaminationTabState = {
   anamnesisGynecological: anamnesisGynecologicalInitialState,
   statusPraesens: statusPraesensInitialState,
   head: headInitialState,
+  chest: chestInitialState,
 };
 
 const initialState: EditorState = {
@@ -535,6 +563,9 @@ const editorSlice = createSlice({
     setEditorTabHeadState: (state: EditorState, action: PayloadAction<{ id: string; state: BodyPartState }>) => {
       state.editorTabs[action.payload.id].state.head = action.payload.state;
     },
+    setEditorTabChestState: (state: EditorState, action: PayloadAction<{ id: string; state: BodyPartState }>) => {
+      state.editorTabs[action.payload.id].state.chest = action.payload.state;
+    },
   },
 });
 
@@ -549,6 +580,7 @@ export const {
   setEditorTabAnamnesisGynecologicalState,
   setEditorTabStatusPraesensState,
   setEditorTabHeadState,
+  setEditorTabChestState,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;
